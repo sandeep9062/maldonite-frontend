@@ -54,7 +54,7 @@ const ContactInfoSection = () => {
           >
             <iframe
               title="Google Map"
-              src={siteSettings?.googleMapUrl}
+              src={siteSettings?.googleMapImbededUrl}
               width="100%"
               height="100%"
               style={{ border: 0 }}
