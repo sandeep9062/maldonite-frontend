@@ -13,7 +13,7 @@ const ServicesGrid = () => {
   // Handle loading and error states
   if (isLoading) {
     return (
-      <main className="bg-white mt-20 dark:bg-[#0D1321] text-black dark:text-white">
+      <main className="bg-white mt-16 dark:bg-[#0D1321] text-black dark:text-white">
         <section className="text-center py-16 px-4">
           <h1 className="text-4xl font-bold">Loading Services...</h1>
         </section>
@@ -23,7 +23,7 @@ const ServicesGrid = () => {
 
   if (isError) {
     return (
-      <main className="bg-white mt-20 dark:bg-[#0D1321] text-black dark:text-white">
+      <main className="bg-white mt-16 dark:bg-[#0D1321] text-black dark:text-white">
         <section className="text-center py-16 px-4">
           <h1 className="text-4xl font-bold">Error loading services.</h1>
         </section>
@@ -38,7 +38,7 @@ const ServicesGrid = () => {
   };
 
   return (
-    <main className="bg-white mt-20 dark:bg-[#0D1321] text-black dark:text-white">
+    <main className="bg-white mt-16 dark:bg-[#0D1321] text-black dark:text-white">
       {/* Header Section */}
       <section className="text-center py-16 px-4 bg-gradient-to-br from-white to-gray-100 dark:from-[#0D1321] dark:to-[#1a1a1a]">
         <motion.h1

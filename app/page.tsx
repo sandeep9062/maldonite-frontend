@@ -13,7 +13,7 @@ import DeveloperSection from "@/components/home/DeveloperSection";
 export default function Home() {
   return (
     <>
-      <section className="pt-20 ">
+      <section className="pt-16 ">
         <Hero />
         <Services />
         {/* <DeveloperSection/> */}

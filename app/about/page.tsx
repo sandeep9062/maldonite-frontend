@@ -64,7 +64,7 @@ export default function AboutPage() {
 
   return (
     <>
-      <main className="min-h-screen pt-20 mt-20 text-gray-800 dark:text-gray-100 bg-white dark:bg-darkbg1 px-4 md:px-8 lg:px-12 transition-colors duration-300">
+      <main className="min-h-screen pt-20 mt-16 text-gray-800 dark:text-gray-100 bg-white dark:bg-darkbg1 px-4 md:px-8 lg:px-12 transition-colors duration-300">
         {/* Hero Section */}
         <motion.section
           initial={{ opacity: 0, y: 40 }}

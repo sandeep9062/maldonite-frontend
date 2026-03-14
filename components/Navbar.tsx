@@ -31,7 +31,7 @@ export default function Navbar() {
 
   // Helper function to get icon component dynamically
   const getIconComponent = (iconName: string | undefined) => {
-    if (!iconName || typeof iconName !== 'string') return null;
+    if (!iconName || typeof iconName !== "string") return null;
 
     // Try to get the icon from react-icons/fa
     const IconComponent = (Icon as any)[iconName];
@@ -70,17 +70,17 @@ export default function Navbar() {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       setServicesDropdownOpen(!servicesDropdownOpen);
-    } else if (e.key === 'Escape') {
+    } else if (e.key === "Escape") {
       setServicesDropdownOpen(false);
     }
   };
 
   return (
     <header className="bg-[#0D1321] text-white shadow-md w-full z-50 fixed top-0">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-[6px]">
           {siteSettings?.logoUrl && (
@@ -117,17 +117,21 @@ export default function Navbar() {
                   >
                     <button
                       className={`text-sm transition px-2 py-1 rounded flex items-center gap-1 ${
-                        pathname === link.href || pathname.startsWith("/service/")
+                        pathname === link.href ||
+                        pathname.startsWith("/service/")
                           ? "text-[#D4AF37] font-semibold"
                           : "text-white hover:text-[#D4AF37]"
                       }`}
                       aria-expanded={servicesDropdownOpen}
                       aria-haspopup="true"
-                      aria-label={`Services menu, ${servicesDropdownOpen ? 'expanded' : 'collapsed'}`}
+                      aria-label={`Services menu, ${servicesDropdownOpen ? "expanded" : "collapsed"}`}
                       onKeyDown={handleKeyDown}
                     >
                       {link.name}
-                      <ChevronDown size={14} className={`transition-transform duration-200 ${servicesDropdownOpen ? 'rotate-180' : ''}`} />
+                      <ChevronDown
+                        size={14}
+                        className={`transition-transform duration-200 ${servicesDropdownOpen ? "rotate-180" : ""}`}
+                      />
                     </button>
                     <AnimatePresence>
                       {servicesDropdownOpen && services.length > 0 && (
@@ -151,7 +155,9 @@ export default function Navbar() {
                             >
                               <span className="w-2 h-2 bg-[#D4AF37] rounded-full"></span>
                               All Services
-                              <span className="ml-auto text-xs opacity-70 group-hover:opacity-100 transition-opacity">→</span>
+                              <span className="ml-auto text-xs opacity-70 group-hover:opacity-100 transition-opacity">
+                                →
+                              </span>
                             </Link>
                           </div>
 
@@ -162,7 +168,10 @@ export default function Navbar() {
                                 key={service.slug}
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.3, delay: index * 0.05 }}
+                                transition={{
+                                  duration: 0.3,
+                                  delay: index * 0.05,
+                                }}
                               >
                                 <Link
                                   href={`/service/${service.slug}`}
@@ -172,9 +181,14 @@ export default function Navbar() {
                                   {/* Icon */}
                                   <div className="flex-shrink-0 w-8 h-8 bg-[#D4AF37]/20 rounded-lg flex items-center justify-center mt-0.5 group-hover:bg-[#D4AF37]/30 transition-colors">
                                     {(() => {
-                                      const IconComponent = getIconComponent(service.icon);
+                                      const IconComponent = getIconComponent(
+                                        service.icon,
+                                      );
                                       return IconComponent ? (
-                                        <IconComponent size={16} className="text-[#D4AF37] group-hover:text-white transition-colors" />
+                                        <IconComponent
+                                          size={16}
+                                          className="text-[#D4AF37] group-hover:text-white transition-colors"
+                                        />
                                       ) : (
                                         <div className="w-3 h-3 bg-[#D4AF37] rounded-full"></div>
                                       );
@@ -188,7 +202,9 @@ export default function Navbar() {
                                     </div>
                                     {service.desc && (
                                       <div className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors line-clamp-2 mt-0.5">
-                                        {service.desc.length > 60 ? `${service.desc.substring(0, 60)}...` : service.desc}
+                                        {service.desc.length > 60
+                                          ? `${service.desc.substring(0, 60)}...`
+                                          : service.desc}
                                       </div>
                                     )}
                                     {service.category && (
@@ -200,7 +216,10 @@ export default function Navbar() {
 
                                   {/* Arrow */}
                                   <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <ChevronDown size={14} className="rotate-[-90deg] text-[#D4AF37]" />
+                                    <ChevronDown
+                                      size={14}
+                                      className="rotate-[-90deg] text-[#D4AF37]"
+                                    />
                                   </div>
                                 </Link>
                               </motion.div>
@@ -216,7 +235,10 @@ export default function Navbar() {
                                 onClick={() => setServicesDropdownOpen(false)}
                               >
                                 <span>View All Services</span>
-                                <ChevronDown size={14} className="rotate-[-90deg] group-hover:translate-x-1 transition-transform" />
+                                <ChevronDown
+                                  size={14}
+                                  className="rotate-[-90deg] group-hover:translate-x-1 transition-transform"
+                                />
                               </Link>
                             </div>
                           )}
@@ -322,18 +344,25 @@ export default function Navbar() {
                   return (
                     <div key={link.name} className="w-full">
                       <button
-                        onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                        onClick={() =>
+                          setMobileServicesOpen(!mobileServicesOpen)
+                        }
                         className={`flex items-center justify-center gap-2 text-[14px] transition w-full ${
-                          pathname === link.href || pathname.startsWith("/service/")
+                          pathname === link.href ||
+                          pathname.startsWith("/service/")
                             ? "text-gold font-semibold"
                             : "text-white hover:text-[#D4AF37]"
                         }`}
                         aria-expanded={mobileServicesOpen}
                         aria-haspopup="true"
-                        aria-label={`Mobile services menu, ${mobileServicesOpen ? 'expanded' : 'collapsed'}`}
+                        aria-label={`Mobile services menu, ${mobileServicesOpen ? "expanded" : "collapsed"}`}
                       >
                         {link.name}
-                        {mobileServicesOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                        {mobileServicesOpen ? (
+                          <ChevronUp size={16} />
+                        ) : (
+                          <ChevronDown size={16} />
+                        )}
                       </button>
                       <AnimatePresence>
                         {mobileServicesOpen && services.length > 0 && (
@@ -366,7 +395,10 @@ export default function Navbar() {
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: -20 }}
-                                transition={{ duration: 0.3, delay: index * 0.05 }}
+                                transition={{
+                                  duration: 0.3,
+                                  delay: index * 0.05,
+                                }}
                               >
                                 <Link
                                   href={`/service/${service.slug}`}
@@ -379,9 +411,14 @@ export default function Navbar() {
                                   {/* Icon */}
                                   <div className="flex-shrink-0 w-8 h-8 bg-[#D4AF37]/20 rounded-lg flex items-center justify-center mt-0.5 group-hover:bg-[#D4AF37]/30 transition-colors">
                                     {(() => {
-                                      const IconComponent = getIconComponent(service.icon);
+                                      const IconComponent = getIconComponent(
+                                        service.icon,
+                                      );
                                       return IconComponent ? (
-                                        <IconComponent size={16} className="text-[#D4AF37] group-hover:text-white transition-colors" />
+                                        <IconComponent
+                                          size={16}
+                                          className="text-[#D4AF37] group-hover:text-white transition-colors"
+                                        />
                                       ) : (
                                         <div className="w-3 h-3 bg-[#D4AF37] rounded-full"></div>
                                       );
@@ -395,7 +432,9 @@ export default function Navbar() {
                                     </div>
                                     {service.desc && (
                                       <div className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors line-clamp-2 mt-0.5">
-                                        {service.desc.length > 50 ? `${service.desc.substring(0, 50)}...` : service.desc}
+                                        {service.desc.length > 50
+                                          ? `${service.desc.substring(0, 50)}...`
+                                          : service.desc}
                                       </div>
                                     )}
                                     {service.category && (
@@ -407,7 +446,10 @@ export default function Navbar() {
 
                                   {/* Arrow */}
                                   <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <ChevronDown size={14} className="rotate-[-90deg] text-[#D4AF37]" />
+                                    <ChevronDown
+                                      size={14}
+                                      className="rotate-[-90deg] text-[#D4AF37]"
+                                    />
                                   </div>
                                 </Link>
                               </motion.div>
@@ -425,7 +467,10 @@ export default function Navbar() {
                                   }}
                                 >
                                   <span>View All Services</span>
-                                  <ChevronDown size={14} className="rotate-[-90deg] group-hover:translate-x-1 transition-transform" />
+                                  <ChevronDown
+                                    size={14}
+                                    className="rotate-[-90deg] group-hover:translate-x-1 transition-transform"
+                                  />
                                 </Link>
                               </div>
                             )}
@@ -464,7 +509,7 @@ export default function Navbar() {
             </div>
 
             {/* Social Media Links */}
-           <SocialMediaLinks/>
+            <SocialMediaLinks />
           </motion.div>
         )}
       </AnimatePresence>

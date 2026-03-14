@@ -41,7 +41,7 @@ export default function Milestones() {
   ];
 
   return (
-    <section className="py-20 px-4 mt-20 bg-white dark:bg-darkbg1 transition-colors duration-300">
+    <section className="py-20 px-4 mt-16 bg-white dark:bg-darkbg1 transition-colors duration-300">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
