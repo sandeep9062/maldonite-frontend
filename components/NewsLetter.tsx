@@ -4,6 +4,10 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, Variants } from "framer-motion";
+import {
+  GoogleReCaptchaProvider,
+  useGoogleReCaptcha,
+} from "react-google-recaptcha-v3";
 import { useSubscribeToNewsletterMutation } from "@/services/newsLetterApi";
 import toast from "react-hot-toast";
 
@@ -27,22 +31,33 @@ const itemVariants: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } },
 };
 
-const Newsletter = () => {
+const NewsletterContent = () => {
   // State to manage the email input value
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // Use the Redux Toolkit Query mutation hook
-  const [subscribeToNewsletter, { isLoading }] =
-    useSubscribeToNewsletterMutation();
+  const [subscribeToNewsletter] = useSubscribeToNewsletterMutation();
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
-      // Call the mutation function with the email
-      await subscribeToNewsletter({ email }).unwrap();
+      // Get reCAPTCHA token
+      if (!executeRecaptcha) {
+        toast.error("reCAPTCHA is not ready yet. Please try again.");
+        setIsLoading(false);
+        return;
+      }
+
+      const recaptchaToken = await executeRecaptcha("subscribe_newsletter");
+
+      // Call the mutation function with the email and reCAPTCHA token
+      await subscribeToNewsletter({ email, recaptchaToken }).unwrap();
       toast.success(
-        "Thank you for subscribing! Check your email for a confirmation."
+        "Thank you for subscribing! Check your email for a confirmation.",
       );
       setEmail(""); // Clear the input field on success
     } catch (err: any) {
@@ -50,6 +65,8 @@ const Newsletter = () => {
         err?.data?.message || "Something went wrong. Please try again.";
       toast.error(errorMessage);
       console.error("Subscription failed:", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -105,6 +122,38 @@ const Newsletter = () => {
         </motion.div>
       </div>
     </motion.section>
+  );
+};
+
+const Newsletter = () => {
+  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+
+  // If site key is not available, don't render the form to avoid errors
+  if (!siteKey) {
+    console.error(
+      "reCAPTCHA site key is missing. Please check your environment variables.",
+    );
+    return (
+      <section className="w-full bg-white dark:bg-darkbg1 transition-colors duration-300">
+        <div className="max-w-7xl mx-auto px-4 py-12">
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 text-center shadow-lg transition-colors duration-300 border-2 border-gray-100 dark:border-gray-800">
+            <h2 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">
+              Newsletter Temporarily Unavailable
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md mx-auto">
+              We're experiencing technical issues with our newsletter
+              subscription. Please try again later or contact us directly.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <GoogleReCaptchaProvider reCaptchaKey={siteKey}>
+      <NewsletterContent />
+    </GoogleReCaptchaProvider>
   );
 };
 

@@ -1,10 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import {
+  GoogleReCaptchaProvider,
+  useGoogleReCaptcha,
+} from "react-google-recaptcha-v3";
 
-const LeadForm = ({ onSubmit }: { onSubmit: (input: string) => void }) => {
+const LeadFormContent = ({
+  onSubmit,
+}: {
+  onSubmit: (input: string) => void;
+}) => {
   const [form, setForm] = useState({ name: "", email: "", query: "" });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -12,9 +23,34 @@ const LeadForm = ({ onSubmit }: { onSubmit: (input: string) => void }) => {
 
   const handleSend = async () => {
     if (!form.name || !form.email || !form.query) return;
-    await axios.post("/api/lead", form);
-    onSubmit(form.query);
-    setForm({ name: "", email: "", query: "" });
+
+    setIsLoading(true);
+
+    try {
+      // Get reCAPTCHA token
+      if (!executeRecaptcha) {
+        alert("reCAPTCHA is not ready yet. Please try again.");
+        setIsLoading(false);
+        return;
+      }
+
+      const token = await executeRecaptcha("submit_lead_form");
+
+      // Send form data with reCAPTCHA token
+      const payload = {
+        ...form,
+        recaptchaToken: token,
+      };
+
+      await axios.post("/api/lead", payload);
+      onSubmit(form.query);
+      setForm({ name: "", email: "", query: "" });
+    } catch (error) {
+      console.error("Lead form submission error:", error);
+      alert("An error occurred while submitting the form. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -45,11 +81,36 @@ const LeadForm = ({ onSubmit }: { onSubmit: (input: string) => void }) => {
       />
       <button
         onClick={handleSend}
-        className="w-full bg-[#D4AF37] text-black py-2 rounded font-semibold"
+        disabled={isLoading}
+        className="w-full bg-[#D4AF37] text-black py-2 rounded font-semibold disabled:opacity-50"
       >
-        Send
+        {isLoading ? "Sending..." : "Send"}
       </button>
     </div>
+  );
+};
+
+const LeadForm = ({ onSubmit }: { onSubmit: (input: string) => void }) => {
+  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+
+  // If site key is not available, don't render the form to avoid errors
+  if (!siteKey) {
+    console.error(
+      "reCAPTCHA site key is missing. Please check your environment variables.",
+    );
+    return (
+      <div className="mt-4 space-y-3">
+        <p className="text-white">
+          Lead form temporarily unavailable due to technical issues.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <GoogleReCaptchaProvider reCaptchaKey={siteKey}>
+      <LeadFormContent onSubmit={onSubmit} />
+    </GoogleReCaptchaProvider>
   );
 };
 

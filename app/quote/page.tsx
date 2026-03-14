@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,6 +24,10 @@ import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import {
+  GoogleReCaptchaProvider,
+  useGoogleReCaptcha,
+} from "react-google-recaptcha-v3";
 import { useAddQuoteRequestMutation } from "@/services/quoteRequestApi";
 import { generateProjectBriefPDF } from "@/components/PdfGenerator";
 
@@ -31,7 +35,7 @@ import { generateProjectBriefPDF } from "@/components/PdfGenerator";
 import { useGetServicesQuery } from "@/services/servicesApi";
 import { useGetSiteSettingsQuery } from "@/services/siteSettingsApi";
 
-const Quote = () => {
+const QuoteFormContent = () => {
   const { data: services = [] } = useGetServicesQuery();
   const { data: siteSettings } = useGetSiteSettingsQuery();
 
@@ -48,6 +52,7 @@ const Quote = () => {
   });
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,16 +63,27 @@ const Quote = () => {
       return;
     }
 
-    const formDataToSend = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      if (key !== "files") formDataToSend.append(key, value as string);
-    });
-
-    formData.files.forEach((file) => {
-      formDataToSend.append("files", file);
-    });
-
     try {
+      // Get reCAPTCHA token
+      if (!executeRecaptcha) {
+        toast.error("reCAPTCHA is not ready yet. Please try again.");
+        return;
+      }
+
+      const recaptchaToken = await executeRecaptcha("submit_quote_request");
+
+      const formDataToSend = new FormData();
+      Object.entries(formData).forEach(([key, value]) => {
+        if (key !== "files") formDataToSend.append(key, value as string);
+      });
+
+      // Add reCAPTCHA token
+      formDataToSend.append("recaptchaToken", recaptchaToken);
+
+      formData.files.forEach((file) => {
+        formDataToSend.append("files", file);
+      });
+
       await addQuoteRequest(formDataToSend).unwrap();
       toast.success("Quote request submitted successfully!");
       setFormData({
@@ -130,7 +146,8 @@ const Quote = () => {
             Get Your <span className="text-gradient">Custom Quote</span>
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Tell us about your project and we&apos;ll provide you with a detailed quote.
+            Tell us about your project and we'll provide you with a detailed
+            quote.
           </p>
         </motion.div>
 
@@ -153,7 +170,9 @@ const Quote = () => {
                       <Input
                         id="name"
                         value={formData.name}
-                        onChange={(e) => handleInputChange("name", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("name", e.target.value)
+                        }
                         required
                       />
                     </div>
@@ -163,7 +182,9 @@ const Quote = () => {
                         id="email"
                         type="email"
                         value={formData.email}
-                        onChange={(e) => handleInputChange("email", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("email", e.target.value)
+                        }
                         required
                       />
                     </div>
@@ -197,7 +218,9 @@ const Quote = () => {
                     <Label>Project Type *</Label>
                     <Select
                       value={formData.projectType}
-                      onValueChange={(value) => handleInputChange("projectType", value)}
+                      onValueChange={(value) =>
+                        handleInputChange("projectType", value)
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select project type" />
@@ -219,7 +242,9 @@ const Quote = () => {
                       id="description"
                       rows={4}
                       value={formData.description}
-                      onChange={(e) => handleInputChange("description", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("description", e.target.value)
+                      }
                       required
                     />
                   </div>
@@ -230,7 +255,9 @@ const Quote = () => {
                       <Label>Budget</Label>
                       <Select
                         value={formData.budget}
-                        onValueChange={(value) => handleInputChange("budget", value)}
+                        onValueChange={(value) =>
+                          handleInputChange("budget", value)
+                        }
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Select budget" />
@@ -248,7 +275,9 @@ const Quote = () => {
                       <Label>Timeline *</Label>
                       <Select
                         value={formData.timeline}
-                        onValueChange={(value) => handleInputChange("timeline", value)}
+                        onValueChange={(value) =>
+                          handleInputChange("timeline", value)
+                        }
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="When do you need this?" />
@@ -281,7 +310,10 @@ const Quote = () => {
                         }}
                         className="hidden"
                       />
-                      <Button type="button" onClick={() => fileInputRef.current?.click()}>
+                      <Button
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                      >
                         Choose Files
                       </Button>
                     </div>
@@ -295,7 +327,11 @@ const Quote = () => {
                   </div>
 
                   {/* Submit */}
-                  <Button type="submit" disabled={isLoading} className="w-full bg-gold text-black">
+                  <Button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-full bg-gold text-black"
+                  >
                     {isLoading ? "Submitting..." : "Submit Quote Request"}
                   </Button>
                 </form>
@@ -329,7 +365,9 @@ const Quote = () => {
                 <CardTitle>Quick Response</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm">We typically respond within 24h (business days).</p>
+                <p className="text-sm">
+                  We typically respond within 24h (business days).
+                </p>
               </CardContent>
             </Card>
 
@@ -338,15 +376,25 @@ const Quote = () => {
                 <CardTitle>Need Help?</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <a href={`tel:+91${siteSettings?.contactNo1}`} className="flex items-center space-x-3">
+                <a
+                  href={`tel:+91${siteSettings?.contactNo1}`}
+                  className="flex items-center space-x-3"
+                >
                   <Phone className="h-5 w-5 text-gold" />
                   <span>+91 {siteSettings?.contactNo1}</span>
                 </a>
-                <a href={`mailto:${siteSettings?.email}`} className="flex items-center space-x-3">
+                <a
+                  href={`mailto:${siteSettings?.email}`}
+                  className="flex items-center space-x-3"
+                >
                   <Mail className="h-5 w-5 text-gold" />
                   <span>{siteSettings?.email}</span>
                 </a>
-                <Button onClick={handleDownload} variant="outline" className="w-full">
+                <Button
+                  onClick={handleDownload}
+                  variant="outline"
+                  className="w-full"
+                >
                   <FileText className="h-4 w-4 mr-2 text-gold" />
                   Download Project Brief
                 </Button>
@@ -356,6 +404,38 @@ const Quote = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const Quote = () => {
+  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+
+  // If site key is not available, don't render the form to avoid errors
+  if (!siteKey) {
+    console.error(
+      "reCAPTCHA site key is missing. Please check your environment variables.",
+    );
+    return (
+      <div className="bg-white mt-10 pb-20 dark:bg-darkbg1 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center mb-12 mt-20">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              Quote Request Temporarily Unavailable
+            </h1>
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              We're experiencing technical issues with our quote request form.
+              Please try again later or contact us directly.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <GoogleReCaptchaProvider reCaptchaKey={siteKey}>
+      <QuoteFormContent />
+    </GoogleReCaptchaProvider>
   );
 };
 
