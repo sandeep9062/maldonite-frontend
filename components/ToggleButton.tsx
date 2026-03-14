@@ -10,7 +10,8 @@ const ToggleButton = () => {
       if (storedTheme) {
         return storedTheme === "dark";
       }
-      return window.matchMedia("(prefers-color-scheme: dark)").matches;
+      // Default to light mode when no theme is stored
+      return false;
     }
     return false;
   });
@@ -30,19 +31,17 @@ const ToggleButton = () => {
   };
 
   return (
-  
-      <button
-        onClick={toggleTheme}
-        className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition"
-        aria-label="Toggle Dark Mode"
-      >
-        {isDark ? (
-          <SunIcon className="text-gold w-5 h-5" />
-        ) : (
-          <MoonIcon className="text-gray-700 w-5 h-5" />
-        )}
-      </button>
-  
+    <button
+      onClick={toggleTheme}
+      className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+      aria-label="Toggle Dark Mode"
+    >
+      {isDark ? (
+        <SunIcon className="text-gold w-5 h-5" />
+      ) : (
+        <MoonIcon className="text-gray-700 w-5 h-5" />
+      )}
+    </button>
   );
 };
 
