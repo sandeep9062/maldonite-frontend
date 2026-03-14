@@ -1,0 +1,117 @@
+export const products = [
+  {
+    slug: "real-estate-crm",
+    name: "Real Estate CRM",
+    category: "CRM",
+    description:
+      "The Real Estate CRM is designed to help realtors manage their property listings, buyer-seller communication, and deal flow efficiently. With custom workflow automation, AI-powered follow-ups, and detailed reporting, this CRM enhances productivity and client satisfaction.",
+    image: "/images/real-estate-crm.jpg",
+    tagline: "Automate your real estate workflow.",
+    features: [
+      "AI-powered follow-ups with leads",
+      "Customizable property listing manager",
+      "Deal pipeline visualization",
+      "Role-based access & permissions",
+      "Analytics & performance reports",
+    ],
+    technologies: ["React", "Node.js", "MongoDB", "TailwindCSS"],
+    pricing: {
+      startingFrom: "$29/month",
+      plans: ["Starter", "Professional", "Enterprise"],
+    },
+    demoLink: "/book-demo?product=real-estate-crm",
+    documentation: "/docs/real-estate-crm",
+  },
+  {
+    slug: "healthtech-portal",
+    name: "HealthTech Portal",
+    category: "Health",
+    description:
+      "Our HealthTech Portal simplifies patient record management, appointment scheduling, and communication between doctors and patients. Built with secure, scalable architecture, it supports integrations with diagnostic labs, pharmacies, and telemedicine tools.",
+    image: "/images/healthtech-portal.jpg",
+    tagline: "Connecting doctors, patients, and healthcare providers.",
+    features: [
+      "Secure patient record management",
+      "Telemedicine & video consultations",
+      "Lab & pharmacy integrations",
+      "Appointment scheduling system",
+      "HIPAA-compliant security",
+    ],
+    technologies: ["Next.js", "Express.js", "PostgreSQL", "Docker"],
+    pricing: {
+      startingFrom: "$49/month",
+      plans: ["Basic", "Pro", "Enterprise"],
+    },
+    demoLink: "/book-demo?product=healthtech-portal",
+    documentation: "/docs/healthtech-portal",
+  },
+  {
+    slug: "retail-saas-pos",
+    name: "Retail SaaS POS",
+    category: "Retail",
+    description:
+      "This modern Point of Sale (POS) system offers retail businesses complete control over their inventory, billing, and sales analytics. Whether it's a small shop or a multi-location chain, the Retail SaaS POS ensures a seamless checkout experience with real-time reporting.",
+    image: "/images/retail-saas-pos.jpg",
+    tagline: "Smart POS for smart retailing.",
+    features: [
+      "Barcode scanning & quick checkout",
+      "Real-time stock management",
+      "Multi-store inventory sync",
+      "Sales & revenue analytics",
+      "Offline mode support",
+    ],
+    technologies: ["Vue.js", "Firebase", "Cloud Functions"],
+    pricing: {
+      startingFrom: "$19/month",
+      plans: ["Lite", "Pro", "Business"],
+    },
+    demoLink: "/book-demo?product=retail-saas-pos",
+    documentation: "/docs/retail-saas-pos",
+  },
+  {
+    slug: "ai-assistant-bot",
+    name: "AI Assistant Bot",
+    category: "AI",
+    description:
+      "Integrate intelligent bots into your business to automate support, handle common queries, and boost engagement. The AI Assistant Bot adapts to your domain and learns from conversations to improve customer interaction across platforms like WhatsApp, websites, and apps.",
+    image: "/images/ai-assistant-bot.jpg",
+    tagline: "Your 24/7 AI-powered virtual assistant.",
+    features: [
+      "Multi-platform support (WhatsApp, web, apps)",
+      "Natural language understanding",
+      "Self-learning AI engine",
+      "Custom workflows & FAQs",
+      "Analytics dashboard",
+    ],
+    technologies: ["Python", "TensorFlow", "FastAPI", "Redis"],
+    pricing: {
+      startingFrom: "$39/month",
+      plans: ["Starter", "Advanced", "Enterprise"],
+    },
+    demoLink: "/book-demo?product=ai-assistant-bot",
+    documentation: "/docs/ai-assistant-bot",
+  },
+  {
+    slug: "edusaas-lms",
+    name: "EduSaaS LMS",
+    category: "EdTech",
+    description:
+      "EduSaaS LMS is a modern learning management system designed for schools, colleges, and coaching institutes. Manage courses, track student progress, conduct tests, and enable live sessions — all from one user-friendly platform.",
+    image: "/images/edusaas-lms.jpg",
+    tagline: "Empowering education with technology.",
+    features: [
+      "Course & curriculum management",
+      "Live classes & recorded lectures",
+      "Student progress tracking",
+      "Assignments & grading",
+      "Integrated payment system",
+    ],
+    technologies: ["Next.js", "Node.js", "GraphQL", "AWS"],
+    pricing: {
+      startingFrom: "$25/month",
+      plans: ["Basic", "Pro", "Institution"],
+    },
+    demoLink: "/book-demo?product=edusaas-lms",
+    documentation: "/docs/edusaas-lms",
+  },
+];

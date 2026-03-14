@@ -1,0 +1,7 @@
+# For all user agents (search engine bots)
+User-agent: *
+# Allow crawling of all content on the site
+Allow: /
+
+# Specify the location of your sitemap
+Sitemap: https://www.maldonite.com/sitemap.xml

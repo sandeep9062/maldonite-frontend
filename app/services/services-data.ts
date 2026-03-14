@@ -1,0 +1,378 @@
+import {
+  FaPaintBrush,
+  FaLaptopCode,
+  FaShoppingCart,
+  FaRocket,
+  FaMagic,
+  FaChartLine,
+  FaCloudUploadAlt,
+  FaCode,
+  FaStore,
+  FaGlobe,
+  FaPencilRuler,
+  FaSearch,
+  FaSitemap,
+} from "react-icons/fa";
+
+export const services = [
+  {
+    slug: "website-design-development",
+    title: "Website Design & Development",
+    desc: "Crafting modern, responsive, and SEO-optimized websites tailored for your business goals.",
+    longDesc:
+      "We create stunning, user-friendly, and fully responsive websites that deliver seamless user experiences. Whether you need a business site, portfolio, or a landing page, we ensure it’s optimized for speed, SEO, and conversions.",
+    tags: ["Website", "Development", "Responsive", "SEO"],
+    icon: FaGlobe,
+    category: "Design & Development",
+    featured: true,
+    duration: "2–6 weeks",
+    pricing: "Starting from $999",
+    cta: "Get a Website",
+    tools: ["Next.js", "TailwindCSS", "React.js", "Node.js"],
+    points: [
+      "Custom UX/UI design for all screen sizes",
+      "SEO-friendly, blazing fast performance",
+      "Corporate sites, portfolios, blogs, landing pages",
+    ],
+    valueProvide: [
+      "Stronger online presence",
+      "Better conversion & engagement",
+      "Future-proof scalable website",
+    ],
+    targetAudience: "Small businesses, startups, enterprises",
+    keywords: ["web development", "business website", "SEO friendly website"],
+    image: "/images/web.png",
+    serviceImage: "/images/web-bg.png",
+  },
+  {
+    slug: "ecommerce-solutions",
+    title: "E-commerce Solutions",
+    desc: "Scalable and secure online stores with modern payment & inventory systems.",
+    longDesc:
+      "We build robust e-commerce platforms with advanced features like payment gateways, inventory management, analytics, and customer engagement tools. Tailored for growth and scalability.",
+    tags: ["E-commerce", "Shopify", "WooCommerce", "Payments"],
+    icon: FaStore,
+    category: "E-commerce",
+    duration: "3–8 weeks",
+    pricing: "Custom Pricing",
+    cta: "Launch Your Store",
+    tools: ["Shopify", "WooCommerce", "Stripe", "Razorpay"],
+    points: [
+      "Product catalog, secure checkout, inventory sync",
+      "Payment gateways like Stripe, Razorpay, PayPal",
+      "Custom admin panels and analytics",
+    ],
+    valueProvide: [
+      "Boost in online sales",
+      "Seamless shopping experience",
+      "Optimized store management",
+    ],
+    targetAudience: "Retailers, wholesalers, online businesses",
+    keywords: ["ecommerce website", "shopify store", "woocommerce development"],
+    image: "/images/ecommerce.png",
+    serviceImage: "/images/ecommerce-bg.png",
+  },
+
+
+  {
+    slug: "landing-pages-funnels",
+    title: "Landing Pages & Funnels",
+    desc: "Conversion-optimized landing pages designed for campaigns and product launches.",
+    longDesc:
+      "We design and develop high-converting landing pages and funnels that help you maximize campaign ROI. Perfect for product launches, marketing campaigns, and lead generation.",
+    tags: ["Landing Page", "Funnels", "Conversion", "Marketing"],
+    icon: FaChartLine,
+    category: "Marketing",
+    duration: "1–3 weeks",
+    pricing: "Starting from $499",
+    cta: "Build Landing Page",
+    tools: ["Next.js", "Webflow", "Google Analytics"],
+    points: [
+      "Pixel-perfect layouts for campaigns & products",
+      "Integration with CRM, email, and analytics tools",
+      "A/B testing and performance optimization",
+    ],
+    valueProvide: [
+      "Higher lead conversion rates",
+      "Increased ROI from campaigns",
+      "Better tracking of customer behavior",
+    ],
+    targetAudience: "Marketers, startups, ad agencies",
+    keywords: ["landing page design", "conversion funnel", "campaign landing page"],
+    image: "/images/landing.png",
+    serviceImage: "/images/landing-bg.png",
+  },
+
+  {
+    slug: "ui-ux-audits",
+    title: "UI/UX Audits & Product Strategy",
+    desc: "In-depth UX audits to improve usability, engagement, and conversions.",
+    longDesc:
+      "We analyze your product’s design and user experience to identify friction points, usability issues, and areas for improvement. Our strategy ensures better engagement and conversions.",
+    tags: ["UI/UX", "Audit", "Strategy", "Usability"],
+    icon: FaPencilRuler,
+    category: "Design & Strategy",
+    duration: "2–4 weeks",
+    pricing: "Starting from $799",
+    cta: "Request Audit",
+    tools: ["Figma", "Miro", "Hotjar", "Notion"],
+    points: [
+      "Heuristic evaluation & usability testing",
+      "Wireframing, prototyping & user journey mapping",
+      "Product-market fit analysis and feature prioritization",
+    ],
+    valueProvide: [
+      "Improved user satisfaction",
+      "Reduced bounce rates",
+      "Better product adoption",
+    ],
+    targetAudience: "Product teams, startups, enterprises",
+    keywords: ["ux audit", "ui ux design", "usability testing"],
+    image: "/images/ux.png",
+    serviceImage: "/images/ux-bg.png",
+  },
+  {
+    slug: "saas-app-development",
+    title: "SaaS App Development",
+    desc: "From MVP to scalable SaaS platforms with robust tech and cloud support.",
+    longDesc:
+      "We specialize in building SaaS products from scratch — from MVP development to enterprise-level solutions. Secure, scalable, and optimized for long-term growth.",
+    tags: ["SaaS", "App Development", "Cloud", "Full-stack"],
+    icon: FaLaptopCode,
+    category: "Development",
+    featured: true,
+    duration: "6–20 weeks",
+    pricing: "Custom Pricing",
+    cta: "Build SaaS App",
+    tools: ["React", "Next.js", "Node.js", "PostgreSQL"],
+    points: [
+      "Custom dashboards & subscription systems",
+      "Multi-tenant architecture with secure auth",
+      "Full-stack support (MERN, Next.js, PostgreSQL, etc.)",
+    ],
+    valueProvide: [
+      "Faster MVP launch",
+      "Long-term scalability",
+      "Recurring revenue potential",
+    ],
+    targetAudience: "Startups, SaaS founders, enterprises",
+    keywords: ["saas development", "mvp app", "cloud saas platform"],
+    image: "/images/saas.png",
+    serviceImage: "/images/saas-bg.png",
+  },
+  {
+    slug: "ai-powered-web",
+    title: "AI-Powered Web Solutions",
+    desc: "Enhance your product with modern AI features for automation & personalization.",
+    longDesc:
+      "We integrate AI-driven features like chatbots, recommendation engines, OCR, and generative AI to supercharge your business workflows and enhance customer engagement.",
+    tags: ["AI", "Automation", "Machine Learning", "NLP"],
+    icon: FaMagic,
+    category: "AI & Automation",
+    duration: "2–8 weeks",
+    pricing: "Custom Pricing",
+    cta: "Integrate AI",
+    tools: ["OpenAI", "Replicate", "LangChain", "TensorFlow"],
+    points: [
+      "AI chatbots, TTS, image/video generation",
+      "Recommendation engines, NLP, OCR",
+      "API integration with OpenAI, Replicate, etc.",
+    ],
+    valueProvide: [
+      "Smarter customer experiences",
+      "Automated business workflows",
+      "Competitive AI edge",
+    ],
+    targetAudience: "Tech startups, enterprises, e-commerce",
+    keywords: ["ai web app", "chatbot integration", "ai automation"],
+    image: "/images/ai.png",
+    serviceImage: "/images/ai-bg.png",
+  },
+
+
+
+
+  {
+    slug: "api-integration-automation",
+    title: "API Integration & Automation",
+    desc: "Seamlessly connect tools and automate workflows to save time and costs.",
+    longDesc:
+      "We help businesses streamline operations with powerful API integrations and workflow automations — saving time and reducing costs.",
+    tags: ["API", "Integration", "Automation", "Workflow"],
+    icon: FaCode,
+    category: "Automation",
+    duration: "1–4 weeks",
+    pricing: "Starting from $399",
+    cta: "Automate My Workflow",
+    tools: ["Zapier", "Integromat", "REST APIs", "GraphQL"],
+    points: [
+      "3rd party APIs: CRMs, ERPs, payment systems",
+      "Automated workflows using Zapier, Integromat",
+      "Webhook and real-time sync support",
+    ],
+    valueProvide: [
+      "Faster business operations",
+      "Reduced manual work",
+      "Seamless cross-platform sync",
+    ],
+    targetAudience: "Businesses, SaaS companies, enterprises",
+    keywords: ["api integration", "workflow automation", "custom api"],
+    image: "/images/api.png",
+    serviceImage: "/images/api-bg.png",
+  },
+
+
+
+
+
+  {
+    slug: "seo-digital-marketing",
+    title: "SEO & Digital Marketing",
+    desc: "Boost visibility, traffic, and sales with growth-driven digital marketing strategies.",
+    longDesc:
+      "We craft customized SEO and marketing campaigns that help your business grow online visibility, drive traffic, and boost sales.",
+    tags: ["SEO", "Marketing", "Growth", "Traffic"],
+    icon: FaSearch,
+    category: "Marketing",
+    duration: "Ongoing",
+    pricing: "Packages from $299/mo",
+    cta: "Boost My Rankings",
+    tools: ["Google Ads", "Meta Ads", "Ahrefs", "SEMRush"],
+    points: [
+      "On-page, technical & local SEO",
+      "Google Ads, Meta Ads, Analytics setup",
+      "Social media management & email marketing",
+    ],
+    valueProvide: [
+      "Higher search rankings",
+      "Increased website traffic",
+      "Better lead & sales growth",
+    ],
+    targetAudience: "Businesses, startups, e-commerce brands",
+    keywords: ["seo services", "digital marketing", "online advertising"],
+    image: "/images/seo.png",
+    serviceImage: "/images/seo-bg.png",
+  },
+  {
+    slug: "branding-graphic-design",
+    title: "Branding & Graphic Design",
+    desc: "Create a strong brand identity with stunning visuals and consistent design.",
+    longDesc:
+      "Our branding and graphic design services give your business a unique identity that resonates with your target audience across all platforms.",
+    tags: ["Branding", "Graphic Design", "Logo", "Identity"],
+    icon: FaPaintBrush,
+    category: "Design",
+    duration: "1–4 weeks",
+    pricing: "Starting from $399",
+    cta: "Get Branding",
+    tools: ["Figma", "Illustrator", "Photoshop", "Canva"],
+    points: [
+      "Logo design, brand kit & typography",
+      "UI kits for apps and websites",
+      "Marketing banners, pitch decks & brochures",
+    ],
+    valueProvide: [
+      "Memorable brand presence",
+      "Professional visual identity",
+      "Stronger customer trust",
+    ],
+    targetAudience: "Startups, small businesses, corporates",
+    keywords: ["branding design", "graphic design services", "logo design"],
+    image: "/images/branding.png",
+    serviceImage: "/images/branding-bg.png",
+  },
+  {
+    slug: "web-hosting-maintenance",
+    title: "Web Hosting & Maintenance",
+    desc: "Reliable hosting, monitoring, and ongoing support for smooth operations.",
+    longDesc:
+      "We provide secure, scalable, and fully managed hosting & maintenance services to ensure your website or application runs smoothly 24/7.",
+    tags: ["Hosting", "Maintenance", "Support", "DevOps"],
+    icon: FaCloudUploadAlt,
+    category: "Hosting",
+    duration: "Ongoing",
+    pricing: "From $49/mo",
+    cta: "Get Maintenance",
+    tools: ["Vercel", "Render", "AWS", "Docker"],
+    points: [
+      "CI/CD setup with Vercel, Render, AWS, etc.",
+      "24/7 monitoring, backups, SSL, version control",
+      "Tech stack upgrades and plugin management",
+    ],
+    valueProvide: [
+      "Peace of mind with uptime",
+      "Ongoing technical support",
+      "Faster performance & security",
+    ],
+    targetAudience: "Businesses, SaaS companies, startups",
+    keywords: ["website hosting", "web maintenance", "managed hosting"],
+    image: "/images/hosting.png",
+    serviceImage: "/images/hosting-bg.png",
+  },
+
+
+
+
+
+
+  {
+    slug: "enterprise-solutions",
+    title: "Enterprise Solutions & Deployment",
+    desc: "Enterprise-grade deployments for large, scalable, and secure systems.",
+    longDesc:
+      "We help enterprises deploy large-scale, secure, and optimized digital solutions — from microservices to cloud-native deployments.",
+    tags: ["Enterprise", "Cloud", "Security", "Deployment"],
+    icon: FaSitemap,
+    category: "Enterprise",
+    duration: "Custom Timeline",
+    pricing: "Custom Pricing",
+    cta: "Discuss Enterprise",
+    tools: ["Kubernetes", "Docker", "Grafana", "Prometheus"],
+    points: [
+      "Microservices architecture with Kubernetes",
+      "Custom dashboards, RBAC, monitoring",
+      "Private cloud & on-premise setups",
+    ],
+    valueProvide: [
+      "Enterprise-level security",
+      "Scalable deployments",
+      "Optimized system performance",
+    ],
+    targetAudience: "Enterprises, government, large organizations",
+    keywords: ["enterprise deployment", "cloud migration", "microservices architecture"],
+    image: "/images/enterprise.png",
+    serviceImage: "/images/enterprise-bg.png",
+  },
+
+
+  
+  {
+    slug: "startup-tech-partner",
+    title: "Go-to-Market & Startup Tech Partner",
+    desc: "From idea to launch, we act as your technical co-founder & product partner.",
+    longDesc:
+      "We partner with startups to help them bring ideas to life — from MVP to market-ready products, along with strategy and funding readiness.",
+    tags: ["Startup", "MVP", "Go-to-Market", "Funding"],
+    icon: FaRocket,
+    category: "Startup",
+    featured: true,
+    duration: "3–12 months",
+    pricing: "Custom Pricing",
+    cta: "Partner With Us",
+    tools: ["Pitch Decks", "MVP Development", "Analytics", "Funding"],
+    points: [
+      "MVP development & validation",
+      "Growth-focused product strategy",
+      "Pitch deck support & funding readiness",
+    ],
+    valueProvide: [
+      "Accelerated product launch",
+      "Investor-ready strategy",
+      "Reliable long-term tech partner",
+    ],
+    targetAudience: "Startups, founders, incubators, accelerators",
+    keywords: ["startup tech partner", "mvp development", "go to market strategy"],
+    image: "/images/startup.png",
+    serviceImage: "/images/startup-bg.png",
+  },
+];
