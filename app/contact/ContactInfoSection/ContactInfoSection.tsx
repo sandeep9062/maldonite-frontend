@@ -7,10 +7,7 @@ import {
   useGetSiteSettingsQuery,
 } from "@/services/siteSettingsApi";
 
-import {
-  useGetWebsiteImageByContextQuery,
-
-} from "@/services/websiteImagesApi";
+import { useGetWebsiteImageByContextQuery } from "@/services/websiteImagesApi";
 
 const ContactInfoSection = () => {
   // ✅ site settings query
@@ -57,7 +54,7 @@ const ContactInfoSection = () => {
           >
             <iframe
               title="Google Map"
-              src={siteSettings?.googleMapImbededUrl}
+              src={siteSettings?.googleMapUrl}
               width="100%"
               height="100%"
               style={{ border: 0 }}
