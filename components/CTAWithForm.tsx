@@ -5,10 +5,14 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import {
+  GoogleReCaptchaProvider,
+  useGoogleReCaptcha,
+} from "react-google-recaptcha-v3";
 
 import { useAddContactMutation } from "@/services/contactApi";
 
-const CTAWithForm = () => {
+const ContactForm = () => {
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -17,11 +21,13 @@ const CTAWithForm = () => {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState("");
 
   const [addContact, { isLoading }] = useAddContactMutation();
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -34,9 +40,19 @@ const CTAWithForm = () => {
     e.preventDefault();
 
     try {
-      // ✅ Send JSON instead of FormData
+      // ✅ Get reCAPTCHA token
+      if (!executeRecaptcha) {
+        toast.error("reCAPTCHA is not ready yet. Please try again.");
+        return;
+      }
+
+      const token = await executeRecaptcha("submit_contact_form");
+      setRecaptchaToken(token);
+
+      // ✅ Send JSON with reCAPTCHA token
       const payload = {
         ...form,
+        recaptchaToken: token,
       };
 
       await addContact(payload).unwrap();
@@ -175,6 +191,16 @@ const CTAWithForm = () => {
         </AnimatePresence>
       </motion.div>
     </section>
+  );
+};
+
+const CTAWithForm = () => {
+  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
+
+  return (
+    <GoogleReCaptchaProvider reCaptchaKey={siteKey}>
+      <ContactForm />
+    </GoogleReCaptchaProvider>
   );
 };
 
