@@ -9,6 +9,7 @@ import {
   GoogleReCaptchaProvider,
   useGoogleReCaptcha,
 } from "react-google-recaptcha-v3";
+import { useEffect } from "react";
 
 import { useAddContactMutation } from "@/services/contactApi";
 
@@ -22,9 +23,21 @@ const ContactForm = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const [recaptchaToken, setRecaptchaToken] = useState("");
+  const [isRecaptchaReady, setIsRecaptchaReady] = useState(false);
 
   const [addContact, { isLoading }] = useAddContactMutation();
   const { executeRecaptcha } = useGoogleReCaptcha();
+
+  // Check if reCAPTCHA is ready
+  useEffect(() => {
+    if (executeRecaptcha) {
+      setIsRecaptchaReady(true);
+      console.log("reCAPTCHA is ready");
+    } else {
+      setIsRecaptchaReady(false);
+      console.log("reCAPTCHA is not ready yet");
+    }
+  }, [executeRecaptcha]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -46,7 +59,15 @@ const ContactForm = () => {
         return;
       }
 
+      console.log("Generating reCAPTCHA token...");
       const token = await executeRecaptcha("submit_contact_form");
+      console.log("reCAPTCHA token generated:", token);
+
+      if (!token) {
+        toast.error("Failed to generate reCAPTCHA token. Please try again.");
+        return;
+      }
+
       setRecaptchaToken(token);
 
       // ✅ Send JSON with reCAPTCHA token
@@ -54,6 +75,8 @@ const ContactForm = () => {
         ...form,
         recaptchaToken: token,
       };
+
+      console.log("Sending contact form with payload:", payload);
 
       await addContact(payload).unwrap();
 
@@ -67,6 +90,7 @@ const ContactForm = () => {
         message: "",
       });
     } catch (error) {
+      console.error("Contact form submission error:", error);
       const err = error as { data?: { message?: string } };
       toast.error(err.data?.message || "Something went wrong!");
     }
@@ -195,7 +219,27 @@ const ContactForm = () => {
 };
 
 const CTAWithForm = () => {
-  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
+  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+
+  // If site key is not available, don't render the form to avoid errors
+  if (!siteKey) {
+    console.error(
+      "reCAPTCHA site key is missing. Please check your environment variables.",
+    );
+    return (
+      <section className="relative py-16 bg-[var(--color-gold)] text-center text-black dark:text-black">
+        <div className="max-w-4xl mx-auto px-4">
+          <h2 className="text-2xl md:text-4xl font-semibold">
+            Contact Form Temporarily Unavailable
+          </h2>
+          <p className="mt-2 text-gray-800">
+            We're experiencing technical issues with our contact form. Please
+            try again later or contact us directly.
+          </p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <GoogleReCaptchaProvider reCaptchaKey={siteKey}>
