@@ -29,6 +29,7 @@ interface Blog {
   readTime: number;
   views: number;
   likes: number;
+
   isFeatured: boolean;
   seoMetaTitle?: string;
   seoMetaDescription?: string;
@@ -134,6 +135,21 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
                       className="object-cover w-full h-full transition-transform group-hover:scale-105 duration-500"
                     />
                   ) : null}
+
+                  {/* Author Image at Top-Left Corner */}
+                  {blog.authorImage && (
+                    <div className="absolute top-3 left-3">
+                      <div className="w-12 h-12 rounded-full border-2 border-white dark:border-gray-800 shadow-md overflow-hidden">
+                        <Image
+                          src={blog.authorImage}
+                          alt={blog.author}
+                          width={50}
+                          height={50}
+                          className="object-cover w-full h-full"
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex flex-col justify-between flex-1 p-4">
@@ -146,7 +162,7 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
                     </p>
                   </div>
                   <div className="flex justify-between items-center text-xs text-gray-500 dark:text-gray-400 mt-auto">
-                    <span className="flex items-center gap-1">
+                    <span className="flex items-center gap-2">
                       <User size={14} /> {blog.author}
                     </span>
                     <span className="flex items-center gap-1">

@@ -11,12 +11,10 @@ const Contact = () => {
   return (
     <>
       <ContactHeader />
-
       <CTAWithForm />
       <BusinessStats />
       <SocialMediaLinks />
       <ContactInfoSection />
-
     </>
   );
 };
