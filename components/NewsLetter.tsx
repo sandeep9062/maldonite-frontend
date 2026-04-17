@@ -3,33 +3,12 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { motion, Variants } from "framer-motion";
 import {
   GoogleReCaptchaProvider,
   useGoogleReCaptcha,
 } from "react-google-recaptcha-v3";
 import { useSubscribeToNewsletterMutation } from "@/services/newsLetterApi";
 import toast from "react-hot-toast";
-
-const sectionVariants: Variants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring",
-      stiffness: 70,
-      damping: 15,
-      when: "beforeChildren",
-      staggerChildren: 0.2,
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } },
-};
 
 const NewsletterContent = () => {
   // State to manage the email input value
@@ -71,36 +50,20 @@ const NewsletterContent = () => {
   };
 
   return (
-    <motion.section
-      className="w-full bg-white dark:bg-darkbg1 transition-colors duration-300"
-      variants={sectionVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-    >
+    <section className="w-full bg-white dark:bg-darkbg1 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 py-12">
-        <motion.div
-          className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 text-center shadow-lg transition-colors duration-300 border-2 border-gray-100 dark:border-gray-800"
-          variants={itemVariants}
-        >
-          <motion.h2
-            className="text-2xl font-bold mb-3 text-gray-900 dark:text-white"
-            variants={itemVariants}
-          >
+        <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 text-center shadow-lg transition-colors duration-300 border-2 border-gray-100 dark:border-gray-800">
+          <h2 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">
             Stay Ahead in the Digital Gold Rush
-          </motion.h2>
-          <motion.p
-            className="text-gray-600 dark:text-gray-400 mb-6 max-w-md mx-auto"
-            variants={itemVariants}
-          >
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md mx-auto">
             Get exclusive insights on building, launching, and scaling digital
             products. Join our newsletter to get ahead of the curve.
-          </motion.p>
+          </p>
 
-          <motion.form
+          <form
             onSubmit={handleSubmit}
             className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
-            variants={itemVariants}
           >
             <Input
               type="email"
@@ -118,10 +81,10 @@ const NewsletterContent = () => {
             >
               {isLoading ? "Joining..." : "Join the Community"}
             </Button>
-          </motion.form>
-        </motion.div>
+          </form>
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

@@ -3,10 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  
-  useGetSiteSettingsQuery,
-} from "@/services/siteSettingsApi";
+import { useGetSiteSettingsQuery } from "@/services/siteSettingsApi";
 const Hero = () => {
   const { data: siteSettings } = useGetSiteSettingsQuery();
 

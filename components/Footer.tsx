@@ -4,51 +4,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Mail, Phone } from "lucide-react";
 import React from "react";
-import SocialMediaLinks from "../app/contact/SocialLinks/SocialMediaLinks"
+import SocialMediaLinks from "../app/contact/SocialLinks/SocialMediaLinks";
 import { motion, easeOut } from "framer-motion"; // ✅ import easing
 import { useGetSiteSettingsQuery } from "@/services/siteSettingsApi";
 
-// Animation Variants
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.2,
-      duration: 0.8,
-      ease: easeOut, // ✅ correct easing function
-    },
-  }),
-};
+const fadeInUp = {};
 
 const Footer: React.FC = () => {
   const currentYear: number = new Date().getFullYear();
 
-  const {
-    data: siteSettings,
-    isLoading,
-    isError,
-  } = useGetSiteSettingsQuery();
+  const { data: siteSettings, isLoading, isError } = useGetSiteSettingsQuery();
 
   return (
-    <motion.footer
-      className="bg-[#0D1321] text-white"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 1 }}
-      viewport={{ once: true }}
-    >
+    <footer className="bg-[#0D1321] text-white">
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         {/* Logo & Tagline */}
-        <motion.div
-          className="space-y-4"
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          custom={0}
-          viewport={{ once: true }}
-        >
+        <div className="space-y-4">
           <Link href="/" className="flex items-center gap-3">
             <div className="relative w-10 h-10">
               {siteSettings?.logoUrl && (
@@ -69,16 +40,10 @@ const Footer: React.FC = () => {
             Shaping Digital Gold. We craft scalable web experiences with
             elegance and precision.
           </p>
-        </motion.div>
+        </div>
 
         {/* Quick Links */}
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          custom={1}
-          viewport={{ once: true }}
-        >
+        <div>
           <h3 className="text-lg font-semibold mb-4 text-gold">Quick Links</h3>
           <ul className="grid grid-cols-2 gap-2 text-sm text-gray-300">
             {[
@@ -96,16 +61,10 @@ const Footer: React.FC = () => {
               </li>
             ))}
           </ul>
-        </motion.div>
+        </div>
 
         {/* Contact Info */}
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          custom={2}
-          viewport={{ once: true }}
-        >
+        <div>
           <h3 className="text-lg font-semibold mb-4 text-[#D4AF37]">
             Contact Us
           </h3>
@@ -166,23 +125,17 @@ const Footer: React.FC = () => {
               </>
             )}
           </ul>
-        </motion.div>
+        </div>
       </div>
 
       {/* Animated Social Media Links */}
       <SocialMediaLinks />
 
       {/* Footer Bottom */}
-      <motion.div
-        className="border-t border-gray-700 text-center text-sm text-gray-500 py-4 px-6"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1 }}
-        viewport={{ once: true }}
-      >
+      <div className="border-t border-gray-700 text-center text-sm text-gray-500 py-4 px-6">
         &copy; {currentYear} Maldonite. All rights reserved.
-      </motion.div>
-    </motion.footer>
+      </div>
+    </footer>
   );
 };
 

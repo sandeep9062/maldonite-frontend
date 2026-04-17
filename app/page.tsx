@@ -9,6 +9,7 @@ import CTAWithForm from "@/components/CTAWithForm";
 import PopupFormModal from "@/components/PopupFormModal";
 import Services from "@/components/Services";
 import DeveloperSection from "@/components/home/DeveloperSection";
+import BubbleWrapper from "@/components/home/BubbleWrapper";
 
 export default function Home() {
   return (
@@ -16,12 +17,14 @@ export default function Home() {
       <section className="pt-16 ">
         <Hero />
         <Services />
-        {/* <DeveloperSection/> */}
-        <WhyUs />
+
+        <BubbleWrapper />
+
+        {/*<WhyUs />
         <Features />
         <PortfolioPreview />
 
-        <Testimonials />
+        <Testimonials /> */}
 
         <PopupFormModal />
         <CTAWithForm />

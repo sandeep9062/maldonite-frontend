@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, Variants } from "framer-motion";
 import {
   CalendarDays,
   Eye,
@@ -42,19 +41,6 @@ interface Blog {
   createdAt: string;
   updatedAt: string;
 }
-
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1, duration: 0.4 },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-};
 
 export default function BlogDetails({ blog }: { blog: Blog }) {
   console.log(blog, "blogogo1111");
@@ -104,15 +90,10 @@ export default function BlogDetails({ blog }: { blog: Blog }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <motion.section
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="min-h-screen mt-10 bg-white dark:bg-[#0D1321] py-16 sm:py-24 px-4 md:px-8"
-      >
+      <section className="min-h-screen mt-10 bg-white dark:bg-[#0D1321] py-16 sm:py-24 px-4 md:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Back to Blog List Button */}
-          <motion.div variants={itemVariants} className="mb-6">
+          <div className="mb-6">
             <Link
               href="/blog"
               className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
@@ -120,21 +101,15 @@ export default function BlogDetails({ blog }: { blog: Blog }) {
               <ArrowLeft size={20} />
               <span className="font-medium">Back to Blog List</span>
             </Link>
-          </motion.div>
+          </div>
 
           {/* Title */}
-          <motion.h1
-            variants={itemVariants}
-            className="text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white mb-6"
-          >
+          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white mb-6">
             {title}
-          </motion.h1>
+          </h1>
 
           {/* Meta Info */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-wrap gap-4 items-center text-sm text-gray-600 dark:text-gray-400 mb-8"
-          >
+          <div className="flex flex-wrap gap-4 items-center text-sm text-gray-600 dark:text-gray-400 mb-8">
             <span className="flex items-center gap-1 font-semibold text-gray-800 dark:text-white">
               {authorImage && (
                 <Image
@@ -175,32 +150,25 @@ export default function BlogDetails({ blog }: { blog: Blog }) {
                 {status}
               </span>
             )}
-          </motion.div>
+          </div>
 
           {/* Image */}
           {image && (
-            <motion.div
-              variants={itemVariants}
-              className="relative w-full h-[400px] md:h-[500px] mb-10 rounded-xl overflow-hidden shadow-lg"
-            >
+            <div className="relative w-full h-[400px] md:h-[500px] mb-10 rounded-xl overflow-hidden shadow-lg">
               <Image src={image} alt={title} fill className="object-cover" />
-            </motion.div>
+            </div>
           )}
 
           {/* Short Description */}
           {desc && (
-            <motion.p
-              variants={itemVariants}
-              className="text-lg text-gray-700 dark:text-gray-300 mb-8 italic border-l-4 border-yellow-500 pl-4"
-            >
+            <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 italic border-l-4 border-yellow-500 pl-4">
               {desc}
-            </motion.p>
+            </p>
           )}
 
           {/* Content */}
           {content && (
-            <motion.div
-              variants={itemVariants}
+            <div
               className="prose prose-lg dark:prose-invert max-w-none"
               dangerouslySetInnerHTML={{
                 __html: content.replace(/\n/g, "<br />"),
@@ -210,7 +178,7 @@ export default function BlogDetails({ blog }: { blog: Blog }) {
 
           {/* Tags */}
           {tags?.length > 0 && (
-            <motion.div variants={itemVariants} className="mt-10">
+            <div className="mt-10">
               <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-white">
                 Tags
               </h3>
@@ -224,12 +192,12 @@ export default function BlogDetails({ blog }: { blog: Blog }) {
                   </span>
                 ))}
               </div>
-            </motion.div>
+            </div>
           )}
 
           {/* Comments Section */}
           {comments?.length > 0 && (
-            <motion.div variants={containerVariants} className="mt-12">
+            <div className="mt-12">
               <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">
                 Comments ({comments.length})
               </h3>
@@ -237,11 +205,10 @@ export default function BlogDetails({ blog }: { blog: Blog }) {
                 {comments.map(
                   (
                     c: { name: string; comment: string; createdAt: string },
-                    i: number
+                    i: number,
                   ) => (
-                    <motion.div
+                    <div
                       key={i}
-                      variants={itemVariants}
                       className="p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800"
                     >
                       <p className="font-semibold text-gray-800 dark:text-white">
@@ -253,14 +220,14 @@ export default function BlogDetails({ blog }: { blog: Blog }) {
                       <p className="mt-2 text-gray-700 dark:text-gray-300">
                         {c.comment}
                       </p>
-                    </motion.div>
-                  )
+                    </div>
+                  ),
                 )}
               </div>
-            </motion.div>
+            </div>
           )}
         </div>
-      </motion.section>
+      </section>
       <Newsletter />
     </>
   );
