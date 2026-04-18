@@ -18,13 +18,13 @@ export default function Home() {
         <Hero />
         <Services />
 
-        <BubbleWrapper />
+        {/* <BubbleWrapper /> */}
 
-        {/*<WhyUs />
+        <WhyUs />
         <Features />
         <PortfolioPreview />
 
-        <Testimonials /> */}
+        <Testimonials />
 
         <PopupFormModal />
         <CTAWithForm />
