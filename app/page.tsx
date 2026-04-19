@@ -1,9 +1,7 @@
 import Hero from "@/components/home/Hero";
 import Features from "@/components/home/Features";
 import PortfolioPreview from "@/components/home/PortfolioPreview";
-
 import Testimonials from "@/components/home/Testimonials";
-
 import WhyUs from "@/components/home/WhyUs";
 import CTAWithForm from "@/components/CTAWithForm";
 import PopupFormModal from "@/components/PopupFormModal";
@@ -23,7 +21,6 @@ export default function Home() {
         <WhyUs />
         <Features />
         <PortfolioPreview />
-
         <Testimonials />
 
         <PopupFormModal />

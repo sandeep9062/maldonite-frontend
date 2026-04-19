@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -10,6 +9,7 @@ import {
   Clock,
   ChevronLeft,
   ChevronRight,
+  Search,
 } from "lucide-react";
 
 // --- Interfaces ---
@@ -37,7 +37,7 @@ const categories = [
   "Product",
   "SEO",
   "Marketing",
-  "Cloud & DevOps",
+  "Cloud",
 ];
 
 const POSTS_PER_PAGE = 15;
@@ -61,12 +61,20 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
   );
 
   return (
-    <div className="min-h-screen bg-[#fafafa] dark:bg-[#050505] transition-colors duration-500 pb-20">
-      {/* Dynamic Header Section */}
+    <div className="min-h-screen bg-white dark:bg-[#080808] text-slate-900 dark:text-slate-100 transition-colors duration-500 pb-20">
+      {/* Header Section */}
+      <header className="pt-24 pb-16 px-6 text-center">
+        <h1 className="text-5xl md:text-7xl font-serif mb-6 tracking-tight">
+          Insights & <span className="text-[#D4AF37] italic">Perspectives</span>
+        </h1>
+        <p className="max-w-2xl mx-auto text-slate-500 dark:text-slate-400 text-lg">
+          Exploring the intersection of design, code, and the future of SaaS.
+        </p>
+      </header>
 
-      {/* Glass Category Filter */}
-      <nav className="sticky top-4 z-50 mx-auto max-w-fit px-4 mb-16">
-        <div className="flex items-center gap-1 p-1.5 bg-white/70 dark:bg-black/70 backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-full shadow-2xl overflow-x-auto no-scrollbar">
+      {/* Category Filter */}
+      <nav className="sticky top-6 z-50 mx-auto max-w-fit px-4 mb-20">
+        <div className="flex items-center gap-1 p-1.5 bg-white/80 dark:bg-[#121212]/80 backdrop-blur-2xl border border-slate-200 dark:border-white/10 rounded-full shadow-xl overflow-x-auto no-scrollbar">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -74,10 +82,10 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
                 setActiveCategory(cat);
                 setCurrentPage(1);
               }}
-              className={`px-5 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-300 ${
+              className={`px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-tighter transition-all duration-300 ${
                 activeCategory === cat
-                  ? "bg-[#D4AF37] text-black shadow-md"
-                  : "text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white"
+                  ? "bg-[#D4AF37] text-black shadow-lg shadow-[#D4AF37]/20"
+                  : "text-slate-500 hover:text-black dark:hover:text-white"
               }`}
             >
               {cat}
@@ -86,158 +94,140 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
         </div>
       </nav>
 
-      {/* Masonry Grid */}
-      <main className="px-6 max-w-[1400px] mx-auto">
-        <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
-          <AnimatePresence mode="popLayout">
+      {/* Main Content */}
+      <main className="px-6 max-w-[1440px] mx-auto">
+        {filteredBlogs.length > 0 ? (
+          <div className="columns-1 md:columns-2 lg:columns-3 gap-10 space-y-10">
             {paginatedBlogs.map((blog, i) => (
-              <motion.article
+              <article
                 key={blog._id}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}
-                className="break-inside-avoid group relative rounded-[2rem] overflow-hidden border border-gray-200 dark:border-white/5 bg-white dark:bg-[#0a0a0a] shadow-sm hover:shadow-2xl transition-all duration-500"
+                className="break-inside-avoid group relative flex flex-col bg-white dark:bg-[#0f0f0f] rounded-[2.5rem] border border-slate-100 dark:border-white/5 overflow-hidden hover:border-[#D4AF37]/30 transition-all duration-500"
               >
-                <Link href={`/blog/${blog.slug}`} className="block relative">
-                  {/* Image wrapper with scale and blur effect */}
+                <Link
+                  href={`/blog/${blog.slug}`}
+                  className="cursor-none group/link"
+                >
+                  {/* Image Container */}
                   <div
-                    className={`relative w-full overflow-hidden transition-all duration-700 ${
+                    className={`relative w-full overflow-hidden ${
                       i % 3 === 0
-                        ? "h-[550px]"
+                        ? "h-[500px]"
                         : i % 2 === 0
-                          ? "h-[420px]"
-                          : "h-[350px]"
+                          ? "h-[400px]"
+                          : "h-[300px]"
                     }`}
                   >
                     <Image
                       src={blog.images?.[0] || blog.image || ""}
                       alt={blog.title}
                       fill
-                      className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1 group-hover:blur-[2px]"
+                      className="object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
                     />
 
-                    {/* Multi-layered Overlays */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/100 via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
-                    <div className="absolute inset-0 bg-[#D4AF37]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  </div>
+                    {/* Gradient Overlay - Smooth transition to text */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/40 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
 
-                  {/* Top Badge */}
-                  <div className="absolute top-6 left-6">
-                    <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] font-bold text-white uppercase tracking-widest">
-                      {blog.category}
-                    </span>
-                  </div>
-
-                  {/* Content Overlay */}
-                  <div className="absolute inset-0 flex flex-col justify-end p-8">
-                    {/* Read Time & Date */}
-                    <div className="flex items-center gap-4 text-[10px] text-[#D4AF37] font-bold uppercase tracking-widest mb-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                      <span className="flex items-center gap-1.5">
-                        <CalendarDays size={12} />
-                        {new Date(blog.date).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                        })}
+                    {/* Category Floating Badge */}
+                    <div className="absolute top-6 left-6 overflow-hidden rounded-full">
+                      <span className="px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 text-[10px] font-black text-white uppercase tracking-[0.2em]">
+                        {blog.category}
                       </span>
-                      {blog.readTime && (
-                        <span className="flex items-center gap-1.5 border-l border-white/20 pl-4">
-                          <Clock size={12} />
-                          {blog.readTime} min read
+                    </div>
+
+                    {/* Content on Image */}
+                    <div className="absolute inset-0 flex flex-col justify-end p-8">
+                      <div className="flex items-center gap-3 text-[10px] text-[#D4AF37] font-bold uppercase tracking-widest mb-3 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                        <span className="flex items-center gap-1.5">
+                          <CalendarDays size={12} />{" "}
+                          {new Date(blog.date).toLocaleDateString()}
                         </span>
-                      )}
-                    </div>
-
-                    <h3 className="text-2xl md:text-3xl font-serif text-white leading-tight mb-4 group-hover:text-[#D4AF37] transition-colors duration-300">
-                      {blog.title}
-                    </h3>
-
-                    {/* Expandable description on hover */}
-                    <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500 ease-in-out">
-                      <p className="overflow-hidden text-white/70 text-sm leading-relaxed mb-6 pr-4">
-                        {blog.desc}
-                      </p>
-                    </div>
-
-                    {/* Author & CTA */}
-                    <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                      <div className="flex items-center gap-3">
-                        {blog.authorImage ? (
-                          <Image
-                            src={blog.authorImage}
-                            alt={blog.author}
-                            width={32}
-                            height={32}
-                            className="rounded-full ring-2 ring-[#D4AF37]/50 shadow-lg"
-                          />
-                        ) : (
-                          <div className="w-8 h-8 rounded-full bg-[#D4AF37] flex items-center justify-center text-black font-bold text-[10px]">
-                            {blog.author[0]}
-                          </div>
-                        )}
-                        <span className="text-white text-xs font-medium">
-                          {blog.author}
+                        <span className="w-1 h-1 rounded-full bg-white/20" />
+                        <span className="flex items-center gap-1.5">
+                          <Clock size={12} /> {blog.readTime} min
                         </span>
                       </div>
 
-                      <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-[#D4AF37] group-hover:text-black group-hover:border-[#D4AF37] transition-all duration-500">
-                        <ArrowUpRight size={20} />
+                      <h3 className="text-xl bg-black p-4 md:text-2xl font-serif text-white leading-[1.1] mb-2 group-hover:tracking-tight transition-all duration-500">
+                        {blog.title}
+                      </h3>
+
+                      {/* Description - Revealed on hover */}
+                      <div className="max-h-0 group-hover:max-h-24 overflow-hidden transition-all duration-700 ease-in-out">
+                        <p className="text-slate-300 text-sm line-clamp-2 mt-2 font-light leading-relaxed">
+                          {blog.desc}
+                        </p>
+                      </div>
+
+                      {/* Bottom Row */}
+                      <div className="flex items-center justify-between mt-6 pt-6 border-t border-white/10">
+                        <div className="flex items-center gap-3">
+                          <div className="relative w-8 h-8 rounded-full overflow-hidden ring-1 ring-white/20">
+                            {blog.authorImage ? (
+                              <Image
+                                src={blog.authorImage}
+                                alt={blog.author}
+                                fill
+                                className="object-cover"
+                              />
+                            ) : (
+                              <div className="bg-[#D4AF37] w-full h-full flex items-center justify-center text-[10px] font-bold text-black">
+                                {blog.author[0]}
+                              </div>
+                            )}
+                          </div>
+                          <span className="text-white/80 text-[11px] font-medium uppercase tracking-wider">
+                            {blog.author}
+                          </span>
+                        </div>
+
+                        <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:bg-[#D4AF37] group-hover:text-black transition-all duration-500">
+                          <ArrowUpRight size={18} />
+                        </div>
                       </div>
                     </div>
                   </div>
                 </Link>
-              </motion.article>
+              </article>
             ))}
-          </AnimatePresence>
-        </div>
-
-        {/* Empty State */}
-        {filteredBlogs.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="py-40 text-center"
-          >
-            <h3 className="text-2xl font-serif text-gray-400">
-              No stories found in this category.
-            </h3>
+          </div>
+        ) : (
+          <div className="py-40 text-center flex flex-col items-center">
+            <div className="w-20 h-20 mb-8 bg-slate-100 dark:bg-white/5 rounded-full flex items-center justify-center">
+              <Search className="text-slate-400" size={32} />
+            </div>
+            <h3 className="text-3xl font-serif mb-4">No stories found.</h3>
             <button
               onClick={() => setActiveCategory("All")}
-              className="mt-4 text-[#D4AF37] font-bold uppercase text-xs tracking-widest"
+              className="text-[#D4AF37] font-bold border-b-2 border-[#D4AF37]/20 hover:border-[#D4AF37] pb-1 transition-all"
             >
-              Clear Filters
+              Reset Filters
             </button>
-          </motion.div>
+          </div>
         )}
 
-        {/* Minimalist Pagination */}
+        {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex justify-center items-center gap-8 mt-24">
+          <div className="flex justify-center items-center gap-12 mt-32">
             <button
               onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
               disabled={currentPage === 1}
-              className="group flex items-center gap-2 text-xs font-bold uppercase tracking-widest disabled:opacity-30 transition-all hover:text-[#D4AF37]"
+              className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] disabled:opacity-20 hover:text-[#D4AF37] transition-all"
             >
-              <ChevronLeft
-                size={16}
-                className="group-hover:-translate-x-1 transition-transform"
-              />{" "}
-              Prev
+              <ChevronLeft size={18} /> Prev
             </button>
 
-            <div className="flex gap-4">
+            <div className="hidden md:flex gap-8">
               {[...Array(totalPages)].map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setCurrentPage(i + 1)}
-                  className={`text-xs font-bold transition-all ${
+                  className={`text-sm font-bold transition-all ${
                     currentPage === i + 1
-                      ? "text-[#D4AF37] scale-125"
-                      : "text-gray-400 hover:text-black dark:hover:text-white"
+                      ? "text-[#D4AF37] border-b-2 border-[#D4AF37]"
+                      : "text-slate-400 hover:text-black dark:hover:text-white"
                   }`}
                 >
-                  {String(i + 1).padStart(2, "0")}
+                  {i + 1}
                 </button>
               ))}
             </div>
@@ -245,13 +235,9 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
             <button
               onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="group flex items-center gap-2 text-xs font-bold uppercase tracking-widest disabled:opacity-30 transition-all hover:text-[#D4AF37]"
+              className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] disabled:opacity-20 hover:text-[#D4AF37] transition-all"
             >
-              Next{" "}
-              <ChevronRight
-                size={16}
-                className="group-hover:translate-x-1 transition-transform"
-              />
+              Next <ChevronRight size={18} />
             </button>
           </div>
         )}
