@@ -18,19 +18,19 @@ const renderStars = (rating: number) => {
 
   for (let i = 0; i < fullStars; i++) {
     stars.push(
-      <FaStar key={`full-${i}`} className="text-yellow-400 w-5 h-5" />
+      <FaStar key={`full-${i}`} className="text-yellow-400 w-5 h-5" />,
     );
   }
 
   if (hasHalfStar) {
     stars.push(
-      <FaStarHalfAlt key="half" className="text-yellow-400 w-5 h-5" />
+      <FaStarHalfAlt key="half" className="text-yellow-400 w-5 h-5" />,
     );
   }
 
   for (let i = 0; i < 5 - fullStars - (hasHalfStar ? 1 : 0); i++) {
     stars.push(
-      <FaRegStar key={`empty-${i}`} className="text-gray-300 w-5 h-5" />
+      <FaRegStar key={`empty-${i}`} className="text-gray-300 w-5 h-5" />,
     );
   }
 
@@ -59,8 +59,8 @@ const Testimonials = () => {
 
   if (isLoading) {
     return (
-      <section className="py-16 bg-white dark:bg-[#0D1321]">
-        <div className="text-center text-gray-500 dark:text-gray-400">
+      <section className="py-10 sm:py-16 bg-white dark:bg-[#0D1321]">
+        <div className="text-center text-gray-500 dark:text-gray-400 text-sm sm:text-base">
           Loading testimonials...
         </div>
       </section>
@@ -69,8 +69,8 @@ const Testimonials = () => {
 
   if (isError) {
     return (
-      <section className="py-16 bg-white dark:bg-[#0D1321]">
-        <div className="text-center text-red-500 dark:text-red-400">
+      <section className="py-10 sm:py-16 bg-white dark:bg-[#0D1321]">
+        <div className="text-center text-red-500 dark:text-red-400 text-sm sm:text-base">
           Failed to load testimonials. Please try again later.
         </div>
       </section>
@@ -78,14 +78,14 @@ const Testimonials = () => {
   }
 
   return (
-    <section className="bg-white dark:bg-darkbg1 py-20">
-      <div className="max-w-6xl mx-auto px-4 text-center">
+    <section className="bg-white dark:bg-darkbg1 py-12 sm:py-20">
+      <div className="max-w-6xl mx-auto px-3 sm:px-4 text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold text-navy dark:text-white"
+          className="text-2xl sm:text-3xl md:text-4xl font-bold text-navy dark:text-white px-2"
         >
           What Clients Say
         </motion.h2>
@@ -96,7 +96,7 @@ const Testimonials = () => {
             autoplay={{ delay: 4000, disableOnInteraction: false }}
             pagination={{ clickable: true }}
             loop
-            className="mt-12"
+            className="mt-8 sm:mt-12"
           >
             {testimonials.map((t: Testimonial) => (
               <SwiperSlide key={t._id}>
@@ -105,33 +105,33 @@ const Testimonials = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6 }}
                   viewport={{ once: true }}
-                  className="bg-white dark:bg-[#1a1a1a] p-8 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg max-w-xl mx-auto"
+                  className="bg-white dark:bg-[#1a1a1a] p-4 sm:p-8 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg max-w-xl mx-auto"
                 >
                   {/* User Info */}
-                  <div className="flex items-center gap-4 mb-4">
+                  <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                     {t.image ? (
                       <Image
                         src={t.image}
                         alt={t.name}
                         width={48}
                         height={48}
-                        className="rounded-full object-cover h-12 w-12"
+                        className="rounded-full object-cover h-10 w-10 sm:h-12 sm:w-12"
                       />
                     ) : (
-                      <div className="rounded-full h-12 w-12 bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
+                      <div className="rounded-full h-10 w-10 sm:h-12 sm:w-12 bg-gray-200 flex items-center justify-center text-gray-500 text-xs sm:text-sm">
                         {t.name.charAt(0).toUpperCase()}
                       </div>
                     )}
 
                     <div className="text-left">
                       <div className="flex items-center gap-1">
-                        <h4 className="font-semibold text-gray-900 dark:text-white">
+                        <h4 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">
                           {t.name}
                         </h4>
-                        <UserCheck2 className="w-4 h-4 text-[#D4AF37]" />
+                        <UserCheck2 className="w-3 h-3 sm:w-4 sm:h-4 text-[#D4AF37]" />
                       </div>
                       {t.designation && (
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                        <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">
                           {t.designation}
                         </p>
                       )}
@@ -139,12 +139,12 @@ const Testimonials = () => {
                   </div>
 
                   {/* Stars */}
-                  <div className="flex justify-start mb-4">
+                  <div className="flex justify-start mb-3 sm:mb-4">
                     {renderStars(t.rating)}
                   </div>
 
                   {/* Testimonial Message */}
-                  <p className="text-sm text-gray-700 dark:text-gray-300 text-left leading-relaxed">
+                  <p className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 text-left leading-relaxed">
                     {t.message}
                   </p>
                 </motion.div>
@@ -152,7 +152,7 @@ const Testimonials = () => {
             ))}
           </Swiper>
         ) : (
-          <div className="mt-12 text-center text-gray-500 dark:text-gray-400">
+          <div className="mt-8 sm:mt-12 text-center text-gray-500 dark:text-gray-400 text-sm sm:text-base">
             No testimonials to display yet.
           </div>
         )}
@@ -163,12 +163,12 @@ const Testimonials = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.6 }}
           viewport={{ once: true }}
-          className="mt-16"
+          className="mt-10 sm:mt-16"
         >
-          <p className= "text-gray-600 dark:text-gray-400 mb-6 text-sm">
+          <p className="text-gray-600 dark:text-gray-400 mb-4 sm:mb-6 text-sm">
             Trusted by leading companies
           </p>
-          <div className="flex justify-center items-center gap-8 flex-wrap opacity-80">
+          <div className="flex justify-center items-center gap-3 sm:gap-8 flex-wrap opacity-80">
             {[
               { src: "/logos/company-logo-1.png", alt: "Client 1" },
               { src: "/logos/company-logo-2.png", alt: "Client 2" },
@@ -184,10 +184,11 @@ const Testimonials = () => {
             ].map((logo, i) => (
               <Image
                 key={i}
-                width={120}
-                height={120}
+                width={80}
+                height={80}
                 src={logo.src}
                 alt={logo.alt}
+                className="sm:w-[120px] sm:h-[120px]"
               />
             ))}
           </div>

@@ -38,7 +38,7 @@ const Services = () => {
   };
 
   return (
-    <section className="relative w-full py-20 px-4 bg-gradient-to-br from-white to-gray-50 dark:from-darkbg1 dark:to-darkbg2 overflow-hidden">
+    <section className="relative w-full py-12 sm:py-20 px-3 sm:px-4 bg-gradient-to-br from-white to-gray-50 dark:from-darkbg1 dark:to-darkbg2 overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 right-20 w-64 h-64 bg-gold/5 rounded-full blur-3xl"></div>
@@ -54,11 +54,11 @@ const Services = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white px-2">
             Our Core Services
           </h2>
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            At Maldonite, we don’t just deliver services—we craft digital
+          <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto px-2 sm:px-4">
+            At Maldonite, we don't just deliver services—we craft digital
             experiences. From web and mobile apps to AI-powered platforms and
             enterprise SaaS solutions, our expertise helps businesses scale
             faster, innovate smarter, and stay ahead in the digital age.
@@ -67,7 +67,7 @@ const Services = () => {
 
         {/* Grid with staggered animation */}
         <motion.div
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 mt-12"
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-6 lg:gap-8 mt-8 sm:mt-12"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
@@ -95,30 +95,30 @@ const Services = () => {
                 <Link
                   href={`/service/${service.slug}`}
                   className="
-                  block w-40 h-40 mx-auto group
+                  block w-full max-w-[140px] sm:max-w-[160px] h-28 sm:h-40 mx-auto group
                   rounded-xl bg-white dark:bg-[#1A1A1A] shadow-lg
                   border border-gray-200 dark:border-gray-700
-                  flex flex-col items-center justify-center text-center space-y-3
+                  flex flex-col items-center justify-center text-center space-y-1 sm:space-y-3
                   transform hover:scale-105 hover:shadow-xl hover:border-gold
-                  transition-all duration-300
+                  transition-all duration-300 px-2
                 "
                 >
                   {/* Icon Container */}
                   <div
                     className="
-                    w-12 h-12 flex items-center justify-center rounded-xl
+                    w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl
                     transition-all duration-300
-                   
+                  
                   "
                   >
                     {/* Correctly render the dynamic icon */}
                     {ServiceIcon && (
-                      <ServiceIcon className="text-3xl text-gold dark:text-gold" />
+                      <ServiceIcon className="text-xl sm:text-3xl text-gold dark:text-gold" />
                     )}
                   </div>
 
                   {/* Text Container */}
-                  <span className="text-md font-semibold text-gray-800 dark:text-gray-200 px-2">
+                  <span className="text-xs sm:text-md font-semibold text-gray-800 dark:text-gray-200 px-1 sm:px-2 leading-tight sm:leading-normal">
                     {service.title}
                   </span>
                 </Link>

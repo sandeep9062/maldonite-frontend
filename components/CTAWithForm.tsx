@@ -96,19 +96,19 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="relative py-16 bg-[var(--color-gold)] text-center text-black dark:text-black">
-      <div className="max-w-4xl mx-auto px-4">
-        <h2 className="text-2xl md:text-4xl font-semibold">
-          Let’s Build Something Golden
+    <section className="relative py-8 sm:py-16 bg-[var(--color-gold)] text-center text-black dark:text-black">
+      <div className="max-w-4xl mx-auto px-3 sm:px-4">
+        <h2 className="text-lg sm:text-2xl md:text-4xl font-semibold px-2">
+          Let&rsquo;s Build Something Golden
         </h2>
-        <p className="mt-2 text-gray-800">
+        <p className="mt-1 sm:mt-2 text-xs sm:text-base text-gray-800 px-2">
           Have a project idea? Contact us to start your custom project today.
         </p>
 
         {submitted ? (
           <div
             key="thanks"
-            className="mt-6 text-navy bg-white p-4 rounded-md shadow-md"
+            className="mt-4 sm:mt-6 text-navy bg-white p-3 sm:p-4 rounded-md shadow-md text-sm sm:text-base"
           >
             Thank you! Your message has been sent.
           </div>
@@ -116,9 +116,9 @@ const ContactForm = () => {
           <form
             key="form"
             onSubmit={handleSubmit}
-            className="mt-8 space-y-4 text-left"
+            className="mt-4 sm:mt-8 space-y-2.5 sm:space-y-4 text-left"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-4">
               <input
                 type="text"
                 name="name"
@@ -126,7 +126,7 @@ const ContactForm = () => {
                 onChange={handleChange}
                 placeholder="Your Name"
                 required
-                className="w-full px-4 py-3 rounded-md bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-md bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black text-sm sm:text-base"
               />
               <input
                 type="email"
@@ -135,31 +135,37 @@ const ContactForm = () => {
                 onChange={handleChange}
                 placeholder="Your Email"
                 required
-                className="w-full px-4 py-3 rounded-md bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-md bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black text-sm sm:text-base"
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-4">
+              <div className="overflow-hidden">
                 <PhoneInput
                   country={"in"}
                   value={form.phone}
                   onChange={handlePhoneChange}
                   inputStyle={{
                     width: "100%",
-                    height: "48px",
+                    height: "42px",
                     border: "1px solid #000",
                     borderRadius: "6px",
                     paddingLeft: "48px",
                     backgroundColor: "white",
                     color: "black",
+                    fontSize: "14px",
+                    maxWidth: "100%",
                   }}
                   containerStyle={{
                     width: "100%",
+                    maxWidth: "100%",
+                    overflow: "hidden",
                   }}
                   buttonStyle={{
                     border: "1px solid #000",
                     borderRight: "none",
+                    height: "42px",
+                    maxWidth: "48px",
                   }}
                 />
               </div>
@@ -170,7 +176,7 @@ const ContactForm = () => {
                 onChange={handleChange}
                 placeholder="Subject"
                 required
-                className="w-full px-4 py-3 rounded-md bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-md bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black text-sm sm:text-base"
               />
             </div>
 
@@ -181,14 +187,14 @@ const ContactForm = () => {
               placeholder="Your Message"
               required
               rows={4}
-              className="w-full px-4 py-3 rounded-md bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-md bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black text-sm sm:text-base"
             ></textarea>
 
             <div className="flex justify-center">
               <button
                 type="submit"
                 disabled={isLoading}
-                className="bg-darkbg1 text-white px-6 py-3 rounded hover:bg-darkbg2 transition disabled:opacity-50"
+                className="w-full sm:w-auto bg-darkbg1 text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded hover:bg-darkbg2 transition disabled:opacity-50 text-sm sm:text-base"
               >
                 {isLoading ? "Sending..." : "Send Message"}
               </button>
@@ -209,12 +215,12 @@ const CTAWithForm = () => {
       "reCAPTCHA site key is missing. Please check your environment variables.",
     );
     return (
-      <section className="relative py-16 bg-[var(--color-gold)] text-center text-black dark:text-black">
-        <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl md:text-4xl font-semibold">
+      <section className="relative py-8 sm:py-16 bg-[var(--color-gold)] text-center text-black dark:text-black">
+        <div className="max-w-4xl mx-auto px-3 sm:px-4">
+          <h2 className="text-lg sm:text-2xl md:text-4xl font-semibold px-2">
             Contact Form Temporarily Unavailable
           </h2>
-          <p className="mt-2 text-gray-800">
+          <p className="mt-1 sm:mt-2 text-xs sm:text-base text-gray-800 px-2">
             We're experiencing technical issues with our contact form. Please
             try again later or contact us directly.
           </p>

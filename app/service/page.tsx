@@ -40,12 +40,12 @@ const ServicesGrid = () => {
   return (
     <main className="bg-white mt-16 dark:bg-[#0D1321] text-black dark:text-white">
       {/* Header Section */}
-      <section className="text-center py-16 px-4 bg-gradient-to-br from-white to-gray-100 dark:from-[#0D1321] dark:to-[#1a1a1a]">
+      <section className="text-center py-12 sm:py-16 px-4 bg-gradient-to-br from-white to-gray-100 dark:from-[#0D1321] dark:to-[#1a1a1a]">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl font-bold text-navy dark:text-white mb-4"
+          className="text-3xl sm:text-4xl font-bold text-navy dark:text-white mb-4"
         >
           Our Services
         </motion.h1>
@@ -53,7 +53,7 @@ const ServicesGrid = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+          className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto px-2"
         >
           From design to deployment to AI automation — we build powerful digital
           solutions that scale with your vision.
@@ -61,7 +61,7 @@ const ServicesGrid = () => {
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 px-4 max-w-7xl mx-auto">
+      <section className="py-12 sm:py-20 px-4 max-w-7xl mx-auto">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -72,7 +72,7 @@ const ServicesGrid = () => {
               transition: { staggerChildren: 0.12 },
             },
           }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
         >
           {services.map((service, idx) => {
             const IconComponent = service.icon
@@ -91,7 +91,7 @@ const ServicesGrid = () => {
                   href={`/service/${service.slug}`}
                   className="block h-full"
                 >
-                  <div className="h-full cursor-pointer p-6 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 hover:border-[#d4af37] group">
+                  <div className="h-full cursor-pointer p-4 sm:p-6 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 hover:border-[#d4af37] group">
                     {/* Icon */}
                     {IconComponent && (
                       <div className="flex items-center justify-center w-14 h-14 rounded-full bg-[#d4af37]/20 mb-5 group-hover:scale-110 transition-transform duration-300">

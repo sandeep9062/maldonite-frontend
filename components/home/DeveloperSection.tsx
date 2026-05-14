@@ -1,47 +1,93 @@
 "use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Github, Linkedin, Mail, Code, Database, Globe, Smartphone, Server, Award, Users, CheckCircle, Sparkles } from 'lucide-react';
-import { useGetSiteSettingsQuery } from '@/services/siteSettingsApi';
+import React from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  Github,
+  Linkedin,
+  Mail,
+  Code,
+  Database,
+  Globe,
+  Smartphone,
+  Server,
+  Award,
+  Users,
+  CheckCircle,
+  Sparkles,
+} from "lucide-react";
+import { useGetSiteSettingsQuery } from "@/services/siteSettingsApi";
 
 const DeveloperSection = () => {
   const { data: siteSettings } = useGetSiteSettingsQuery();
 
   const skills = [
-    { name: 'Full-Stack Development', icon: <Code className="w-5 h-5" />, color: 'text-blue-500', bgColor: 'bg-blue-50 dark:bg-blue-900/20' },
-    { name: 'Database Design', icon: <Database className="w-5 h-5" />, color: 'text-green-500', bgColor: 'bg-green-50 dark:bg-green-900/20' },
-    { name: 'Web Development', icon: <Globe className="w-5 h-5" />, color: 'text-purple-500', bgColor: 'bg-purple-50 dark:bg-purple-900/20' },
-    { name: 'Mobile Apps', icon: <Smartphone className="w-5 h-5" />, color: 'text-orange-500', bgColor: 'bg-orange-50 dark:bg-orange-900/20' },
-    { name: 'API Development', icon: <Server className="w-5 h-5" />, color: 'text-red-500', bgColor: 'bg-red-50 dark:bg-red-900/20' },
+    {
+      name: "Full-Stack Development",
+      icon: <Code className="w-5 h-5" />,
+      color: "text-blue-500",
+      bgColor: "bg-blue-50 dark:bg-blue-900/20",
+    },
+    {
+      name: "Database Design",
+      icon: <Database className="w-5 h-5" />,
+      color: "text-green-500",
+      bgColor: "bg-green-50 dark:bg-green-900/20",
+    },
+    {
+      name: "Web Development",
+      icon: <Globe className="w-5 h-5" />,
+      color: "text-purple-500",
+      bgColor: "bg-purple-50 dark:bg-purple-900/20",
+    },
+    {
+      name: "Mobile Apps",
+      icon: <Smartphone className="w-5 h-5" />,
+      color: "text-orange-500",
+      bgColor: "bg-orange-50 dark:bg-orange-900/20",
+    },
+    {
+      name: "API Development",
+      icon: <Server className="w-5 h-5" />,
+      color: "text-red-500",
+      bgColor: "bg-red-50 dark:bg-red-900/20",
+    },
   ];
 
   const technologies = [
-    'React', 'Next.js', 'Node.js', 'MongoDB', 'PostgreSQL',
-    'TypeScript', 'JavaScript', 'Python', 'AWS', 'Docker'
+    "React",
+    "Next.js",
+    "Node.js",
+    "MongoDB",
+    "PostgreSQL",
+    "TypeScript",
+    "JavaScript",
+    "Python",
+    "AWS",
+    "Docker",
   ];
 
   const stats = [
     {
       icon: <Award className="w-6 h-6 text-gold" />,
-      value: siteSettings?.projectsCompleted || '50+',
-      label: 'Projects Completed',
-      description: 'Delivered with excellence'
+      value: siteSettings?.projectsCompleted || "50+",
+      label: "Projects Completed",
+      description: "Delivered with excellence",
     },
     {
       icon: <Users className="w-6 h-6 text-gold" />,
-      value: siteSettings?.clientsServed || '25+',
-      label: 'Happy Clients',
-      description: 'Satisfied worldwide'
+      value: siteSettings?.clientsServed || "25+",
+      label: "Happy Clients",
+      description: "Satisfied worldwide",
     },
     {
       icon: <CheckCircle className="w-6 h-6 text-gold" />,
-      value: '99%',
-      label: 'Success Rate',
-      description: 'Client satisfaction'
-    }
+      value: "99%",
+      label: "Success Rate",
+      description: "Client satisfaction",
+    },
   ];
 
   return (
@@ -73,7 +119,8 @@ const DeveloperSection = () => {
             Lead Software Developer
           </h2>
           <p className="text-gray-600 dark:text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
-            Delivering enterprise-grade solutions with proven expertise in modern web technologies and scalable architecture
+            Delivering enterprise-grade solutions with proven expertise in
+            modern web technologies and scalable architecture
           </p>
         </motion.div>
 
@@ -131,9 +178,10 @@ const DeveloperSection = () => {
                 className="mb-8"
               >
                 <p className="text-gray-700 dark:text-gray-300 text-center leading-relaxed">
-                  Experienced full-stack developer with expertise in modern web technologies.
-                  Specializing in scalable application development, performance optimization,
-                  and delivering enterprise-grade solutions that drive business success.
+                  Experienced full-stack developer with expertise in modern web
+                  technologies. Specializing in scalable application
+                  development, performance optimization, and delivering
+                  enterprise-grade solutions that drive business success.
                 </p>
               </motion.div>
 
@@ -148,7 +196,7 @@ const DeveloperSection = () => {
                 <h4 className="text-lg font-bold text-navy dark:text-white mb-6 text-center">
                   Technical Expertise
                 </h4>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {skills.map((skill, index) => (
                     <motion.div
                       key={skill.name}
@@ -158,7 +206,9 @@ const DeveloperSection = () => {
                       viewport={{ once: true }}
                       className={`flex items-center gap-4 p-4 ${skill.bgColor} rounded-lg border border-gray-200/50 dark:border-gray-700/50 hover:border-gold/30 transition-colors duration-300`}
                     >
-                      <div className={`p-2 rounded-md bg-white/80 dark:bg-gray-800/80 ${skill.color}`}>
+                      <div
+                        className={`p-2 rounded-md bg-white/80 dark:bg-gray-800/80 ${skill.color}`}
+                      >
                         {skill.icon}
                       </div>
                       <span className="text-sm font-medium text-gray-800 dark:text-gray-200">
@@ -252,7 +302,7 @@ const DeveloperSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
               viewport={{ once: true }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-6"
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6"
             >
               {stats.map((stat, index) => (
                 <motion.div

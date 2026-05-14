@@ -46,7 +46,7 @@ const PortfolioPage = () => {
   const startIndex = (currentPage - 1) * PROJECTS_PER_PAGE;
   const paginatedProjects = filtered.slice(
     startIndex,
-    startIndex + PROJECTS_PER_PAGE
+    startIndex + PROJECTS_PER_PAGE,
   );
 
   if (isLoading) {
@@ -67,25 +67,25 @@ const PortfolioPage = () => {
   };
 
   return (
-    <section className="min-h-screen bg-white dark:bg-darkbg1 py-20 px-6 md:px-10">
+    <section className="min-h-screen bg-white dark:bg-darkbg1 py-10 sm:py-20 px-3 sm:px-6 md:px-10">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-4xl font-bold text-center text-navy dark:text-white mb-10"
+          className="text-xl sm:text-3xl md:text-4xl font-bold text-center text-navy dark:text-white mb-6 sm:mb-10"
         >
           Featured Projects
         </motion.h2>
 
         {/* Category Filters */}
-        <div className="flex justify-center gap-4 flex-wrap mb-12">
+        <div className="flex justify-center gap-1.5 sm:gap-4 flex-wrap mb-6 sm:mb-12">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => handleCategoryChange(cat)}
-              className={`px-4 py-2 rounded-full border font-medium transition duration-200 ${
+              className={`px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-full border font-medium transition duration-200 ${
                 active === cat
                   ? "bg-[#D4AF37] text-black border-transparent"
                   : "text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-[#D4AF37]/20"
@@ -97,7 +97,7 @@ const PortfolioPage = () => {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 md:gap-8">
           {paginatedProjects.map((project, index) => {
             const coverImage =
               project.image && project.image.length > 0
@@ -121,23 +121,23 @@ const PortfolioPage = () => {
                     alt={project.title || "Project image"}
                     width={600}
                     height={400}
-                    className="h-52 w-full object-cover"
+                    className="h-40 sm:h-52 w-full object-cover"
                   />
                 </Link>
 
                 {/* Details */}
 
                 <Link href={`/projects/${project.slug}`}>
-                  <div className="p-5">
-                    <h3 className="text-xl font-semibold text-navy dark:text-white">
+                  <div className="p-3 sm:p-5">
+                    <h3 className="text-base sm:text-xl font-semibold text-navy dark:text-white">
                       {project.title}
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-3">
+                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1 sm:mt-2 line-clamp-2 sm:line-clamp-3">
                       {project.description}
                     </p>
 
                     {/* External Link */}
-                    <div className="flex gap-4 mt-4">
+                    <div className="flex gap-4 mt-2 sm:mt-4">
                       <div
                         // href={`/projects/${project.slug}`}
                         aria-label={`View details for ${project.title}`}
@@ -155,19 +155,19 @@ const PortfolioPage = () => {
 
         {/* No Projects Found */}
         {filtered.length === 0 && (
-          <p className="text-center text-gray-500 dark:text-gray-400 mt-10">
+          <p className="text-center text-gray-500 dark:text-gray-400 mt-6 sm:mt-10">
             No projects found for “{active}”
           </p>
         )}
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex justify-center items-center gap-2 mt-12">
+          <div className="flex justify-center items-center gap-1.5 sm:gap-2 mt-6 sm:mt-12">
             {Array.from({ length: totalPages }, (_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrentPage(i + 1)}
-                className={`px-4 py-2 rounded-full text-sm font-medium border transition duration-200 ${
+                className={`px-2.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-full font-medium border transition duration-200 ${
                   currentPage === i + 1
                     ? "bg-[#D4AF37] text-black border-[#D4AF37]"
                     : "bg-gray-100 dark:bg-[#1a1a1a] text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-[#D4AF37]/20"

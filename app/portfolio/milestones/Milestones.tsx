@@ -41,7 +41,7 @@ export default function Milestones() {
   ];
 
   return (
-    <section className="py-20 px-4 mt-16 bg-white dark:bg-darkbg1 transition-colors duration-300">
+    <section className="py-12 sm:py-20 px-4 mt-10 sm:mt-16 bg-white dark:bg-darkbg1 transition-colors duration-300">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -49,11 +49,11 @@ export default function Milestones() {
         transition={{ duration: 0.6 }}
         className="max-w-6xl mx-auto text-center"
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-[#0d1321] dark:text-white mb-12">
+        <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-[#0d1321] dark:text-white mb-6 sm:mb-12">
           Our Milestones
         </h2>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-3 sm:gap-6 grid-cols-2 lg:grid-cols-4">
           {milestones.map((item, idx) => (
             <motion.div
               key={idx}
@@ -62,19 +62,21 @@ export default function Milestones() {
               viewport={{ once: true }}
               transition={{ delay: 0.2 + idx * 0.2 }}
               className="
-              p-8 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] dark:text-[#ffffff] 
+              p-3 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] dark:text-[#ffffff] 
               hover:shadow-xl hover:border-[#d4af37] transition-all duration-300 group
               "
             >
-              <div className="mb-4 text-gold">{item.icon}</div>
-              <h3 className="text-2xl font-semibold mb-1">
+              <div className="mb-2 sm:mb-4 text-gold [&>svg]:w-5 [&>svg]:h-5 sm:[&>svg]:w-7 sm:[&>svg]:h-7">
+                {item.icon}
+              </div>
+              <h3 className="text-base sm:text-2xl font-semibold mb-1">
                 <CountUp end={item.value ?? 0} duration={2} />
                 {item.suffix}
               </h3>
-              <p className="text-md font-medium text-gray-800 dark:text-gray-300 mb-1">
+              <p className="text-xs sm:text-md font-medium text-gray-800 dark:text-gray-300 mb-1">
                 {item.title}
               </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-[10px] sm:text-sm text-gray-600 dark:text-gray-400 leading-tight sm:leading-normal">
                 {item.description}
               </p>
             </motion.div>

@@ -17,11 +17,11 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="bg-[#0D1321] text-white">
-      <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
         {/* Logo & Tagline */}
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           <Link href="/" className="flex items-center gap-3">
-            <div className="relative w-10 h-10">
+            <div className="relative w-8 h-8 sm:w-10 sm:h-10">
               {siteSettings?.logoUrl && (
                 <Image
                   src={siteSettings.logoUrl}
@@ -32,11 +32,11 @@ const Footer: React.FC = () => {
                 />
               )}
             </div>
-            <h1 className="text-2xl font-semibold">
+            <h1 className="text-xl sm:text-2xl font-semibold">
               Maldon<span className="text-gold">i</span>te
             </h1>
           </Link>
-          <p className="text-sm text-gray-400 max-w-xs leading-relaxed">
+          <p className="text-xs sm:text-sm text-gray-400 max-w-xs leading-relaxed">
             Shaping Digital Gold. We craft scalable web experiences with
             elegance and precision.
           </p>
@@ -44,8 +44,10 @@ const Footer: React.FC = () => {
 
         {/* Quick Links */}
         <div>
-          <h3 className="text-lg font-semibold mb-4 text-gold">Quick Links</h3>
-          <ul className="grid grid-cols-2 gap-2 text-sm text-gray-300">
+          <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-gold">
+            Quick Links
+          </h3>
+          <ul className="grid grid-cols-2 gap-1.5 sm:gap-2 text-xs sm:text-sm text-gray-300">
             {[
               ["Home", "/"],
               ["About Us", "/about"],
@@ -65,16 +67,22 @@ const Footer: React.FC = () => {
 
         {/* Contact Info */}
         <div>
-          <h3 className="text-lg font-semibold mb-4 text-[#D4AF37]">
+          <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-[#D4AF37]">
             Contact Us
           </h3>
-          <ul className="text-sm space-y-3 text-gray-300">
-            {isLoading && <li>Loading contact info...</li>}
-            {isError && <li>Error fetching contact info.</li>}
+          <ul className="text-xs sm:text-sm space-y-2 sm:space-y-3 text-gray-300">
+            {isLoading && (
+              <li className="text-xs sm:text-sm">Loading contact info...</li>
+            )}
+            {isError && (
+              <li className="text-xs sm:text-sm">
+                Error fetching contact info.
+              </li>
+            )}
             {siteSettings && (
               <>
-                <li className="flex items-start gap-3">
-                  <MapPin className="text-gold" size={18} />
+                <li className="flex items-start gap-2 sm:gap-3">
+                  <MapPin className="text-gold shrink-0 mt-0.5" size={16} />
                   {siteSettings.googleMapUrl ? (
                     <a
                       href={siteSettings.googleMapUrl}
@@ -89,7 +97,7 @@ const Footer: React.FC = () => {
                 </li>
 
                 <li className="flex items-center gap-2">
-                  <Phone className="text-gold" size={18} />
+                  <Phone className="text-gold shrink-0" size={16} />
                   {siteSettings.contactNo1 && (
                     <a
                       href={`tel:+91${siteSettings.contactNo1}`}
@@ -112,8 +120,8 @@ const Footer: React.FC = () => {
                 </li>
 
                 {siteSettings.email && (
-                  <li className="flex items-center gap-3">
-                    <Mail className="text-gold" size={18} />
+                  <li className="flex items-center gap-2 sm:gap-3">
+                    <Mail className="text-gold shrink-0" size={16} />
                     <a
                       href={`mailto:${siteSettings.email}`}
                       className="hover:text-white transition"
@@ -132,7 +140,7 @@ const Footer: React.FC = () => {
       <SocialMediaLinks />
 
       {/* Footer Bottom */}
-      <div className="border-t border-gray-700 text-center text-sm text-gray-500 py-4 px-6">
+      <div className="border-t border-gray-700 text-center text-[10px] sm:text-sm text-gray-500 py-3 sm:py-4 px-4 sm:px-6">
         &copy; {currentYear} Maldonite. All rights reserved.
       </div>
     </footer>

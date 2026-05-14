@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 import {
   GoogleReCaptchaProvider,
   useGoogleReCaptcha,
@@ -29,7 +30,7 @@ const LeadFormContent = ({
     try {
       // Get reCAPTCHA token
       if (!executeRecaptcha) {
-        alert("reCAPTCHA is not ready yet. Please try again.");
+        toast.error("reCAPTCHA is not ready yet. Please try again.");
         setIsLoading(false);
         return;
       }
@@ -47,7 +48,9 @@ const LeadFormContent = ({
       setForm({ name: "", email: "", query: "" });
     } catch (error) {
       console.error("Lead form submission error:", error);
-      alert("An error occurred while submitting the form. Please try again.");
+      toast.error(
+        "An error occurred while submitting the form. Please try again.",
+      );
     } finally {
       setIsLoading(false);
     }

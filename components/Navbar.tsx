@@ -80,23 +80,23 @@ export default function Navbar() {
 
   return (
     <header className="bg-[#0D1321] text-white shadow-md w-full z-50 fixed top-0">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex justify-between items-center h-14 sm:h-16">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-[6px]">
+        <Link href="/" className="flex items-center gap-[4px] sm:gap-[6px]">
           {siteSettings?.logoUrl && (
             <Image
               src={siteSettings.logoUrl}
               alt="Maldonite"
-              width={42}
-              height={42}
-              className="object-contain"
+              width={36}
+              height={36}
+              className="object-contain sm:w-[42px] sm:h-[42px]"
             />
           )}
           <div>
-            <h1 className="text-xl font-semibold mt-2 leading-none">
+            <h1 className="text-base sm:text-xl font-semibold mt-1 sm:mt-2 leading-none">
               Maldon<span className="text-gold">i</span>te
             </h1>
-            <p className="text-[9px] text-silver sm:block">
+            <p className="text-[8px] sm:text-[9px] text-silver">
               Shaping Digital Gold
             </p>
           </div>
@@ -277,14 +277,14 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Hamburger & Theme Toggle */}
-        <div className="md:hidden flex items-center gap-4">
+        <div className="md:hidden flex items-center gap-3">
           <ToggleButton />
           <button
-            className="text-white"
+            className="text-white p-1"
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
           >
-            {open ? <X size={24} /> : <Menu size={24} />}
+            {open ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
@@ -298,47 +298,47 @@ export default function Navbar() {
             animate={{ y: 0 }}
             exit={{ y: "-100%" }}
             transition={{ type: "spring", stiffness: 80, damping: 20 }}
-            className="absolute top-0 left-0 w-full bg-[#0D1321] shadow-lg z-50"
+            className="absolute top-0 left-0 w-full bg-[#0D1321] shadow-lg z-50 max-h-screen overflow-y-auto"
           >
             {/* Drawer Header */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700">
+            <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 border-b border-gray-700">
               <Link
                 href="/"
                 onClick={() => setOpen(false)}
-                className="flex items-center gap-[5px]"
+                className="flex items-center gap-[4px] sm:gap-[5px]"
               >
                 {siteSettings?.logoUrl ? (
                   <Image
                     src={siteSettings.logoUrl}
                     alt="Maldonite"
-                    width={35}
-                    height={35}
-                    className="object-contain"
+                    width={32}
+                    height={32}
+                    className="object-contain sm:w-[35px] sm:h-[35px]"
                   />
                 ) : (
                   <Image
                     src="/ignot-logo.png"
                     alt="Logo"
-                    width={35}
-                    height={35}
-                    className="object-contain"
+                    width={32}
+                    height={32}
+                    className="object-contain sm:w-[35px] sm:h-[35px]"
                   />
                 )}
-                <h1 className="text-lg font-semibold">
+                <h1 className="text-base sm:text-lg font-semibold">
                   Maldon<span className="text-gold">i</span>te
                 </h1>
               </Link>
               <button
                 onClick={() => setOpen(false)}
-                className="text-white hover:text-[#D4AF37]"
+                className="text-white hover:text-[#D4AF37] p-1"
                 aria-label="Close menu"
               >
-                <X size={22} />
+                <X size={20} />
               </button>
             </div>
 
             {/* Nav Links */}
-            <nav className="flex flex-col items-center gap-4 py-3">
+            <nav className="flex flex-col items-center gap-2 sm:gap-3 py-2 sm:py-3 px-3 sm:px-4">
               {navLinks.map((link) => {
                 if (link.name === "Services") {
                   return (
@@ -347,7 +347,7 @@ export default function Navbar() {
                         onClick={() =>
                           setMobileServicesOpen(!mobileServicesOpen)
                         }
-                        className={`flex items-center justify-center gap-2 text-[14px] transition w-full ${
+                        className={`flex items-center justify-center gap-1.5 sm:gap-2 text-[13px] sm:text-[14px] transition w-full ${
                           pathname === link.href ||
                           pathname.startsWith("/service/")
                             ? "text-gold font-semibold"
@@ -484,7 +484,7 @@ export default function Navbar() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`text-[14px] transition ${
+                    className={`text-[13px] sm:text-[14px] transition ${
                       pathname === link.href
                         ? "text-gold font-semibold"
                         : "text-white hover:text-[#D4AF37]"
@@ -498,11 +498,11 @@ export default function Navbar() {
             </nav>
 
             {/* CTA Button */}
-            <div className="px-4 py-3 justify-center items-center">
+            <div className="px-3 sm:px-4 py-3 sm:py-4">
               <Link
                 href="/quote"
                 onClick={() => setOpen(false)}
-                className="block w-full text-center py-3 rounded bg-gold text-black font-semibold hover:bg-gold/80 transition-colors"
+                className="block w-full text-center py-2.5 sm:py-3 rounded bg-gold text-black font-semibold hover:bg-gold/80 transition-colors text-sm sm:text-base"
               >
                 Get Quote
               </Link>

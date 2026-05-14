@@ -4,6 +4,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  --breakpoint-xs: 320px;
   --color-gold: #d4af37; /* Logo, call-to-action buttons */
   --color-navy: #0d1321; /* Background, header/footer */
   --color-silver: #c0c0c0; /*Icons, text highlights*/
@@ -223,7 +224,6 @@
 
 
 
-
 /* Add this to app/globals.css */
 
 .swiper-container-custom {
@@ -270,4 +270,62 @@
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
+}
+
+/* ========== MOBILE RESPONSIVE UTILITY CLASSES ========== */
+
+/* Prevent overflow on mobile */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Ensure images don't overflow on mobile */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Fix phone input on mobile */
+.react-tel-input .form-control {
+  width: 100% !important;
+  height: 48px !important;
+}
+
+/* Make sure tables and wide elements don't overflow */
+table, pre, code {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* Custom scrollbar for better mobile UX */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 3px;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Fix for fixed-width service cards on mobile */
+@media (max-width: 640px) {
+  .service-card-fixed {
+    width: 100% !important;
+    height: auto !important;
+    padding: 1.5rem 0.75rem !important;
+  }
+  
+  .grid-gap-mobile-sm {
+    gap: 0.75rem !important;
+  }
 }

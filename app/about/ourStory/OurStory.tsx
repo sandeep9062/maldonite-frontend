@@ -10,8 +10,8 @@ export default function OurStory() {
     useGetWebsiteImageByContextQuery("team-maldonite");
 
   return (
-    <section className="bg-white text-gray-800 dark:bg-darkbg1 dark:text-white py-20 px-6 sm:px-10 md:px-20 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <section className="bg-white text-gray-800 dark:bg-darkbg1 dark:text-white py-10 sm:py-14 md:py-20 px-4 sm:px-6 md:px-10 lg:px-20 transition-colors duration-300">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center">
         {/* Image Section */}
         <motion.div
           initial={{ opacity: 0, x: -40 }}
@@ -38,24 +38,24 @@ export default function OurStory() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-primary dark:text-white">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 md:mb-6 text-primary dark:text-white">
             Our Story
           </h2>
-          <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
             Founded in 2020, <strong>Maldonite</strong> emerged with a vision to
             revolutionize digital transformation through modern, scalable, and
             intelligent software solutions. From our roots in Panchkula (HR), we
-            quickly became one of the region’s first fully remote tech
-            teams—collaborating with clients across the U.S., U.K., Canada, and
-            UAE. Our mission is to craft web applications that go beyond
-            functionality, offering performance, security, and a seamless user
-            experience. With deep expertise in full-stack SaaS development using
-            the MERN stack and Next.js, we turn complex ideas into high-impact
-            platforms. Our approach blends beautiful UI/UX design with real-time
-            interactivity, cloud-native architecture, and intelligent
-            automation. At our core, we're not just builders—we’re partners in
-            growth, delivering results fast while staying committed to long-term
-            success.
+            quickly became one of the region&rsquo;s first fully remote tech
+            teams&mdash;collaborating with clients across the U.S., U.K.,
+            Canada, and UAE. Our mission is to craft web applications that go
+            beyond functionality, offering performance, security, and a seamless
+            user experience. With deep expertise in full-stack SaaS development
+            using the MERN stack and Next.js, we turn complex ideas into
+            high-impact platforms. Our approach blends beautiful UI/UX design
+            with real-time interactivity, cloud-native architecture, and
+            intelligent automation. At our core, we&rsquo;re not just
+            builders&mdash;we&rsquo;re partners in growth, delivering results
+            fast while staying committed to long-term success.
           </p>
         </motion.div>
       </div>

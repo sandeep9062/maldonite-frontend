@@ -12,20 +12,20 @@ const OurClients = () => {
 
   if (isLoading) {
     return (
-      <section className="py-20 bg-white dark:bg-darkbg1">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-[#0D1321] dark:text-white mb-4">
+      <section className="py-10 sm:py-14 md:py-20 bg-white dark:bg-darkbg1">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#0D1321] dark:text-white mb-2 sm:mb-3 md:mb-4">
             Trusted by Global <span className="text-gold">Clients</span>
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 mb-10">
-            We@aga;ve had the privilege of working with forward-thinking
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-6 sm:mb-8 md:mb-10">
+            We&rsquo;ve had the privilege of working with forward-thinking
             companies.
           </p>
-          <div className="flex justify-center gap-6">
+          <div className="flex justify-center gap-3 sm:gap-4 md:gap-6 flex-wrap">
             {[...Array(4)].map((_, i) => (
               <div
                 key={i}
-                className="w-28 h-28 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-lg"
+                className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-lg"
               />
             ))}
           </div>
@@ -39,19 +39,19 @@ const OurClients = () => {
   }
 
   return (
-    <section className="py-20 bg-white dark:bg-darkbg1">
-      <div className="max-w-6xl mx-auto px-4 text-center">
-        <h2 className="text-3xl font-bold text-[#0D1321] dark:text-white mb-4">
+    <section className="py-10 sm:py-14 md:py-20 bg-white dark:bg-darkbg1">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#0D1321] dark:text-white mb-2 sm:mb-3 md:mb-4">
           Trusted by Global <span className="text-gold">Clients</span>
         </h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-10">
+        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-6 sm:mb-8 md:mb-10">
           We have had the privilege of working with many forward-thinking
           companies.
         </p>
 
         <Swiper
           modules={[Autoplay]}
-          spaceBetween={30}
+          spaceBetween={12}
           slidesPerView={2}
           loop={true}
           autoplay={{
@@ -61,9 +61,11 @@ const OurClients = () => {
           }}
           speed={2500}
           breakpoints={{
-            640: { slidesPerView: 3 },
-            768: { slidesPerView: 4 },
-            1024: { slidesPerView: 5 },
+            400: { slidesPerView: 2, spaceBetween: 12 },
+            480: { slidesPerView: 2, spaceBetween: 16 },
+            640: { slidesPerView: 3, spaceBetween: 16 },
+            768: { slidesPerView: 4, spaceBetween: 20 },
+            1024: { slidesPerView: 5, spaceBetween: 24 },
           }}
         >
           {clients?.data.map((client, i) => (
@@ -73,7 +75,7 @@ const OurClients = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
-                className="flex flex-col items-center justify-center p-4 rounded bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-700 shadow hover:shadow-md hover:border-[#d4af37] transition-all duration-300"
+                className="flex flex-col items-center justify-center p-2 sm:p-3 md:p-4 rounded-lg sm:rounded bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-[#d4af37] transition-all duration-300"
               >
                 {client.icon && (
                   <Image
@@ -81,10 +83,10 @@ const OurClients = () => {
                     alt={client.name}
                     width={60}
                     height={60}
-                    className="object-contain w-24 h-24"
+                    className="object-contain w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24"
                   />
                 )}
-                <span className="mt-2 text-sm text-gray-800 dark:text-gray-300">
+                <span className="mt-1 sm:mt-2 text-[10px] sm:text-xs md:text-sm text-gray-800 dark:text-gray-300 truncate max-w-full">
                   {client.name}
                 </span>
               </motion.div>

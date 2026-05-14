@@ -14,8 +14,8 @@ const PortfolioPreview = () => {
 
   if (isLoading) {
     return (
-      <section className="py-16 bg-white dark:bg-[#0D1321]">
-        <div className="text-center text-gray-500 dark:text-gray-400">
+      <section className="py-10 sm:py-16 bg-white dark:bg-[#0D1321]">
+        <div className="text-center text-gray-500 dark:text-gray-400 text-sm sm:text-base">
           Loading recent projects...
         </div>
       </section>
@@ -24,8 +24,8 @@ const PortfolioPreview = () => {
 
   if (isError) {
     return (
-      <section className="py-16 bg-white dark:bg-[#0D1321]">
-        <div className="text-center text-red-500 dark:text-red-400">
+      <section className="py-10 sm:py-16 bg-white dark:bg-[#0D1321]">
+        <div className="text-center text-red-500 dark:text-red-400 text-sm sm:text-base">
           Failed to load projects.
         </div>
       </section>
@@ -33,17 +33,17 @@ const PortfolioPreview = () => {
   }
 
   return (
-    <section className="py-16 bg-white dark:bg-[#0D1321]">
+    <section className="py-10 sm:py-16 bg-white dark:bg-[#0D1321]">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true, amount: 0.1 }}
-        className="max-w-6xl mx-auto px-4"
+        className="max-w-6xl mx-auto px-3 sm:px-4"
       >
         {/* Heading */}
         <motion.h2
-          className={`text-4xl font-bold ${NAVY_COLOR} text-center`}
+          className={`text-2xl sm:text-3xl md:text-4xl font-bold ${NAVY_COLOR} text-center px-2`}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
@@ -52,7 +52,7 @@ const PortfolioPreview = () => {
           Recent Work
         </motion.h2>
         <motion.p
-          className="text-center text-gray-600 dark:text-gray-400 mt-2 mb-12"
+          className="text-center text-gray-600 dark:text-gray-400 mt-2 mb-8 sm:mb-12 text-sm sm:text-base"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
@@ -62,7 +62,7 @@ const PortfolioPreview = () => {
         </motion.p>
 
         {/* Projects Grid */}
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {[...projects]
             .sort(
               (a, b) =>
@@ -89,7 +89,7 @@ const PortfolioPreview = () => {
                   {/* Type badge */}
                   {project.type && (
                     <span
-                      className="absolute top-4 right-4 text-xs font-bold uppercase px-3 py-1 rounded-full z-10"
+                      className="absolute top-2 sm:top-4 right-2 sm:right-4 text-[10px] sm:text-xs font-bold uppercase px-2 sm:px-3 py-0.5 sm:py-1 rounded-full z-10"
                       style={{ backgroundColor: ACCENT_GOLD, color: "#000" }}
                     >
                       {project.type}
@@ -97,7 +97,7 @@ const PortfolioPreview = () => {
                   )}
 
                   {/* Image */}
-                  <div className="relative h-52 w-full">
+                  <div className="relative h-40 sm:h-52 w-full">
                     <Link href={`/projects/${project.slug}`}>
                       <Image
                         height={400}
@@ -112,19 +112,19 @@ const PortfolioPreview = () => {
                   {/* Content */}
 
                   <Link href={`/projects/${project.slug}`}>
-                    <div className="p-5">
+                    <div className="p-4 sm:p-5">
                       <h3
-                        className={`text-xl font-semibold transition ${NAVY_COLOR}`}
+                        className={`text-base sm:text-xl font-semibold transition ${NAVY_COLOR}`}
                         style={{ transition: "color 0.3s ease" }}
                       >
                         {project.title}
                       </h3>
 
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-3">
+                      <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-3 leading-tight sm:leading-normal">
                         {project.description}
                       </p>
 
-                      <div className="flex gap-4 mt-4">
+                      <div className="flex gap-3 sm:gap-4 mt-3 sm:mt-4">
                         {/* Detail Page Link */}
                         <div
                           // href={`/projects/${project.slug}`}
@@ -132,7 +132,7 @@ const PortfolioPreview = () => {
                           className="text-gray-700 dark:text-gray-300 transition hover:text-gold"
                           style={{ transition: "color 0.3s ease" }}
                         >
-                          <ExternalLink size={20} />
+                          <ExternalLink size={16} />
                         </div>
                       </div>
                     </div>
@@ -148,11 +148,11 @@ const PortfolioPreview = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.5 }}
           viewport={{ once: true }}
-          className="flex justify-center mt-12"
+          className="flex justify-center mt-10 sm:mt-12"
         >
           <Link
             href="/portfolio"
-            className="inline-block px-8 py-3 rounded font-semibold transition"
+            className="inline-block px-6 sm:px-8 py-2.5 sm:py-3 rounded font-semibold transition text-sm sm:text-base"
             style={{ backgroundColor: ACCENT_GOLD, color: "#000" }}
           >
             Explore More Projects

@@ -1,10 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 
-import {
-  useGetWebsiteImageByContextQuery,
- 
-} from "@/services/websiteImagesApi";
+import { useGetWebsiteImageByContextQuery } from "@/services/websiteImagesApi";
 
 const steps = [
   {
@@ -45,13 +42,13 @@ const ServiceTimeline = () => {
       <div className="absolute inset-0 bg-black/60" />
 
       {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-26">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center text-white mb-12">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-26">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center text-white mb-8 sm:mb-12">
           Our Process, Start to Success
         </h2>
 
         <div className="relative border-l-2" style={{ borderColor: "#d4af37" }}>
-          <div className="pl-6 space-y-12 sm:space-y-16">
+          <div className="pl-4 sm:pl-6 space-y-8 sm:space-y-12 lg:space-y-16">
             {steps.map((step, i) => (
               <motion.div
                 key={i}
@@ -62,10 +59,10 @@ const ServiceTimeline = () => {
                 className="relative"
               >
                 {/* Text */}
-                <h3 className="text-lg sm:text-xl font-semibold text-gold">
+                <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-gold">
                   {step.title}
                 </h3>
-                <p className="text-sm sm:text-base text-gray-200 max-w-prose mt-2">
+                <p className="text-xs sm:text-sm lg:text-base text-gray-200 max-w-prose mt-1 sm:mt-2">
                   {step.description}
                 </p>
               </motion.div>
