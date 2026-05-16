@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import {
   ShieldCheck,
   LayoutDashboard,
@@ -47,13 +46,7 @@ const WhyUs = () => {
     <section className="py-12 sm:py-24 bg-white dark:bg-darkbg1">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-10 sm:space-y-16">
         {/* Heading Section */}
-        <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
+        <div className="text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white px-2">
             Why Choose <span className="text-[#d4af37]">Maldonite</span>?
           </h2>
@@ -62,26 +55,16 @@ const WhyUs = () => {
             and a focus on results, we turn your vision into scalable,
             revenue-driving software.
           </p>
-        </motion.div>
+        </div>
 
         {/* Grid Section: Features + Image */}
         <div className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-start md:items-center">
           {/* Features Grid */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2"
-          >
+          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2">
             {points.map((point, idx) => (
-              <motion.div
+              <div
                 key={idx}
                 className="bg-white dark:bg-[#1A1A1A] rounded-xl border border-gray-200 dark:border-gray-700 p-3 sm:p-4 shadow-sm hover:shadow-md hover:border-[#d4af37] transition-all duration-300 group"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 + idx * 0.2, duration: 0.5 }}
-                viewport={{ once: true }}
               >
                 <div className="mb-1 sm:mb-2">{point.icon}</div>
                 <h3 className="text-sm sm:text-md font-semibold text-gray-800 dark:text-white group-hover:text-[#d4af37] transition-colors leading-tight sm:leading-normal">
@@ -90,18 +73,12 @@ const WhyUs = () => {
                 <p className="mt-1 text-xs sm:text-sm text-gray-700 dark:text-gray-400 leading-tight sm:leading-normal">
                   {point.desc}
                 </p>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
 
           {/* Image Block with Alignment Fix */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="flex justify-center items-center h-full"
-          >
+          <div className="flex justify-center items-center h-full">
             <div className="w-full max-w-lg rounded-lg overflow-hidden shadow-lg">
               {isLoading && (
                 <div className="w-full h-[200px] sm:h-[300px] flex items-center justify-center bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse">
@@ -128,24 +105,18 @@ const WhyUs = () => {
                 />
               )}
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* CTA Full Width Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          viewport={{ once: true }}
-          className="flex justify-center"
-        >
+        <div className="flex justify-center">
           <a
             href="/contact"
             className="block w-full sm:w-xl text-center bg-[#d4af37] hover:bg-[#c9a437] text-black font-semibold py-2.5 sm:py-3 px-4 sm:px-6 rounded shadow-md transition-all text-sm sm:text-base md:text-lg mx-2 sm:mx-0"
           >
             Book a Free Consultation
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

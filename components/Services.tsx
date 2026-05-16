@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { useGetServicesQuery } from "@/services/servicesApi";
 import * as Icon from "react-icons/fa";
 
@@ -47,13 +46,7 @@ const Services = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto text-center">
         {/* Heading with fade-up animation */}
-        <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
+        <div className="text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white px-2">
             Our Core Services
           </h2>
@@ -63,35 +56,17 @@ const Services = () => {
             enterprise SaaS solutions, our expertise helps businesses scale
             faster, innovate smarter, and stay ahead in the digital age.
           </p>
-        </motion.div>
+        </div>
 
         {/* Grid with staggered animation */}
-        <motion.div
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-6 lg:gap-8 mt-8 sm:mt-12"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={{
-            hidden: {},
-            visible: {
-              transition: { staggerChildren: 0.1 },
-            },
-          }}
-        >
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-6 lg:gap-8 mt-8 sm:mt-12">
           {services.map((service, index) => {
             // Get the correct icon component for the service
             const ServiceIcon = service.icon
               ? getIconComponent(service.icon)
               : null;
             return (
-              <motion.div
-                key={index}
-                variants={{
-                  hidden: { opacity: 0, y: 50 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-              >
+              <div key={index}>
                 <Link
                   href={`/service/${service.slug}`}
                   className="
@@ -122,10 +97,10 @@ const Services = () => {
                     {service.title}
                   </span>
                 </Link>
-              </motion.div>
+              </div>
             );
           })}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

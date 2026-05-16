@@ -8,6 +8,7 @@ import RouteTransitionWrapper from "@/components/RouteTransitionWrapper";
 //import MaldoChat from "./components/MaldoChat";
 import ClientProvider from "./ClientProvider";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
+import QuickQuoteDrawer from "@/components/home/QuickQuoteDrawer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -127,6 +128,7 @@ export default function RootLayout({
             {children}
             <Footer />
             <WhatsAppWidget />
+
             {/* <MaldoChat /> */}
           </RouteTransitionWrapper>
         </ClientProvider>

@@ -8,6 +8,8 @@ import PopupFormModal from "@/components/PopupFormModal";
 import Services from "@/components/Services";
 import DeveloperSection from "@/components/home/DeveloperSection";
 import BubbleWrapper from "@/components/home/BubbleWrapper";
+import TechStack from "@/components/home/TechStack";
+import DiscountCTA from "@/components/home/DiscountCTA";
 
 export default function Home() {
   return (
@@ -21,9 +23,11 @@ export default function Home() {
         <WhyUs />
         <Features />
         <PortfolioPreview />
+
         <Testimonials />
 
         <PopupFormModal />
+
         <CTAWithForm />
       </section>
     </>

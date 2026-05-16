@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, ArrowUpRight } from "lucide-react";
 import { useGetProjectsQuery } from "../../services/projectsApi";
 
 // ✅ Define project type with image as array
@@ -107,44 +107,62 @@ const PortfolioPage = () => {
             return (
               <motion.div
                 key={project._id}
-                whileHover={{ scale: 1.02 }}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                transition={{ duration: 0.45, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group relative hover:border-gold bg-white dark:bg-[#1A1A1A] rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700"
+                className="group relative bg-white dark:bg-[#1A1A1A] rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-2xl hover:shadow-[#D4AF37]/10 dark:hover:shadow-[#D4AF37]/5 hover:border-[#D4AF37]/40 dark:hover:border-[#D4AF37]/30 transition-all duration-500 ease-out"
               >
-                {/* Image */}
-                <Link href={`/projects/${project.slug}`}>
-                  <Image
-                    src={coverImage}
-                    alt={project.title || "Project image"}
-                    width={600}
-                    height={400}
-                    className="h-40 sm:h-52 w-full object-cover"
-                  />
+                {/* Image Container with zoom & overlay */}
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="block relative overflow-hidden"
+                >
+                  <div className="relative h-44 sm:h-56 w-full overflow-hidden">
+                    <Image
+                      src={coverImage}
+                      alt={project.title || "Project image"}
+                      width={600}
+                      height={400}
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                    />
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    {/* Category Badge */}
+                    <div className="absolute top-3 left-3">
+                      <span className="inline-block px-2.5 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-wider bg-[#D4AF37]/90 text-black rounded-md shadow-lg backdrop-blur-sm">
+                        {project.type}
+                      </span>
+                    </div>
+                    {/* View More Icon - appears on hover */}
+                    <div className="absolute top-3 right-3 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 dark:bg-[#1A1A1A]/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400 ease-out shadow-lg">
+                      <ArrowUpRight size={16} className="text-[#D4AF37]" />
+                    </div>
+                  </div>
                 </Link>
 
                 {/* Details */}
-
                 <Link href={`/projects/${project.slug}`}>
-                  <div className="p-3 sm:p-5">
-                    <h3 className="text-base sm:text-xl font-semibold text-navy dark:text-white">
+                  <div className="p-4 sm:p-5 relative">
+                    {/* Gold Accent Line on hover */}
+                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
+
+                    <h3 className="text-base sm:text-lg font-bold text-navy dark:text-white group-hover:text-[#D4AF37] dark:group-hover:text-[#D4AF37] transition-colors duration-300">
                       {project.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1 sm:mt-2 line-clamp-2 sm:line-clamp-3">
+                    <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-2 leading-relaxed line-clamp-2 sm:line-clamp-3">
                       {project.description}
                     </p>
 
-                    {/* External Link */}
-                    <div className="flex gap-4 mt-2 sm:mt-4">
-                      <div
-                        // href={`/projects/${project.slug}`}
-                        aria-label={`View details for ${project.title}`}
-                        className="text-gray-700 dark:text-gray-300 hover:text-[#D4AF37]"
-                      >
-                        <ExternalLink size={20} />
-                      </div>
+                    {/* View Project Link */}
+                    <div className="mt-4 sm:mt-5 pt-3 sm:pt-4 border-t border-gray-100 dark:border-gray-800">
+                      <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 group-hover:text-[#D4AF37] transition-colors duration-300">
+                        View Project
+                        <ExternalLink
+                          size={14}
+                          className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        />
+                      </span>
                     </div>
                   </div>
                 </Link>

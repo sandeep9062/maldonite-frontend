@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Code2, Layers, Link2 } from "lucide-react";
 import Link from "next/link";
 
@@ -25,44 +24,24 @@ const features = [
 const Features = () => {
   return (
     <section className="bg-white dark:bg-darkbg1 text-center py-12 sm:py-20 px-3 sm:px-6">
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-        className="max-w-6xl mx-auto"
-      >
+      <div className="max-w-6xl mx-auto">
         {/* Heading */}
-        <motion.h2
-          className="text-2xl sm:text-3xl md:text-4xl font-bold text-navy dark:text-white px-2"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-        >
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-navy dark:text-white px-2">
           Our Key Offerings
-        </motion.h2>
-        <motion.p
-          className="text-gray-600 dark:text-gray-400 mt-3 mb-8 sm:mb-12 text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-        >
+        </h2>
+        <p className="text-gray-600 dark:text-gray-400 mt-3 mb-8 sm:mb-12 text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-2">
           Fast-track your success with custom digital solutions designed to
           scale.
-        </motion.p>
+        </p>
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 text-left">
           {features.map((item, i) => (
-            <motion.div
+            <div
               key={i}
               className="p-4 sm:p-6 rounded-2xl border border-gray-200 dark:border-gray-700 
               bg-gradient-to-br from-gray-50 to-white dark:from-[#1a1a1a] dark:to-[#111]
               hover:shadow-2xl hover:border-gold hover:-translate-y-1 transition-all duration-300 group"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 + i * 0.2, duration: 0.5 }}
-              viewport={{ once: true }}
             >
               <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                 <div
@@ -78,7 +57,7 @@ const Features = () => {
               <p className="text-xs sm:text-sm leading-relaxed text-gray-600 dark:text-gray-400">
                 {item.desc}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
 
@@ -92,7 +71,7 @@ const Features = () => {
             See All Services
           </Link>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };

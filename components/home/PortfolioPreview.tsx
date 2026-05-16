@@ -1,14 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { useGetProjectsQuery } from "@/services/projectsApi";
-
-const ACCENT_GOLD = "#D4AF37";
-const NAVY_COLOR = "text-gray-800 dark:text-white";
-
 const PortfolioPreview = () => {
   const { data: projects = [], isLoading, isError } = useGetProjectsQuery();
 
@@ -34,32 +29,16 @@ const PortfolioPreview = () => {
 
   return (
     <section className="py-10 sm:py-16 bg-white dark:bg-[#0D1321]">
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true, amount: 0.1 }}
-        className="max-w-6xl mx-auto px-3 sm:px-4"
-      >
+      <div className="max-w-6xl mx-auto px-3 sm:px-4">
         {/* Heading */}
-        <motion.h2
-          className={`text-2xl sm:text-3xl md:text-4xl font-bold ${NAVY_COLOR} text-center px-2`}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          viewport={{ once: true }}
-        >
-          Recent Work
-        </motion.h2>
-        <motion.p
-          className="text-center text-gray-600 dark:text-gray-400 mt-2 mb-8 sm:mb-12 text-sm sm:text-base"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          viewport={{ once: true }}
-        >
-          Crafting digital solutions with precision, performance & passion.
-        </motion.p>
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 dark:text-white px-2">
+            Recent Work
+          </h2>
+          <p className="text-center text-gray-500 dark:text-gray-400 mt-2 text-sm sm:text-base">
+            Crafting digital solutions with precision, performance & passion.
+          </p>
+        </div>
 
         {/* Projects Grid */}
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
@@ -77,88 +56,82 @@ const PortfolioPreview = () => {
                   : "/placeholder.png";
 
               return (
-                <motion.div
+                <div
                   key={project._id}
-                  whileHover={{ scale: 1.02 }}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: i * 0.1 }}
-                  viewport={{ once: true }}
-                  className="group relative bg-white hover:bg-gradient-to-br hover:from-white hover:to-gray-50 dark:bg-[#1A1A1A] dark:hover:bg-gradient-to-br dark:hover:from-[#1A1A1A] dark:hover:to-[#2A2A2A] rounded-xl shadow-lg hover:shadow-2xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-gold/50 transition-all duration-300"
+                  className="group relative bg-white dark:bg-[#1A1A1A] rounded-xl shadow-sm hover:shadow-2xl hover:shadow-[#D4AF37]/10 dark:hover:shadow-[#D4AF37]/5 overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-[#D4AF37]/40 dark:hover:border-[#D4AF37]/30 transition-all duration-500 ease-out"
                 >
-                  {/* Type badge */}
-                  {project.type && (
-                    <span
-                      className="absolute top-2 sm:top-4 right-2 sm:right-4 text-[10px] sm:text-xs font-bold uppercase px-2 sm:px-3 py-0.5 sm:py-1 rounded-full z-10"
-                      style={{ backgroundColor: ACCENT_GOLD, color: "#000" }}
-                    >
-                      {project.type}
-                    </span>
-                  )}
-
                   {/* Image */}
-                  <div className="relative h-40 sm:h-52 w-full">
-                    <Link href={`/projects/${project.slug}`}>
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="block relative overflow-hidden"
+                  >
+                    <div className="relative h-44 sm:h-52 w-full overflow-hidden">
                       <Image
                         height={400}
                         width={600}
                         src={coverImage}
                         alt={project.title}
-                        className="object-cover w-full h-full transition duration-300 group-hover:scale-[1.05]"
+                        className="object-cover w-full h-full transition-transform duration-700 ease-out group-hover:scale-110"
                       />
-                    </Link>
-                  </div>
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                  {/* Content */}
+                      {/* Type badge */}
+                      {project.type && (
+                        <span className="absolute top-3 left-3 inline-block px-2.5 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-[#D4AF37]/90 text-black rounded-md shadow-lg backdrop-blur-sm z-10">
+                          {project.type}
+                        </span>
+                      )}
 
-                  <Link href={`/projects/${project.slug}`}>
-                    <div className="p-4 sm:p-5">
-                      <h3
-                        className={`text-base sm:text-xl font-semibold transition ${NAVY_COLOR}`}
-                        style={{ transition: "color 0.3s ease" }}
-                      >
-                        {project.title}
-                      </h3>
-
-                      <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-3 leading-tight sm:leading-normal">
-                        {project.description}
-                      </p>
-
-                      <div className="flex gap-3 sm:gap-4 mt-3 sm:mt-4">
-                        {/* Detail Page Link */}
-                        <div
-                          // href={`/projects/${project.slug}`}
-                          aria-label={`View details for ${project.title}`}
-                          className="text-gray-700 dark:text-gray-300 transition hover:text-gold"
-                          style={{ transition: "color 0.3s ease" }}
-                        >
-                          <ExternalLink size={16} />
-                        </div>
+                      {/* View More Icon - appears on hover */}
+                      <div className="absolute top-3 right-3 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 dark:bg-[#1A1A1A]/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400 ease-out shadow-lg z-10">
+                        <ArrowUpRight size={16} className="text-[#D4AF37]" />
                       </div>
                     </div>
                   </Link>
-                </motion.div>
+
+                  {/* Content */}
+                  <Link href={`/projects/${project.slug}`}>
+                    <div className="p-4 sm:p-5 relative">
+                      {/* Gold Accent Line on hover */}
+                      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
+
+                      <h3 className="text-base sm:text-xl font-bold text-gray-800 dark:text-white group-hover:text-[#D4AF37] dark:group-hover:text-[#D4AF37] transition-colors duration-300">
+                        {project.title}
+                      </h3>
+
+                      <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-2 line-clamp-3 leading-relaxed">
+                        {project.description}
+                      </p>
+
+                      {/* View Project Link */}
+                      <div className="mt-3 sm:mt-4 pt-3 border-t border-gray-100 dark:border-gray-800">
+                        <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 group-hover:text-[#D4AF37] transition-colors duration-300">
+                          View Project
+                          <ArrowUpRight
+                            size={14}
+                            className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                          />
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
               );
             })}
         </div>
 
         {/* Explore More Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.5 }}
-          viewport={{ once: true }}
-          className="flex justify-center mt-10 sm:mt-12"
-        >
+        <div className="flex justify-center mt-10 sm:mt-12">
           <Link
             href="/portfolio"
-            className="inline-block px-6 sm:px-8 py-2.5 sm:py-3 rounded font-semibold transition text-sm sm:text-base"
-            style={{ backgroundColor: ACCENT_GOLD, color: "#000" }}
+            className="inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold transition-all duration-300 text-sm sm:text-base bg-[#D4AF37] text-black hover:bg-[#D4AF37]/90 hover:shadow-lg hover:shadow-[#D4AF37]/25"
           >
             Explore More Projects
+            <ArrowUpRight size={16} />
           </Link>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 };

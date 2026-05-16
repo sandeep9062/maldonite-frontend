@@ -135,7 +135,7 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
             {paginatedBlogs.map((blog, i) => (
               <article
                 key={blog._id}
-                className="group relative flex flex-col bg-white dark:bg-[#0f0f0f] rounded-2xl sm:rounded-3xl border border-slate-200/60 dark:border-white/5 overflow-hidden hover:border-[#D4AF37]/30 hover:shadow-xl hover:shadow-[#D4AF37]/5 dark:hover:shadow-[#D4AF37]/3 transition-all duration-500"
+                className="group relative flex flex-col bg-white dark:bg-[#0f0f0f] rounded-2xl sm:rounded-3xl border border-slate-200/60 dark:border-white/5 overflow-hidden hover:border-[#D4AF37]/30 hover:shadow-2xl hover:shadow-[#D4AF37]/8 dark:hover:shadow-[#D4AF37]/5 transition-all duration-500 ease-out"
               >
                 <Link
                   href={`/blog/${blog.slug}`}
@@ -148,22 +148,27 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
                       alt={blog.title}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover grayscale-[0.15] group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+                      className="object-cover grayscale-[0.15] group-hover:grayscale-0 transition-all duration-700 ease-out scale-100 group-hover:scale-110"
                     />
 
                     {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
 
                     {/* Category Badge - Always visible */}
                     <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1 bg-white/15 backdrop-blur-md border border-white/20 text-[8px] sm:text-[10px] font-bold text-white uppercase tracking-[0.15em] rounded-lg">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1 bg-[#D4AF37]/90 backdrop-blur-md text-[8px] sm:text-[10px] font-bold text-black uppercase tracking-[0.15em] rounded-lg shadow-lg">
                         <Tags size={8} />
                         {blog.category}
                       </span>
                     </div>
 
-                    {/* Date/Read time - Top right */}
-                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 hidden sm:flex items-center gap-2 px-2.5 py-1 bg-black/30 backdrop-blur-sm rounded-lg text-[8px] text-white/70 uppercase tracking-wider">
+                    {/* View More Icon - appears on hover */}
+                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 dark:bg-[#1A1A1A]/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400 ease-out shadow-lg z-10">
+                      <ArrowUpRight size={16} className="text-[#D4AF37]" />
+                    </div>
+
+                    {/* Date/Read time - Bottom left overlay */}
+                    <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 flex items-center gap-2 px-2.5 py-1 bg-black/40 backdrop-blur-sm rounded-lg text-[8px] text-white/80 uppercase tracking-wider">
                       <span className="flex items-center gap-1">
                         <CalendarDays size={10} />
                         {new Date(blog.date).toLocaleDateString("en-US", {
@@ -183,7 +188,10 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
                   </div>
 
                   {/* Content Section - Below image on all screens */}
-                  <div className="flex flex-col flex-1 p-4 sm:p-5 md:p-6">
+                  <div className="flex flex-col flex-1 p-4 sm:p-5 md:p-6 relative">
+                    {/* Gold Accent Line on hover */}
+                    <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
+
                     {/* Mobile date row */}
                     <div className="flex items-center gap-2 mb-2 sm:hidden">
                       <span className="text-[10px] text-slate-400 uppercase tracking-wider">
@@ -212,9 +220,9 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
                     </p>
 
                     {/* Author + CTA */}
-                    <div className="flex items-center justify-between mt-auto pt-3 border-t border-slate-100 dark:border-white/5">
+                    <div className="flex items-center justify-between mt-auto pt-3 border-t border-slate-100 dark:border-white/5 group-hover:border-[#D4AF37]/10 transition-colors duration-300">
                       <div className="flex items-center gap-2.5">
-                        <div className="relative w-6 h-6 sm:w-7 sm:h-7 rounded-full overflow-hidden ring-1 ring-[#D4AF37]/20 flex-shrink-0">
+                        <div className="relative w-6 h-6 sm:w-7 sm:h-7 rounded-full overflow-hidden ring-2 ring-[#D4AF37]/20 group-hover:ring-[#D4AF37]/40 flex-shrink-0 transition-all duration-300">
                           {blog.authorImage ? (
                             <Image
                               src={blog.authorImage}

@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -80,15 +79,9 @@ const Testimonials = () => {
   return (
     <section className="bg-white dark:bg-darkbg1 py-12 sm:py-20">
       <div className="max-w-6xl mx-auto px-3 sm:px-4 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-2xl sm:text-3xl md:text-4xl font-bold text-navy dark:text-white px-2"
-        >
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-navy dark:text-white px-2">
           What Clients Say
-        </motion.h2>
+        </h2>
 
         {testimonials.length > 0 ? (
           <Swiper
@@ -100,13 +93,7 @@ const Testimonials = () => {
           >
             {testimonials.map((t: Testimonial) => (
               <SwiperSlide key={t._id}>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6 }}
-                  viewport={{ once: true }}
-                  className="bg-white dark:bg-[#1a1a1a] p-4 sm:p-8 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg max-w-xl mx-auto"
-                >
+                <div className="bg-white dark:bg-[#1a1a1a] p-4 sm:p-8 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg max-w-xl mx-auto">
                   {/* User Info */}
                   <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                     {t.image ? (
@@ -147,7 +134,7 @@ const Testimonials = () => {
                   <p className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 text-left leading-relaxed">
                     {t.message}
                   </p>
-                </motion.div>
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
@@ -158,13 +145,7 @@ const Testimonials = () => {
         )}
 
         {/* Client Logos */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          viewport={{ once: true }}
-          className="mt-10 sm:mt-16"
-        >
+        <div className="mt-10 sm:mt-16">
           <p className="text-gray-600 dark:text-gray-400 mb-4 sm:mb-6 text-sm">
             Trusted by leading companies
           </p>
@@ -192,7 +173,7 @@ const Testimonials = () => {
               />
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
