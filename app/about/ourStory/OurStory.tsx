@@ -42,11 +42,11 @@ export default function OurStory() {
             Our Story
           </h2>
           <p className="text-sm sm:text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-            Founded in 2020, <strong>Maldonite</strong> emerged with a vision to
-            revolutionize digital transformation through modern, scalable, and
-            intelligent software solutions. From our roots in Panchkula (HR), we
-            quickly became one of the region&rsquo;s first fully remote tech
-            teams&mdash;collaborating with clients across the U.S., U.K.,
+            Founded in 2020, <strong>Maldonite </strong> emerged with a vision
+            to revolutionize digital transformation through modern, scalable,
+            and intelligent software solutions. From our roots in Panchkula
+            (HR), we quickly became one of the region&rsquo;s first fully remote
+            tech teams&mdash;collaborating with clients across the U.S., U.K.,
             Canada, and UAE. Our mission is to craft web applications that go
             beyond functionality, offering performance, security, and a seamless
             user experience. With deep expertise in full-stack SaaS development

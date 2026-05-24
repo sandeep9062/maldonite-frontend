@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -66,12 +65,7 @@ export default function AboutPage() {
     <>
       <main className="min-h-screen pt-16 sm:pt-20 mt-16 text-gray-800 dark:text-gray-100 bg-white dark:bg-darkbg1 px-4 sm:px-6 md:px-8 lg:px-12 transition-colors duration-300">
         {/* Hero Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-4xl mx-auto px-0 sm:px-4"
-        >
+        <section className="text-center max-w-4xl mx-auto px-0 sm:px-4">
           {siteSettings?.logoUrl && (
             <Image
               src={siteSettings.logoUrl}
@@ -90,18 +84,12 @@ export default function AboutPage() {
             intelligent automation. We specialize in building robust, elegant
             digital experiences for startups and enterprises alike.
           </p>
-        </motion.section>
+        </section>
 
         <Separator className="my-8 sm:my-10 md:my-12 lg:my-16" />
 
         {/* Mission Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center"
-        >
+        <section className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center">
           {/* Left Image */}
           <div className="relative w-full aspect-[4/3] sm:aspect-video md:aspect-auto md:h-80 lg:h-96 rounded-xl overflow-hidden">
             {missionImage?.data?.url && (
@@ -131,18 +119,12 @@ export default function AboutPage() {
               research, driven by performance, and built to scale.
             </p>
           </div>
-        </motion.section>
+        </section>
 
         <Separator className="my-8 sm:my-10 md:my-12 lg:my-16" />
 
         {/* What We Do Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center"
-        >
+        <section className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center">
           {/* Left Text — shows first on mobile (text first), image below */}
           <div className="text-left order-1 md:order-none">
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 text-primary">
@@ -170,18 +152,12 @@ export default function AboutPage() {
               />
             )}
           </div>
-        </motion.section>
+        </section>
 
         <Separator className="my-8 sm:my-10 md:my-12 lg:my-16" />
 
         {/* Stats Section */}
-        <motion.section
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 text-center max-w-6xl mx-auto mb-12 sm:mb-16 md:mb-20"
-        >
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 text-center max-w-6xl mx-auto mb-12 sm:mb-16 md:mb-20">
           {aboutStats.map((stat, index) => (
             <div
               key={index}
@@ -198,7 +174,7 @@ export default function AboutPage() {
               </p>
             </div>
           ))}
-        </motion.section>
+        </section>
 
         <Separator />
       </main>
