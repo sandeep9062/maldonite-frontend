@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 // ✅ Helper to get token from localStorage (only runs client-side)
-const getToken = () => (typeof window !== "undefined" ? localStorage.getItem("token") : null);
+const getToken = () =>
+  typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
 const baseUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/projects`;
 
@@ -50,22 +51,31 @@ export const projectApi = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ _id }) => ({ type: 'Projects' as const, id: _id })),
-              { type: 'Projects', id: 'LIST' },
+              ...result.map(({ _id }) => ({
+                type: "Projects" as const,
+                id: _id,
+              })),
+              { type: "Projects", id: "LIST" },
             ]
-          : [{ type: 'Projects', id: 'LIST' }],
+          : [{ type: "Projects", id: "LIST" }],
+      transformResponse: (response: { projects: Project[] } | Project[]) =>
+        Array.isArray(response) ? response : response.projects,
     }),
 
     // ✅ GET single project by ID
     getProjectById: builder.query<Project, string>({
       query: (id) => `/${id}`,
       providesTags: (result, error, id) => [{ type: "Projects", id }],
+      transformResponse: (response: { project: Project } | Project) =>
+        (response as any).project ? (response as any).project : response,
     }),
-    
+
     // ✅ GET single project by slug
     getProjectBySlug: builder.query<Project, string>({
       query: (slug) => `/slug/${slug}`,
       providesTags: (result, error, slug) => [{ type: "Projects", id: slug }],
+      transformResponse: (response: { project: Project } | Project) =>
+        (response as any).project ? (response as any).project : response,
     }),
 
     // ✅ POST new project
@@ -79,7 +89,10 @@ export const projectApi = createApi({
     }),
 
     // ✅ UPDATE project
-    updateProject: builder.mutation<Project, { id: string; formData: FormData }>({
+    updateProject: builder.mutation<
+      Project,
+      { id: string; formData: FormData }
+    >({
       query: ({ id, formData }) => ({
         url: `/${id}`,
         method: "PUT",
