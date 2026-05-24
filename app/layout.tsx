@@ -76,6 +76,9 @@ export const metadata: Metadata = {
       "Maldonite specializes in crafting scalable software and digital products for startups and enterprises. We offer full-stack development (Next.js, MERN), UI/UX design, AI integration, and growth-focused digital marketing.",
     images: ["https://www.maldonite.com/images/twitter-card.jpg"],
   },
+  alternates: {
+    canonical: "https://www.maldonite.com",
+  },
   robots: {
     index: true,
     follow: true,

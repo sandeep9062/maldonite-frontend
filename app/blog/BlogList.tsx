@@ -85,26 +85,6 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#080808] text-slate-900 dark:text-slate-100 transition-colors duration-500 pb-20">
-      {/* Header Section */}
-      <header className="relative pt-20 md:pt-24 pb-10 md:pb-16 px-4 md:px-6 text-center overflow-hidden">
-        {/* Decorative background glow */}
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#D4AF37]/5 dark:bg-[#D4AF37]/8 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute top-20 right-10 w-32 h-32 bg-gradient-to-br from-[#D4AF37]/10 to-transparent rounded-full blur-3xl pointer-events-none hidden md:block" />
-        <div className="absolute top-40 left-10 w-24 h-24 bg-gradient-to-tr from-blue-500/5 to-purple-500/5 rounded-full blur-3xl pointer-events-none hidden md:block" />
-
-        <div className="relative">
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-serif mb-4 md:mb-6 tracking-tight leading-[1.1]">
-            Insights &{" "}
-            <span className="text-[#D4AF37] italic bg-clip-text">
-              Perspectives
-            </span>
-          </h1>
-          <p className="max-w-2xl mx-auto text-slate-500 dark:text-slate-400 text-sm md:text-lg px-2 leading-relaxed">
-            Exploring the intersection of design, code, and the future of SaaS.
-          </p>
-        </div>
-      </header>
-
       {/* Category Filter */}
       <nav className="sticky top-4 md:top-6 z-50 mx-auto max-w-fit px-2 sm:px-4 mb-10 md:mb-16">
         <div className="flex items-center gap-1.5 p-1.5 bg-white/90 dark:bg-[#121212]/90 backdrop-blur-2xl border border-slate-200/50 dark:border-white/8 rounded-2xl shadow-lg shadow-black/5 dark:shadow-black/20 overflow-x-auto no-scrollbar">

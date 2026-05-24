@@ -8,13 +8,18 @@ export async function getProjectBySlug(slug: string) {
     const res = await fetch(`${API_BASE_URL}/api/v1/projects/slug/${slug}`);
     if (!res.ok) {
       // Log the error or handle it as needed
-      console.error(`Failed to fetch project with slug ${slug}, status: ${res.status}`);
+      console.error(
+        `Failed to fetch project with slug ${slug}, status: ${res.status}`,
+      );
       return null; // Return null if the project is not found or an error occurs
     }
     const project = await res.json();
     return project;
   } catch (error) {
-    console.error(`An error occurred while fetching project with slug ${slug}:`, error);
+    console.error(
+      `An error occurred while fetching project with slug ${slug}:`,
+      error,
+    );
     return null; // Return null in case of a network error or other exception
   }
 }
@@ -24,13 +29,39 @@ export async function getServiceBySlug(slug: string) {
   try {
     const res = await fetch(`${API_BASE_URL}/api/v1/services/slug/${slug}`);
     if (!res.ok) {
-      console.error(`Failed to fetch service with slug ${slug}, status: ${res.status}`);
+      console.error(
+        `Failed to fetch service with slug ${slug}, status: ${res.status}`,
+      );
       return null;
     }
     const service = await res.json();
     return service;
   } catch (error) {
-    console.error(`An error occurred while fetching service with slug ${slug}:`, error);
+    console.error(
+      `An error occurred while fetching service with slug ${slug}:`,
+      error,
+    );
+    return null;
+  }
+}
+
+// Fetch a single product by its slug
+export async function getProductBySlug(slug: string) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/products/slug/${slug}`);
+    if (!res.ok) {
+      console.error(
+        `Failed to fetch product with slug ${slug}, status: ${res.status}`,
+      );
+      return null;
+    }
+    const product = await res.json();
+    return product;
+  } catch (error) {
+    console.error(
+      `An error occurred while fetching product with slug ${slug}:`,
+      error,
+    );
     return null;
   }
 }
@@ -40,13 +71,18 @@ export async function getBlogBySlug(slug: string) {
   try {
     const res = await fetch(`${API_BASE_URL}/api/v1/blogs/slug/${slug}`);
     if (!res.ok) {
-      console.error(`Failed to fetch blog with slug ${slug}, status: ${res.status}`);
+      console.error(
+        `Failed to fetch blog with slug ${slug}, status: ${res.status}`,
+      );
       return null;
     }
     const data = await res.json();
     return data.blog;
   } catch (error) {
-    console.error(`An error occurred while fetching blog with slug ${slug}:`, error);
+    console.error(
+      `An error occurred while fetching blog with slug ${slug}:`,
+      error,
+    );
     return null;
   }
 }

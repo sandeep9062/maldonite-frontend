@@ -1,48 +1,11 @@
 // app/sitemap.xml/route.ts
-// This file dynamically generates your sitemap.xml.
-// It's a Route Handler, acting like an API endpoint that returns XML.
+// Comprehensive sitemap generator for Maldonite website
+// Fetches dynamic content (blogs, projects, services, products) and combines with static pages
 
-// IMPORTANT: Ensure your 'services' data and 'blogs' data are accessible server-side.
-// If they rely on client-side hooks, you'll need to create server-side
-// functions to fetch this data (e.g., direct API calls or database queries).
+import { NextResponse } from "next/server";
 
-import { NextResponse } from 'next/server';
-// Assuming 'services' data is available for server-side import
-import { services } from '../services/services-data'; // Adjust path as necessary
-
-// Server-side function to fetch blog data
-async function getBlogsServerSide() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/blogs`);
-  if (!res.ok) {
-    throw new Error('Failed to fetch blogs for sitemap');
-  }
-  const data = await res.json();
-  return data.blogs;
-}
-
-// Server-side function to fetch project data
-async function getProjectsServerSide() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/projects`);
-  if (!res.ok) {
-    throw new Error('Failed to fetch projects for sitemap');
-  }
-  const data = await res.json();
-  return data.projects; // Assuming the API returns { projects: [...] }
-}
-
-interface Blog {
-  slug: string;
-  updatedAt: string;
-}
-
-interface Project {
-  slug: string;
-  updatedAt: string;
-}
-
-interface Service {
-  slug: string;
-}
+const WEBSITE_URL = "https://www.maldonite.com";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 interface SitemapEntry {
   url: string;
@@ -51,100 +14,212 @@ interface SitemapEntry {
   priority: number;
 }
 
-// Define your base URL
-const WEBSITE_URL = 'https://www.maldonite.com';
+interface BlogPost {
+  slug: string;
+  updatedAt: string;
+}
+
+interface ProjectItem {
+  slug: string;
+  updatedAt: string;
+}
+
+interface ServiceItem {
+  slug: string;
+  updatedAt?: string;
+}
+
+interface ProductItem {
+  slug: string;
+  updatedAt: string;
+}
+
+// Server-side fetch functions
+async function fetchFromApi(endpoint: string) {
+  try {
+    const res = await fetch(`${API_BASE_URL}${endpoint}`);
+    if (!res.ok) {
+      console.error(`Sitemap fetch failed for ${endpoint}: ${res.status}`);
+      return null;
+    }
+    return await res.json();
+  } catch (error) {
+    console.error(`Sitemap fetch error for ${endpoint}:`, error);
+    return null;
+  }
+}
+
+async function getBlogs(): Promise<BlogPost[]> {
+  const data = await fetchFromApi("/api/v1/blogs");
+  // API response structure: { blogs: BlogPost[] }
+  return data?.blogs ?? [];
+}
+
+async function getProjects(): Promise<ProjectItem[]> {
+  const data = await fetchFromApi("/api/v1/projects");
+  // API might return direct array or { projects: ProjectItem[] }
+  if (Array.isArray(data)) return data;
+  return data?.projects ?? [];
+}
+
+async function getServices(): Promise<ServiceItem[]> {
+  const data = await fetchFromApi("/api/v1/services");
+  // API response structure: { services: ServiceItem[] }
+  return data?.services ?? [];
+}
+
+async function getProducts(): Promise<ProductItem[]> {
+  const data = await fetchFromApi("/api/v1/products");
+  // API might return direct array or need transformation
+  return data?.products ?? data ?? [];
+}
 
 export async function GET() {
-  const lastModDate = new Date().toISOString(); // Use current date for last modification
+  const lastModDate = new Date().toISOString();
 
-  // Fetch dynamic data for blogs and services
-  let blogEntries: SitemapEntry[] = [];
-  try {
-    const blogs = await getBlogsServerSide(); // Fetch your actual blog data
-    blogEntries = blogs.map((blog: Blog) => ({
-      url: `${WEBSITE_URL}/blog/${blog.slug}`,
-      lastModified: new Date(blog.updatedAt).toISOString(),
-      changeFrequency: 'weekly',
-      priority: 0.7, // Adjust priority based on importance
-    }));
-  } catch (error) {
-    console.error('Failed to fetch blogs for sitemap:', error);
-    // Optionally, handle error by not including blogs or logging it
-  }
+  // Fetch all dynamic data in parallel
+  const [blogs, projects, services, products] = await Promise.all([
+    getBlogs(),
+    getProjects(),
+    getServices(),
+    getProducts(),
+  ]);
 
-  let projectEntries: SitemapEntry[] = [];
-  try {
-    const projects = await getProjectsServerSide(); // Fetch your actual project data
-    if (Array.isArray(projects)) {
-      projectEntries = projects.map((project: Project) => ({
-        url: `${WEBSITE_URL}/projects/${project.slug}`,
-        lastModified: new Date(project.updatedAt).toISOString(),
-        changeFrequency: 'weekly',
-        priority: 0.8,
-      }));
-    }
-  } catch (error) {
-    console.error('Failed to fetch projects for sitemap:', error);
-  }
-
-  const serviceEntries = services.map((service: Service) => ({
-    url: `${WEBSITE_URL}/services/${service.slug}`,
-    lastModified: lastModDate, // Use a consistent date or service-specific last updated date
-    changeFrequency: 'monthly', // Services might not change as frequently as blogs
-    priority: 0.8,
-  }));
-
-  // Define static pages
-  const staticPages = [
+  // --- Static Pages ---
+  const staticPages: SitemapEntry[] = [
     {
-      url: `${WEBSITE_URL}/`,
+      url: WEBSITE_URL,
       lastModified: lastModDate,
-      changeFrequency: 'daily',
+      changeFrequency: "daily",
       priority: 1.0,
     },
     {
       url: `${WEBSITE_URL}/about`,
       lastModified: lastModDate,
-      changeFrequency: 'monthly',
+      changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${WEBSITE_URL}/services`,
       lastModified: lastModDate,
-      changeFrequency: 'weekly',
+      changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${WEBSITE_URL}/portfolio`, // Assuming you have a /portfolio route
+      url: `${WEBSITE_URL}/portfolio`,
       lastModified: lastModDate,
-      changeFrequency: 'weekly',
+      changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: `${WEBSITE_URL}/projects`,
       lastModified: lastModDate,
-      changeFrequency: 'weekly',
+      changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${WEBSITE_URL}/blog`, // Main blog listing page
+      url: `${WEBSITE_URL}/blog`,
       lastModified: lastModDate,
-      changeFrequency: 'daily',
+      changeFrequency: "daily",
       priority: 0.9,
     },
     {
       url: `${WEBSITE_URL}/contact`,
       lastModified: lastModDate,
-      changeFrequency: 'monthly',
+      changeFrequency: "monthly",
       priority: 0.9,
     },
-    // Add any other static pages here
+    {
+      url: `${WEBSITE_URL}/quote`,
+      lastModified: lastModDate,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${WEBSITE_URL}/products`,
+      lastModified: lastModDate,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${WEBSITE_URL}/service`,
+      lastModified: lastModDate,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
   ];
 
-  // Combine all entries
-  const allEntries = [...staticPages, ...serviceEntries, ...blogEntries, ...projectEntries];
+  // --- Dynamic Blog Pages ---
+  const blogEntries: SitemapEntry[] = Array.isArray(blogs)
+    ? blogs.map((blog: BlogPost) => ({
+        url: `${WEBSITE_URL}/blog/${blog.slug}`,
+        lastModified: blog.updatedAt
+          ? new Date(blog.updatedAt).toISOString()
+          : lastModDate,
+        changeFrequency: "weekly",
+        priority: 0.7,
+      }))
+    : [];
 
-  // Generate the XML string for the sitemap
+  // --- Dynamic Project Pages ---
+  const projectEntries: SitemapEntry[] = Array.isArray(projects)
+    ? projects.map((project: ProjectItem) => ({
+        url: `${WEBSITE_URL}/projects/${project.slug}`,
+        lastModified: project.updatedAt
+          ? new Date(project.updatedAt).toISOString()
+          : lastModDate,
+        changeFrequency: "weekly",
+        priority: 0.8,
+      }))
+    : [];
+
+  // --- Dynamic Service Pages ---
+  const serviceEntries: SitemapEntry[] = Array.isArray(services)
+    ? services.map((service: ServiceItem) => ({
+        url: `${WEBSITE_URL}/services/${service.slug}`,
+        lastModified: service.updatedAt
+          ? new Date(service.updatedAt).toISOString()
+          : lastModDate,
+        changeFrequency: "monthly",
+        priority: 0.8,
+      }))
+    : [];
+
+  // --- Dynamic Service Pages (under /service/[slug] route) ---
+  const serviceAltEntries: SitemapEntry[] = Array.isArray(services)
+    ? services.map((service: ServiceItem) => ({
+        url: `${WEBSITE_URL}/service/${service.slug}`,
+        lastModified: service.updatedAt
+          ? new Date(service.updatedAt).toISOString()
+          : lastModDate,
+        changeFrequency: "monthly",
+        priority: 0.7,
+      }))
+    : [];
+
+  // --- Dynamic Product Pages ---
+  const productEntries: SitemapEntry[] = Array.isArray(products)
+    ? products.map((product: ProductItem) => ({
+        url: `${WEBSITE_URL}/products/${product.slug}`,
+        lastModified: product.updatedAt
+          ? new Date(product.updatedAt).toISOString()
+          : lastModDate,
+        changeFrequency: "weekly",
+        priority: 0.7,
+      }))
+    : [];
+
+  // Combine all entries
+  const allEntries = [
+    ...staticPages,
+    ...blogEntries,
+    ...projectEntries,
+    ...serviceEntries,
+    ...serviceAltEntries,
+    ...productEntries,
+  ];
+
+  // Generate the XML sitemap
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       ${allEntries
@@ -154,18 +229,16 @@ export async function GET() {
           <loc>${entry.url}</loc>
           <lastmod>${entry.lastModified}</lastmod>
           <changefreq>${entry.changeFrequency}</changefreq>
-          <priority>${entry.priority}</priority>
-        </url>
-      `
+          <priority>${entry.priority.toFixed(1)}</priority>
+        </url>`,
         )
-        .join('')}
+        .join("")}
     </urlset>`;
 
-  // Return the XML sitemap with appropriate headers
   return new NextResponse(sitemap, {
     headers: {
-      'Content-Type': 'application/xml',
-      'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=43200', // Cache for 24 hours
+      "Content-Type": "application/xml",
+      "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=43200",
     },
   });
 }

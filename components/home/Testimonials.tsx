@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -52,9 +53,62 @@ interface Testimonial {
   updatedAt?: string;
 }
 
+const TestimonialCard = ({ t }: { t: Testimonial }) => (
+  <div className="bg-white dark:bg-[#1a1a1a] p-4 sm:p-8 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg text-left h-full">
+    {/* User Info */}
+    <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+      {t.image ? (
+        <Image
+          src={t.image}
+          alt={t.name}
+          width={48}
+          height={48}
+          className="rounded-full object-cover h-10 w-10 sm:h-12 sm:w-12"
+        />
+      ) : (
+        <div className="rounded-full h-10 w-10 sm:h-12 sm:w-12 bg-gray-200 flex items-center justify-center text-gray-500 text-xs sm:text-sm">
+          {t.name.charAt(0).toUpperCase()}
+        </div>
+      )}
+
+      <div className="text-left">
+        <div className="flex items-center gap-1">
+          <h4 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">
+            {t.name}
+          </h4>
+          <UserCheck2 className="w-3 h-3 sm:w-4 sm:h-4 text-[#D4AF37]" />
+        </div>
+        {t.designation && (
+          <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">
+            {t.designation}
+          </p>
+        )}
+      </div>
+    </div>
+
+    {/* Stars */}
+    <div className="flex justify-start mb-3 sm:mb-4">
+      {renderStars(t.rating)}
+    </div>
+
+    {/* Testimonial Message */}
+    <p className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 text-left leading-relaxed">
+      {t.message}
+    </p>
+  </div>
+);
+
 const Testimonials = () => {
   const { data, isLoading, isError } = useGetTestimonialsQuery();
   const testimonials = data?.testimonials || [];
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   if (isLoading) {
     return (
@@ -76,6 +130,14 @@ const Testimonials = () => {
     );
   }
 
+  // Group testimonials into pairs for desktop (2 per slide)
+  const pairs: Testimonial[][] = [];
+  if (!isMobile) {
+    for (let i = 0; i < testimonials.length; i += 2) {
+      pairs.push(testimonials.slice(i, i + 2));
+    }
+  }
+
   return (
     <section className="bg-white dark:bg-darkbg1 py-12 sm:py-20">
       <div className="max-w-6xl mx-auto px-3 sm:px-4 text-center">
@@ -89,54 +151,28 @@ const Testimonials = () => {
             autoplay={{ delay: 4000, disableOnInteraction: false }}
             pagination={{ clickable: true }}
             loop
-            className="mt-8 sm:mt-12"
+            className="mt-8 sm:mt-12 pb-10"
+            slidesPerView={1}
           >
-            {testimonials.map((t: Testimonial) => (
-              <SwiperSlide key={t._id}>
-                <div className="bg-white dark:bg-[#1a1a1a] p-4 sm:p-8 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg max-w-xl mx-auto">
-                  {/* User Info */}
-                  <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-                    {t.image ? (
-                      <Image
-                        src={t.image}
-                        alt={t.name}
-                        width={48}
-                        height={48}
-                        className="rounded-full object-cover h-10 w-10 sm:h-12 sm:w-12"
-                      />
-                    ) : (
-                      <div className="rounded-full h-10 w-10 sm:h-12 sm:w-12 bg-gray-200 flex items-center justify-center text-gray-500 text-xs sm:text-sm">
-                        {t.name.charAt(0).toUpperCase()}
-                      </div>
-                    )}
-
-                    <div className="text-left">
-                      <div className="flex items-center gap-1">
-                        <h4 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">
-                          {t.name}
-                        </h4>
-                        <UserCheck2 className="w-3 h-3 sm:w-4 sm:h-4 text-[#D4AF37]" />
-                      </div>
-                      {t.designation && (
-                        <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">
-                          {t.designation}
-                        </p>
-                      )}
+            {isMobile
+              ? // Mobile: 1 card per slide
+                testimonials.map((t: Testimonial) => (
+                  <SwiperSlide key={t._id}>
+                    <div className="max-w-xl mx-auto">
+                      <TestimonialCard t={t} />
                     </div>
-                  </div>
-
-                  {/* Stars */}
-                  <div className="flex justify-start mb-3 sm:mb-4">
-                    {renderStars(t.rating)}
-                  </div>
-
-                  {/* Testimonial Message */}
-                  <p className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 text-left leading-relaxed">
-                    {t.message}
-                  </p>
-                </div>
-              </SwiperSlide>
-            ))}
+                  </SwiperSlide>
+                ))
+              : // Desktop: 2 cards per slide
+                pairs.map((pair, idx) => (
+                  <SwiperSlide key={idx}>
+                    <div className="grid grid-cols-2 gap-6">
+                      {pair.map((t: Testimonial) => (
+                        <TestimonialCard key={t._id} t={t} />
+                      ))}
+                    </div>
+                  </SwiperSlide>
+                ))}
           </Swiper>
         ) : (
           <div className="mt-8 sm:mt-12 text-center text-gray-500 dark:text-gray-400 text-sm sm:text-base">
