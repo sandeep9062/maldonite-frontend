@@ -1,23 +1,23 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Script from "next/script"; // 👈 Import Script component
+import Script from "next/script";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import RouteTransitionWrapper from "@/components/RouteTransitionWrapper";
-//import MaldoChat from "./components/MaldoChat";
 import ClientProvider from "./ClientProvider";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
-import QuickQuoteDrawer from "@/components/home/QuickQuoteDrawer";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -25,6 +25,7 @@ export const metadata: Metadata = {
     default: "Maldonite | Full-Stack Development, AI, and Digital Solutions",
     template: "%s | Maldonite",
   },
+  metadataBase: new URL("https://www.maldonite.com"),
   description:
     "Maldonite specializes in crafting scalable software and digital products for startups and enterprises. We offer full-stack development (Next.js, MERN), UI/UX design, AI integration, and growth-focused digital marketing to help your business innovate and grow.",
   keywords: [
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
     siteName: "Maldonite",
     images: [
       {
-        url: "https://www.maldonite.com/images/og-image.jpg", // A visually appealing image,image display when somebody share link on social media
+        url: "https://www.maldonite.com/images/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Maldonite | Igniting Innovation with Scalable Code",
@@ -69,11 +70,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: "@maldoniteHQ", // if you have a Twitter handle
+    site: "@maldoniteHQ",
     creator: "@maldoniteHQ",
     title: "Maldonite | Full-Stack Development, AI, and Digital Solutions",
     description:
-      "Maldonite specializes in crafting scalable software and digital products for startups and enterprises. We offer full-stack development (Next.js, MERN), UI/UX design, AI integration, and growth-focused digital marketing.",
+      "Maldonite specializes in crafting scalable software and digital products for startups and enterprises.",
     images: ["https://www.maldonite.com/images/twitter-card.jpg"],
   },
   alternates: {
@@ -104,13 +105,12 @@ export default function RootLayout({
     url: "https://www.maldonite.com",
     logo: "https://www.maldonite.com/images/logo.png",
     sameAs: [
-      "https://twitter.com/maldoniteHQ", // Replace with your social profiles
+      "https://twitter.com/maldoniteHQ",
       "https://www.linkedin.com/company/maldonite",
-      // ... more social links
     ],
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+1-555-555-5555", // Replace with your phone number
+      telephone: "+1-555-555-5555",
       contactType: "customer service",
       areaServed: "US",
       availableLanguage: "en",
@@ -119,6 +119,12 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <head>
+        {/* Preconnect to critical origins for faster resource loading */}
+        <link rel="preconnect" href="https://res.cloudinary.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+      </head>
       <body className="bg-white dark:bg-black">
         <ClientProvider>
           <Script
@@ -126,14 +132,11 @@ export default function RootLayout({
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
           />
-          <RouteTransitionWrapper>
-            <Navbar />
-            {children}
-            <Footer />
-            <WhatsAppWidget />
-
-            {/* <MaldoChat /> */}
-          </RouteTransitionWrapper>
+          <BreadcrumbSchema />
+          <Navbar />
+          {children}
+          <Footer />
+          <WhatsAppWidget />
         </ClientProvider>
       </body>
     </html>

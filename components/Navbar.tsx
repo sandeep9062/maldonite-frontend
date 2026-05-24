@@ -7,12 +7,32 @@ import { Menu, X, ChevronDown, ChevronUp } from "lucide-react";
 import { usePathname } from "next/navigation";
 import ToggleButton from "./ToggleButton";
 import { motion, AnimatePresence } from "framer-motion";
-import * as Icon from "react-icons/fa";
-
 import {
-  SiteSettings,
-  useGetSiteSettingsQuery,
-} from "@/services/siteSettingsApi";
+  FaCode,
+  FaPaintBrush,
+  FaRobot,
+  FaChartLine,
+  FaShoppingCart,
+  FaMobileAlt,
+  FaCloud,
+  FaCogs,
+} from "react-icons/fa";
+
+const iconMap: Record<
+  string,
+  React.ComponentType<{ size?: number; className?: string }>
+> = {
+  FaCode,
+  FaPaintBrush,
+  FaRobot,
+  FaChartLine,
+  FaShoppingCart,
+  FaMobileAlt,
+  FaCloud,
+  FaCogs,
+};
+
+import { useGetSiteSettingsQuery } from "@/services/siteSettingsApi";
 import { useGetServicesQuery } from "@/services/servicesApi";
 import SocialMediaLinks from "@/app/contact/SocialLinks/SocialMediaLinks";
 const navLinks = [
@@ -33,8 +53,8 @@ export default function Navbar() {
   const getIconComponent = (iconName: string | undefined) => {
     if (!iconName || typeof iconName !== "string") return null;
 
-    // Try to get the icon from react-icons/fa
-    const IconComponent = (Icon as any)[iconName];
+    // Try to get the icon from the iconMap
+    const IconComponent = iconMap[iconName];
     return IconComponent || null;
   };
 

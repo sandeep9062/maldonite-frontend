@@ -22,6 +22,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description:
       service.desc || `${service.title} - Service offered by Maldonite`,
     keywords: service.keywords || [],
+    alternates: {
+      canonical: `https://www.maldonite.com/services/${service.slug}`,
+    },
     openGraph: {
       title: `${service.title} | Maldonite Services`,
       description:
@@ -45,6 +48,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
               alt: service.title,
             },
           ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${service.title} | Maldonite Services`,
+      description:
+        service.desc ||
+        `${service.title} - Full-stack development service by Maldonite`,
+      images: service.serviceImage
+        ? [service.serviceImage]
+        : ["https://www.maldonite.com/images/og-image.jpg"],
     },
   };
 }

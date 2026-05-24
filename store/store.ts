@@ -1,4 +1,3 @@
-
 // store/store.ts
 import { configureStore } from "@reduxjs/toolkit";
 
@@ -15,10 +14,6 @@ import { servicesApi } from "@/services/servicesApi";
 import { newsLetterApi } from "@/services/newsLetterApi";
 import { quoteRequestApi } from "@/services/quoteRequestApi";
 
-
-
-
-
 const store = configureStore({
   reducer: {
     [projectApi.reducerPath]: projectApi.reducer,
@@ -33,13 +28,15 @@ const store = configureStore({
     [servicesApi.reducerPath]: servicesApi.reducer,
     [newsLetterApi.reducerPath]: newsLetterApi.reducer,
     [quoteRequestApi.reducerPath]: quoteRequestApi.reducer,
-
-
-
-
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([
+    getDefaultMiddleware({
+      serializableCheck: {
+        // Ignore these action types for serializable check (faster)
+        ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
+      },
+      immutableCheck: false, // Disable for production performance
+    }).concat([
       projectApi.middleware,
       websiteImagesApi.middleware,
       siteSettingsApi.middleware,
@@ -53,7 +50,7 @@ const store = configureStore({
       newsLetterApi.middleware,
       quoteRequestApi.middleware,
     ]),
-  devTools: process.env.NODE_ENV !== "production", // ✅ enable Redux DevTools in development
+  devTools: process.env.NODE_ENV !== "production",
 });
 
 export type RootState = ReturnType<typeof store.getState>;

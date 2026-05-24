@@ -9,9 +9,7 @@ type Props = {
   params: { slug: string };
 };
 
-export async function generateMetadata({
-  params,
-}: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const blog = await getBlogBySlug(slug);
 
@@ -23,10 +21,21 @@ export async function generateMetadata({
 
   return {
     title: blog.seoMetaTitle || blog.title,
-    description: blog.seoMetaDescription,
+    description:
+      blog.seoMetaDescription ||
+      blog.excerpt ||
+      (blog.content
+        ? blog.content.substring(0, 160).replace(/<[^>]*>/g, "")
+        : ""),
     openGraph: {
       title: blog.seoMetaTitle || blog.title,
-      description: blog.seoMetaDescription,
+      description:
+        blog.seoMetaDescription ||
+        blog.excerpt ||
+        (blog.content
+          ? blog.content.substring(0, 160).replace(/<[^>]*>/g, "")
+          : ""),
+      url: `https://www.maldonite.com/blog/${blog.slug}`,
       images: [
         {
           url: blog.image || "/default-image.jpg",
@@ -35,6 +44,17 @@ export async function generateMetadata({
           alt: blog.title,
         },
       ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: blog.seoMetaTitle || blog.title,
+      description:
+        blog.seoMetaDescription ||
+        blog.excerpt ||
+        (blog.content
+          ? blog.content.substring(0, 160).replace(/<[^>]*>/g, "")
+          : ""),
+      images: [blog.image || "/default-image.jpg"],
     },
   };
 }
@@ -46,7 +66,6 @@ export default async function BlogDetailPage({
 }) {
   const { slug } = await params;
   const blog = await getBlogBySlug(slug);
- 
 
   if (!blog) {
     notFound();

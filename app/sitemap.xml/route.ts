@@ -185,18 +185,6 @@ export async function GET() {
       }))
     : [];
 
-  // --- Dynamic Service Pages (under /service/[slug] route) ---
-  const serviceAltEntries: SitemapEntry[] = Array.isArray(services)
-    ? services.map((service: ServiceItem) => ({
-        url: `${WEBSITE_URL}/service/${service.slug}`,
-        lastModified: service.updatedAt
-          ? new Date(service.updatedAt).toISOString()
-          : lastModDate,
-        changeFrequency: "monthly",
-        priority: 0.7,
-      }))
-    : [];
-
   // --- Dynamic Product Pages ---
   const productEntries: SitemapEntry[] = Array.isArray(products)
     ? products.map((product: ProductItem) => ({
@@ -215,7 +203,6 @@ export async function GET() {
     ...blogEntries,
     ...projectEntries,
     ...serviceEntries,
-    ...serviceAltEntries,
     ...productEntries,
   ];
 

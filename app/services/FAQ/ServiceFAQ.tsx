@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import Script from "next/script";
 
 const faqs = [
   {
@@ -33,8 +34,26 @@ const ServiceFAQ = () => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+
   return (
     <section className="py-12 sm:py-20 bg-white dark:bg-[#0D1321]">
+      <Script
+        id="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-[#0d1321] dark:text-white mb-8 sm:mb-10">
           Frequently Asked Questions

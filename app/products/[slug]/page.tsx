@@ -44,6 +44,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             },
           ],
     },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.name} | Maldonite SaaS Products`,
+      description:
+        product.description || `${product.name} - SaaS product by Maldonite`,
+      images: product.image
+        ? [product.image]
+        : ["https://www.maldonite.com/images/og-image.jpg"],
+    },
   };
 }
 
