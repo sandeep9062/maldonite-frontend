@@ -53,7 +53,9 @@ const Footer: React.FC = () => {
               ["About Us", "/about"],
               ["Services", "/services"],
               ["Portfolio", "/portfolio"],
+
               ["Blog", "/blog"],
+              ["Careers", "/career"],
               ["Contact", "/contact"],
             ].map(([name, href]) => (
               <li key={name}>

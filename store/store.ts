@@ -13,6 +13,7 @@ import { testimonialsApi } from "@/services/testimonialsApi";
 import { servicesApi } from "@/services/servicesApi";
 import { newsLetterApi } from "@/services/newsLetterApi";
 import { quoteRequestApi } from "@/services/quoteRequestApi";
+import { careerApi } from "@/services/careerApi";
 
 const store = configureStore({
   reducer: {
@@ -28,6 +29,7 @@ const store = configureStore({
     [servicesApi.reducerPath]: servicesApi.reducer,
     [newsLetterApi.reducerPath]: newsLetterApi.reducer,
     [quoteRequestApi.reducerPath]: quoteRequestApi.reducer,
+    [careerApi.reducerPath]: careerApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -49,6 +51,7 @@ const store = configureStore({
       servicesApi.middleware,
       newsLetterApi.middleware,
       quoteRequestApi.middleware,
+      careerApi.middleware,
     ]),
   devTools: process.env.NODE_ENV !== "production",
 });
