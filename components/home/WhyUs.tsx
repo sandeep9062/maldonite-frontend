@@ -5,33 +5,35 @@ import {
   LayoutDashboard,
   TrendingUp,
   Lightbulb,
+  ArrowUpRight,
 } from "lucide-react";
 import Image from "next/image";
-import {
-  useGetWebsiteImageByContextQuery,
-  WebsiteImage,
-} from "@/services/websiteImagesApi";
+import { useGetWebsiteImageByContextQuery } from "@/services/websiteImagesApi";
 
 const points = [
   {
-    icon: <ShieldCheck className="w-8 h-8 text-[#d4af37]" />,
-    title: "10+ Years of Engineering Expertise",
-    desc: "Our engineers have scaled startups into million-dollar ventures. Whether it’s MVPs or enterprise systems, we build products that stand the test of time.",
+    icon: ShieldCheck,
+    label: "Experience",
+    title: "10+ Years of Engineering",
+    desc: "We've scaled startups into million-dollar ventures. Whether it's an MVP or an enterprise system, we build products that stand the test of time.",
   },
   {
-    icon: <LayoutDashboard className="w-8 h-8 text-[#d4af37]" />,
-    title: "Agile. Transparent. Reliable.",
-    desc: "We follow weekly sprints, real-time reporting, and fast iterations—ensuring you're always in the loop and moving forward.",
+    icon: LayoutDashboard,
+    label: "Process",
+    title: "Agile, Transparent & Reliable",
+    desc: "Weekly sprints, real-time reporting, fast iterations — you're always in the loop and always moving forward.",
   },
   {
-    icon: <TrendingUp className="w-8 h-8 text-[#d4af37]" />,
-    title: "Future-Proof Tech Architecture",
-    desc: "Using modern stacks like Next.js, MongoDB, and microservices, we craft backend and frontend systems that are secure, scalable, and fast.",
+    icon: TrendingUp,
+    label: "Architecture",
+    title: "Future-Proof Tech Stack",
+    desc: "Next.js, MongoDB, microservices — we craft backend and frontend systems that are secure, scalable, and blazing fast.",
   },
   {
-    icon: <Lightbulb className="w-8 h-8 text-[#d4af37]" />,
+    icon: Lightbulb,
+    label: "Vision",
     title: "Product-Focused Collaboration",
-    desc: "We don’t just deliver code—we align with your vision, goals, and timelines to craft solutions that truly impact your business.",
+    desc: "We align with your goals and timelines, not just your tickets. Every line of code is written with your business outcome in mind.",
   },
 ];
 
@@ -43,55 +45,65 @@ const WhyUs = () => {
   } = useGetWebsiteImageByContextQuery("why-us");
 
   return (
-    <section className="py-12 sm:py-24 bg-white dark:bg-darkbg1">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-10 sm:space-y-16">
-        {/* Heading Section */}
-        <div className="text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white px-2">
-            Why Choose <span className="text-[#d4af37]">Maldonite</span>?
+    <section className="py-16 sm:py-28 bg-[#FAFAF8] dark:bg-[#080808]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        {/* ── Header ── */}
+        <div className="max-w-2xl mb-12 sm:mb-16">
+          <p className="text-[11px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37] mb-3">
+            Why Maldonite
+          </p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-slate-900 dark:text-white leading-[1.1] tracking-tight mb-4">
+            Built different,
+            <br className="hidden sm:block" /> for a reason.
           </h2>
-          <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto px-2 sm:px-4">
-            We go beyond coding—we partner with you. With deep product insight
-            and a focus on results, we turn your vision into scalable,
-            revenue-driving software.
+          <p className="text-[15px] text-slate-500 dark:text-slate-400 leading-relaxed max-w-xl">
+            We go beyond coding — we partner with you. With deep product insight
+            and a relentless focus on results, we turn your vision into
+            scalable, revenue-driving software.
           </p>
         </div>
 
-        {/* Grid Section: Features + Image */}
-        <div className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-start md:items-center">
-          {/* Features Grid */}
-          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2">
-            {points.map((point, idx) => (
-              <div
-                key={idx}
-                className="bg-white dark:bg-[#1A1A1A] rounded-xl border border-gray-200 dark:border-gray-700 p-3 sm:p-4 shadow-sm hover:shadow-md hover:border-[#d4af37] transition-all duration-300 group"
-              >
-                <div className="mb-1 sm:mb-2">{point.icon}</div>
-                <h3 className="text-sm sm:text-md font-semibold text-gray-800 dark:text-white group-hover:text-[#d4af37] transition-colors leading-tight sm:leading-normal">
-                  {point.title}
-                </h3>
-                <p className="mt-1 text-xs sm:text-sm text-gray-700 dark:text-gray-400 leading-tight sm:leading-normal">
-                  {point.desc}
-                </p>
-              </div>
-            ))}
+        {/* ── Body: points + image ── */}
+        <div className="grid md:grid-cols-2 gap-8 md:gap-14 items-center">
+          {/* Feature cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {points.map((point, idx) => {
+              const Icon = point.icon;
+              return (
+                <div
+                  key={idx}
+                  className="group flex flex-col bg-white dark:bg-[#0F0F0F] rounded-2xl border border-slate-100 dark:border-white/[0.06] hover:border-[#D4AF37]/40 dark:hover:border-[#D4AF37]/25 hover:shadow-[0_12px_40px_-8px_rgba(212,175,55,0.12)] p-5 transition-all duration-300"
+                >
+                  {/* Icon + label */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-[#D4AF37]" />
+                    </div>
+                    <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-slate-300 dark:text-slate-700">
+                      {point.label}
+                    </span>
+                  </div>
+
+                  <h3 className="text-[14px] font-bold leading-[1.25] tracking-[-0.01em] text-slate-900 dark:text-white group-hover:text-[#B8940F] dark:group-hover:text-[#D4AF37] transition-colors duration-200 mb-2">
+                    {point.title}
+                  </h3>
+                  <p className="text-[12.5px] text-slate-500 dark:text-slate-500 leading-relaxed flex-1">
+                    {point.desc}
+                  </p>
+                </div>
+              );
+            })}
           </div>
 
-          {/* Image Block with Alignment Fix */}
-          <div className="flex justify-center items-center h-full">
-            <div className="w-full max-w-lg rounded-lg overflow-hidden shadow-lg">
+          {/* Image block */}
+          <div className="relative">
+            <div className="relative rounded-2xl overflow-hidden bg-slate-100 dark:bg-white/[0.04] border border-slate-100 dark:border-white/[0.06]">
               {isLoading && (
-                <div className="w-full h-[200px] sm:h-[300px] flex items-center justify-center bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse">
-                  <span className="text-gray-400 text-sm sm:text-base">
-                    Loading image...
-                  </span>
-                </div>
+                <div className="w-full aspect-[4/3] animate-pulse bg-slate-200 dark:bg-white/[0.06] rounded-2xl" />
               )}
               {isError && (
-                <div className="w-full h-[200px] sm:h-[300px] flex items-center justify-center bg-gray-100 dark:bg-gray-800 rounded-lg">
-                  <span className="text-red-500 text-sm sm:text-base">
-                    Failed to load image
-                  </span>
+                <div className="w-full aspect-[4/3] flex items-center justify-center text-sm text-slate-400 dark:text-slate-600">
+                  Image unavailable
                 </div>
               )}
               {imageData?.data?.url && (
@@ -99,8 +111,8 @@ const WhyUs = () => {
                   src={imageData.data.url}
                   alt={imageData.data.altText}
                   width={700}
-                  height={500}
-                  className="w-full h-auto object-cover rounded-lg"
+                  height={525}
+                  className="w-full h-auto object-cover"
                   priority
                 />
               )}
@@ -108,13 +120,17 @@ const WhyUs = () => {
           </div>
         </div>
 
-        {/* CTA Full Width Button */}
-        <div className="flex justify-center">
+        {/* ── CTA ── */}
+        <div className="mt-14 sm:mt-20 flex flex-col sm:flex-row items-center justify-between gap-6 pt-10 border-t border-slate-100 dark:border-white/[0.06]">
+          <p className="text-[15px] text-slate-500 dark:text-slate-400 max-w-md text-center sm:text-left">
+            Ready to build something that lasts? Let's talk about your project.
+          </p>
           <a
             href="/contact"
-            className="block w-full sm:w-xl text-center bg-[#d4af37] hover:bg-[#c9a437] text-black font-semibold py-2.5 sm:py-3 px-4 sm:px-6 rounded shadow-md transition-all text-sm sm:text-base md:text-lg mx-2 sm:mx-0"
+            className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-[#D4AF37] hover:bg-[#c9a630] text-black text-[12px] font-bold uppercase tracking-[0.14em] transition-all duration-200 hover:shadow-[0_8px_24px_-4px_rgba(212,175,55,0.4)] whitespace-nowrap"
           >
             Book a Free Consultation
+            <ArrowUpRight size={14} />
           </a>
         </div>
       </div>

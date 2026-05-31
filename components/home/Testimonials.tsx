@@ -6,38 +6,29 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import Image from "next/image";
-import { UserCheck2 } from "lucide-react";
+import { UserCheck2, Quote } from "lucide-react";
 import { useGetTestimonialsQuery } from "@/services/testimonialsApi";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 
-// Helper function to render star ratings
 const renderStars = (rating: number) => {
-  const stars = [];
-  const fullStars = Math.floor(rating);
-  const hasHalfStar = rating % 1 !== 0;
-
-  for (let i = 0; i < fullStars; i++) {
-    stars.push(
-      <FaStar key={`full-${i}`} className="text-yellow-400 w-5 h-5" />,
-    );
-  }
-
-  if (hasHalfStar) {
-    stars.push(
-      <FaStarHalfAlt key="half" className="text-yellow-400 w-5 h-5" />,
-    );
-  }
-
-  for (let i = 0; i < 5 - fullStars - (hasHalfStar ? 1 : 0); i++) {
-    stars.push(
-      <FaRegStar key={`empty-${i}`} className="text-gray-300 w-5 h-5" />,
-    );
-  }
-
-  return <div className="flex gap-1">{stars}</div>;
+  const full = Math.floor(rating);
+  const half = rating % 1 !== 0;
+  return (
+    <div className="flex items-center gap-0.5">
+      {[...Array(full)].map((_, i) => (
+        <FaStar key={`f${i}`} className="w-3 h-3 text-[#D4AF37]" />
+      ))}
+      {half && <FaStarHalfAlt key="h" className="w-3 h-3 text-[#D4AF37]" />}
+      {[...Array(5 - full - (half ? 1 : 0))].map((_, i) => (
+        <FaRegStar
+          key={`e${i}`}
+          className="w-3 h-3 text-slate-300 dark:text-slate-700"
+        />
+      ))}
+    </div>
+  );
 };
 
-// Interface for a single Testimonial object
 interface Testimonial {
   _id: string;
   name: string;
@@ -54,53 +45,75 @@ interface Testimonial {
 }
 
 const TestimonialCard = ({ t }: { t: Testimonial }) => (
-  <div className="bg-white dark:bg-[#1a1a1a] p-4 sm:p-8 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg text-left h-full">
-    {/* User Info */}
-    <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+  <div className="group flex flex-col bg-white dark:bg-[#0F0F0F] rounded-2xl border border-slate-100 dark:border-white/[0.06] hover:border-[#D4AF37]/35 dark:hover:border-[#D4AF37]/20 hover:shadow-[0_16px_48px_-8px_rgba(212,175,55,0.11)] p-6 sm:p-7 text-left h-full transition-all duration-300 relative overflow-hidden">
+    {/* Decorative quote mark */}
+    <Quote
+      className="absolute top-5 right-5 w-8 h-8 text-slate-50 dark:text-white/[0.025] rotate-180 pointer-events-none select-none"
+      aria-hidden
+    />
+
+    {/* Gold top accent */}
+    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#D4AF37]/0 via-[#D4AF37] to-[#D4AF37]/0 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-400 ease-out" />
+
+    {/* Stars */}
+    <div className="mb-4">{renderStars(t.rating)}</div>
+
+    {/* Message */}
+    <p className="text-[13.5px] text-slate-600 dark:text-slate-400 leading-[1.75] flex-1 mb-6 line-clamp-4">
+      "{t.message}"
+    </p>
+
+    {/* Author */}
+    <div className="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-white/[0.06] group-hover:border-[#D4AF37]/12 transition-colors duration-200">
       {t.image ? (
         <Image
           src={t.image}
           alt={t.name}
-          width={48}
-          height={48}
-          className="rounded-full object-cover h-10 w-10 sm:h-12 sm:w-12"
+          width={40}
+          height={40}
+          className="rounded-full object-cover w-9 h-9 ring-2 ring-[#D4AF37]/20 flex-shrink-0"
         />
       ) : (
-        <div className="rounded-full h-10 w-10 sm:h-12 sm:w-12 bg-gray-200 flex items-center justify-center text-gray-500 text-xs sm:text-sm">
+        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#D4AF37] to-amber-700 flex items-center justify-center text-[11px] font-bold text-black flex-shrink-0 ring-2 ring-[#D4AF37]/20">
           {t.name.charAt(0).toUpperCase()}
         </div>
       )}
-
-      <div className="text-left">
-        <div className="flex items-center gap-1">
-          <h4 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">
+      <div className="min-w-0">
+        <div className="flex items-center gap-1.5">
+          <span className="text-[13px] font-semibold text-slate-900 dark:text-white truncate">
             {t.name}
-          </h4>
-          <UserCheck2 className="w-3 h-3 sm:w-4 sm:h-4 text-[#D4AF37]" />
+          </span>
+          <UserCheck2 className="w-3.5 h-3.5 text-[#D4AF37] flex-shrink-0" />
         </div>
-        {t.designation && (
-          <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">
+        {(t.designation || t.company) && (
+          <p className="text-[11px] text-slate-400 dark:text-slate-600 truncate">
             {t.designation}
+            {t.designation && t.company && " · "}
+            {t.company}
           </p>
         )}
       </div>
     </div>
-
-    {/* Stars */}
-    <div className="flex justify-start mb-3 sm:mb-4">
-      {renderStars(t.rating)}
-    </div>
-
-    {/* Testimonial Message */}
-    <p className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 text-left leading-relaxed">
-      {t.message}
-    </p>
   </div>
 );
 
+const logos = [
+  { src: "/logos/company-logo-1.png", alt: "Client 1" },
+  { src: "/logos/company-logo-2.png", alt: "Client 2" },
+  { src: "/logos/company-logo-3.png", alt: "Client 3" },
+  { src: "/logos/company-logo-4.png", alt: "Client 4" },
+  { src: "/logos/company-logo-5.png", alt: "Client 5" },
+  { src: "/logos/company-logo-6.png", alt: "Client 6" },
+  { src: "/logos/company-logo-7.png", alt: "Client 7" },
+  { src: "/logos/company-logo-8.png", alt: "Client 8" },
+  { src: "/logos/company-logo-9.png", alt: "Client 9" },
+  { src: "/logos/company-logo-10.png", alt: "Client 10" },
+  { src: "/logos/company-logo-11.png", alt: "Client 11" },
+];
+
 const Testimonials = () => {
   const { data, isLoading, isError } = useGetTestimonialsQuery();
-  const testimonials = data?.testimonials || [];
+  const testimonials: Testimonial[] = data?.testimonials || [];
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -110,27 +123,6 @@ const Testimonials = () => {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  if (isLoading) {
-    return (
-      <section className="py-10 sm:py-16 bg-white dark:bg-[#0D1321]">
-        <div className="text-center text-gray-500 dark:text-gray-400 text-sm sm:text-base">
-          Loading testimonials...
-        </div>
-      </section>
-    );
-  }
-
-  if (isError) {
-    return (
-      <section className="py-10 sm:py-16 bg-white dark:bg-[#0D1321]">
-        <div className="text-center text-red-500 dark:text-red-400 text-sm sm:text-base">
-          Failed to load testimonials. Please try again later.
-        </div>
-      </section>
-    );
-  }
-
-  // Group testimonials into pairs for desktop (2 per slide)
   const pairs: Testimonial[][] = [];
   if (!isMobile) {
     for (let i = 0; i < testimonials.length; i += 2) {
@@ -139,34 +131,82 @@ const Testimonials = () => {
   }
 
   return (
-    <section className="bg-white dark:bg-darkbg1 py-12 sm:py-20">
-      <div className="max-w-6xl mx-auto px-3 sm:px-4 text-center">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-navy dark:text-white px-2">
-          What Clients Say
-        </h2>
+    <section className="py-16 sm:py-28 bg-[#FAFAF8] dark:bg-[#080808]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        {/* ── Header ── */}
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12 sm:mb-16">
+          <div>
+            <p className="text-[11px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37] mb-3">
+              Client Stories
+            </p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-slate-900 dark:text-white leading-[1.1] tracking-tight">
+              Trusted by builders
+              <br className="hidden sm:block" /> worldwide.
+            </h2>
+          </div>
+          {testimonials.length > 0 && (
+            <div className="flex items-center gap-2.5 self-start sm:self-auto">
+              <div className="flex -space-x-2">
+                {testimonials.slice(0, 4).map((t, i) => (
+                  <div
+                    key={i}
+                    className="w-8 h-8 rounded-full ring-2 ring-[#FAFAF8] dark:ring-[#080808] bg-gradient-to-br from-[#D4AF37] to-amber-700 flex items-center justify-center text-[9px] font-bold text-black flex-shrink-0"
+                    style={{ zIndex: 4 - i }}
+                  >
+                    {t.name.charAt(0)}
+                  </div>
+                ))}
+              </div>
+              <p className="text-[12px] text-slate-500 dark:text-slate-500">
+                <span className="font-semibold text-slate-900 dark:text-white">
+                  {testimonials.length}+
+                </span>{" "}
+                reviews
+              </p>
+            </div>
+          )}
+        </div>
 
-        {testimonials.length > 0 ? (
+        {/* ── Loading ── */}
+        {isLoading && (
+          <div className="grid sm:grid-cols-2 gap-5">
+            {[...Array(2)].map((_, i) => (
+              <div
+                key={i}
+                className="rounded-2xl bg-slate-100 dark:bg-white/[0.04] animate-pulse h-52"
+              />
+            ))}
+          </div>
+        )}
+
+        {/* ── Error ── */}
+        {isError && (
+          <p className="text-center text-sm text-slate-400 py-16">
+            Could not load testimonials. Please try again later.
+          </p>
+        )}
+
+        {/* ── Swiper ── */}
+        {!isLoading && !isError && testimonials.length > 0 && (
           <Swiper
             modules={[Autoplay, Pagination]}
-            autoplay={{ delay: 4000, disableOnInteraction: false }}
+            autoplay={{ delay: 5000, disableOnInteraction: false }}
             pagination={{ clickable: true }}
             loop
-            className="mt-8 sm:mt-12 pb-10"
+            className="pb-10 [&_.swiper-pagination-bullet]:bg-slate-300 [&_.swiper-pagination-bullet-active]:bg-[#D4AF37] [&_.swiper-pagination-bullet-active]:w-5 [&_.swiper-pagination-bullet]:transition-all"
             slidesPerView={1}
           >
             {isMobile
-              ? // Mobile: 1 card per slide
-                testimonials.map((t: Testimonial) => (
+              ? testimonials.map((t: Testimonial) => (
                   <SwiperSlide key={t._id}>
-                    <div className="max-w-xl mx-auto">
+                    <div className="max-w-xl mx-auto px-1">
                       <TestimonialCard t={t} />
                     </div>
                   </SwiperSlide>
                 ))
-              : // Desktop: 2 cards per slide
-                pairs.map((pair, idx) => (
+              : pairs.map((pair, idx) => (
                   <SwiperSlide key={idx}>
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-2 gap-5 px-1">
                       {pair.map((t: Testimonial) => (
                         <TestimonialCard key={t._id} t={t} />
                       ))}
@@ -174,38 +214,28 @@ const Testimonials = () => {
                   </SwiperSlide>
                 ))}
           </Swiper>
-        ) : (
-          <div className="mt-8 sm:mt-12 text-center text-gray-500 dark:text-gray-400 text-sm sm:text-base">
-            No testimonials to display yet.
-          </div>
         )}
 
-        {/* Client Logos */}
-        <div className="mt-10 sm:mt-16">
-          <p className="text-gray-600 dark:text-gray-400 mb-4 sm:mb-6 text-sm">
+        {!isLoading && !isError && testimonials.length === 0 && (
+          <p className="text-center text-sm text-slate-400 py-16">
+            No testimonials to display yet.
+          </p>
+        )}
+
+        {/* ── Logo strip ── */}
+        <div className="mt-14 sm:mt-20 pt-10 border-t border-slate-100 dark:border-white/[0.05]">
+          <p className="text-[10px] uppercase tracking-[0.18em] font-semibold text-slate-400 dark:text-slate-600 text-center mb-7">
             Trusted by leading companies
           </p>
-          <div className="flex justify-center items-center gap-3 sm:gap-8 flex-wrap opacity-80">
-            {[
-              { src: "/logos/company-logo-1.png", alt: "Client 1" },
-              { src: "/logos/company-logo-2.png", alt: "Client 2" },
-              { src: "/logos/company-logo-3.png", alt: "Client 3" },
-              { src: "/logos/company-logo-4.png", alt: "Client 4" },
-              { src: "/logos/company-logo-5.png", alt: "Client 5" },
-              { src: "/logos/company-logo-6.png", alt: "Client 6" },
-              { src: "/logos/company-logo-7.png", alt: "Client 7" },
-              { src: "/logos/company-logo-8.png", alt: "Client 8" },
-              { src: "/logos/company-logo-9.png", alt: "Client 9" },
-              { src: "/logos/company-logo-10.png", alt: "Client 10" },
-              { src: "/logos/company-logo-11.png", alt: "Client 11" },
-            ].map((logo, i) => (
+          <div className="flex justify-center items-center gap-6 sm:gap-10 flex-wrap">
+            {logos.map((logo, i) => (
               <Image
                 key={i}
-                width={80}
-                height={80}
                 src={logo.src}
                 alt={logo.alt}
-                className="sm:w-[120px] sm:h-[120px]"
+                width={90}
+                height={32}
+                className="h-6 sm:h-8 w-auto object-contain opacity-40 hover:opacity-70 grayscale hover:grayscale-0 transition-all duration-300"
               />
             ))}
           </div>

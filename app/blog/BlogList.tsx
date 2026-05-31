@@ -1,12 +1,7 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback } from "react";
-import Image from "next/image";
-import Link from "next/link";
+import { useState, useMemo } from "react";
 import {
-  CalendarDays,
-  ArrowUpRight,
-  Clock,
   ChevronLeft,
   ChevronRight,
   Search,
@@ -19,23 +14,8 @@ import {
   BarChart3,
   Cloud,
   Rocket,
-  Tags,
 } from "lucide-react";
-
-// --- Interfaces ---
-interface Blog {
-  _id: string;
-  title: string;
-  slug: string;
-  desc: string;
-  image?: string;
-  images?: string[];
-  category: string;
-  author: string;
-  authorImage?: string;
-  date: string;
-  readTime?: number;
-}
+import BlogCard, { Blog } from "@/components/BlogCard";
 
 const categories = [
   "All",
@@ -51,16 +31,16 @@ const categories = [
 ];
 
 const categoryIcons: Record<string, React.ReactNode> = {
-  All: <Sparkles size={10} />,
-  SaaS: <Rocket size={10} />,
-  AI: <Zap size={10} />,
-  DevTools: <Code size={10} />,
-  "UI/UX": <Palette size={10} />,
-  "Web Development": <Globe size={10} />,
-  Product: <TrendingUp size={10} />,
-  SEO: <BarChart3 size={10} />,
-  Marketing: <TrendingUp size={10} />,
-  Cloud: <Cloud size={10} />,
+  All: <Sparkles size={11} />,
+  SaaS: <Rocket size={11} />,
+  AI: <Zap size={11} />,
+  DevTools: <Code size={11} />,
+  "UI/UX": <Palette size={11} />,
+  "Web Development": <Globe size={11} />,
+  Product: <TrendingUp size={11} />,
+  SEO: <BarChart3 size={11} />,
+  Marketing: <TrendingUp size={11} />,
+  Cloud: <Cloud size={11} />,
 };
 
 const POSTS_PER_PAGE = 15;
@@ -83,195 +63,114 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
     currentPage * POSTS_PER_PAGE,
   );
 
+  const handleCategory = (cat: string) => {
+    setActiveCategory(cat);
+    setCurrentPage(1);
+  };
+
   return (
-    <div className="min-h-screen bg-white dark:bg-[#080808] text-slate-900 dark:text-slate-100 transition-colors duration-500 pb-20">
-      {/* Category Filter */}
-      <nav className="sticky top-4 md:top-6 z-50 mx-auto max-w-fit px-2 sm:px-4 mb-10 md:mb-16">
-        <div className="flex items-center gap-1.5 p-1.5 bg-white/90 dark:bg-[#121212]/90 backdrop-blur-2xl border border-slate-200/50 dark:border-white/8 rounded-2xl shadow-lg shadow-black/5 dark:shadow-black/20 overflow-x-auto no-scrollbar">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => {
-                setActiveCategory(cat);
-                setCurrentPage(1);
-              }}
-              className={`inline-flex items-center gap-1.5 px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-tighter whitespace-nowrap transition-all duration-300 ${
-                activeCategory === cat
-                  ? "bg-[#D4AF37] text-black shadow-lg shadow-[#D4AF37]/25 scale-105"
-                  : "text-slate-500 hover:text-black dark:hover:text-white hover:bg-white/50 dark:hover:bg-white/5"
-              }`}
-            >
-              {categoryIcons[cat]}
-              {cat}
-            </button>
-          ))}
+    <div className="min-h-screen bg-[#FAFAF8] dark:bg-[#080808] text-slate-900 dark:text-slate-100 transition-colors duration-500 pb-24">
+      {/* ── Category filter bar ── */}
+      <nav className="sticky top-0 z-50 bg-[#FAFAF8]/80 dark:bg-[#080808]/80 backdrop-blur-xl border-b border-slate-100 dark:border-white/[0.05]">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6">
+          <div className="flex items-center gap-1 overflow-x-auto no-scrollbar py-3">
+            {categories.map((cat) => {
+              const isActive = activeCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => handleCategory(cat)}
+                  className={`
+                    inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg
+                    text-[11px] font-semibold uppercase tracking-[0.12em]
+                    whitespace-nowrap flex-shrink-0
+                    transition-all duration-200
+                    ${
+                      isActive
+                        ? "bg-[#D4AF37] text-black"
+                        : "text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06]"
+                    }
+                  `}
+                >
+                  <span
+                    className={
+                      isActive ? "text-black/70" : "text-current opacity-70"
+                    }
+                  >
+                    {categoryIcons[cat]}
+                  </span>
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </nav>
 
-      {/* Main Content */}
-      <main className="px-4 sm:px-6 max-w-[1440px] mx-auto">
+      {/* ── Main content ── */}
+      <main className="max-w-[1440px] mx-auto px-4 sm:px-6 pt-10 sm:pt-14">
+        {/* Result count */}
+        {filteredBlogs.length > 0 && (
+          <p className="text-[11px] uppercase tracking-[0.15em] text-slate-400 dark:text-slate-600 font-medium mb-6 sm:mb-8">
+            {filteredBlogs.length}{" "}
+            {filteredBlogs.length === 1 ? "story" : "stories"}
+            {activeCategory !== "All" && (
+              <>
+                {" "}
+                &mdash; <span className="text-[#D4AF37]">{activeCategory}</span>
+              </>
+            )}
+          </p>
+        )}
+
         {filteredBlogs.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
-            {paginatedBlogs.map((blog, i) => (
-              <article
-                key={blog._id}
-                className="group relative flex flex-col bg-white dark:bg-[#0f0f0f] rounded-2xl sm:rounded-3xl border border-slate-200/60 dark:border-white/5 overflow-hidden hover:border-[#D4AF37]/30 hover:shadow-2xl hover:shadow-[#D4AF37]/8 dark:hover:shadow-[#D4AF37]/5 transition-all duration-500 ease-out"
-              >
-                <Link
-                  href={`/blog/${blog.slug}`}
-                  className="flex flex-col h-full"
-                >
-                  {/* Image Container - Full width, aspect ratio based */}
-                  <div className="relative w-full aspect-[16/10] sm:aspect-[4/3] overflow-hidden">
-                    <Image
-                      src={blog.images?.[0] || blog.image || ""}
-                      alt={blog.title}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover grayscale-[0.15] group-hover:grayscale-0 transition-all duration-700 ease-out scale-100 group-hover:scale-110"
-                    />
-
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
-
-                    {/* Category Badge - Always visible */}
-                    <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1 bg-[#D4AF37]/90 backdrop-blur-md text-[8px] sm:text-[10px] font-bold text-black uppercase tracking-[0.15em] rounded-lg shadow-lg">
-                        <Tags size={8} />
-                        {blog.category}
-                      </span>
-                    </div>
-
-                    {/* View More Icon - appears on hover */}
-                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 dark:bg-[#1A1A1A]/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400 ease-out shadow-lg z-10">
-                      <ArrowUpRight size={16} className="text-[#D4AF37]" />
-                    </div>
-
-                    {/* Date/Read time - Bottom left overlay */}
-                    <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 flex items-center gap-2 px-2.5 py-1 bg-black/40 backdrop-blur-sm rounded-lg text-[8px] text-white/80 uppercase tracking-wider">
-                      <span className="flex items-center gap-1">
-                        <CalendarDays size={10} />
-                        {new Date(blog.date).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                        })}
-                      </span>
-                      {blog.readTime && (
-                        <>
-                          <span className="w-0.5 h-0.5 rounded-full bg-white/30" />
-                          <span className="flex items-center gap-1">
-                            <Clock size={10} /> {blog.readTime}m
-                          </span>
-                        </>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Content Section - Below image on all screens */}
-                  <div className="flex flex-col flex-1 p-4 sm:p-5 md:p-6 relative">
-                    {/* Gold Accent Line on hover */}
-                    <div className="absolute top-0 left-4 right-4 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
-
-                    {/* Mobile date row */}
-                    <div className="flex items-center gap-2 mb-2 sm:hidden">
-                      <span className="text-[10px] text-slate-400 uppercase tracking-wider">
-                        {new Date(blog.date).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
-                      </span>
-                      {blog.readTime && (
-                        <>
-                          <span className="w-0.5 h-0.5 rounded-full bg-slate-300 dark:bg-slate-600" />
-                          <span className="text-[10px] text-slate-400 uppercase tracking-wider">
-                            {blog.readTime} min read
-                          </span>
-                        </>
-                      )}
-                    </div>
-
-                    <h3 className="text-base sm:text-lg font-serif font-bold text-slate-900 dark:text-white leading-[1.2] mb-2 line-clamp-2 group-hover:text-[#D4AF37] transition-colors duration-300">
-                      {blog.title}
-                    </h3>
-
-                    <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-2 mb-4 flex-1">
-                      {blog.desc}
-                    </p>
-
-                    {/* Author + CTA */}
-                    <div className="flex items-center justify-between mt-auto pt-3 border-t border-slate-100 dark:border-white/5 group-hover:border-[#D4AF37]/10 transition-colors duration-300">
-                      <div className="flex items-center gap-2.5">
-                        <div className="relative w-6 h-6 sm:w-7 sm:h-7 rounded-full overflow-hidden ring-2 ring-[#D4AF37]/20 group-hover:ring-[#D4AF37]/40 flex-shrink-0 transition-all duration-300">
-                          {blog.authorImage ? (
-                            <Image
-                              src={blog.authorImage}
-                              alt={blog.author}
-                              fill
-                              className="object-cover"
-                            />
-                          ) : (
-                            <div className="bg-gradient-to-br from-[#D4AF37] to-amber-600 w-full h-full flex items-center justify-center text-[8px] sm:text-[10px] font-bold text-black">
-                              {blog.author[0]}
-                            </div>
-                          )}
-                        </div>
-                        <span className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 font-medium truncate max-w-[100px] sm:max-w-[140px]">
-                          {blog.author}
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-1 text-[10px] sm:text-[11px] font-semibold text-slate-400 dark:text-slate-500 group-hover:text-[#D4AF37] transition-colors duration-300">
-                        <span className="hidden sm:inline">Read</span>
-                        <ArrowUpRight
-                          size={12}
-                          className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </article>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-7">
+            {paginatedBlogs.map((blog) => (
+              <BlogCard key={blog._id} blog={blog} />
             ))}
           </div>
         ) : (
-          <div className="py-20 sm:py-40 text-center flex flex-col items-center">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 mb-6 sm:mb-8 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-white/5 dark:to-white/10 rounded-2xl flex items-center justify-center">
+          /* ── Empty state ── */
+          <div className="flex flex-col items-center justify-center py-28 sm:py-40 text-center">
+            <div className="w-14 h-14 mb-6 rounded-2xl bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.06] flex items-center justify-center">
               <Search
-                className="text-slate-400 dark:text-slate-500"
-                size={24}
+                size={20}
+                className="text-slate-400 dark:text-slate-600"
               />
             </div>
-            <h3 className="text-2xl sm:text-3xl font-serif mb-3">
-              No stories found.
+            <h3 className="text-xl sm:text-2xl font-serif font-bold text-slate-800 dark:text-white mb-2">
+              No stories found
             </h3>
-            <p className="text-sm text-slate-400 mb-6 max-w-xs">
-              Try adjusting your category filter to discover more content.
+            <p className="text-sm text-slate-400 dark:text-slate-600 mb-8 max-w-[240px] leading-relaxed">
+              Nothing in{" "}
+              <span className="text-[#D4AF37]">{activeCategory}</span> yet. Try
+              another category.
             </p>
             <button
-              onClick={() => setActiveCategory("All")}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#D4AF37]/10 hover:bg-[#D4AF37]/20 text-[#D4AF37] text-xs font-bold uppercase tracking-wider rounded-xl border border-[#D4AF37]/20 hover:border-[#D4AF37]/40 transition-all duration-300"
+              onClick={() => handleCategory("All")}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#D4AF37]/10 hover:bg-[#D4AF37]/20 border border-[#D4AF37]/25 hover:border-[#D4AF37]/50 text-[#B8940F] dark:text-[#D4AF37] text-[11px] font-bold uppercase tracking-[0.12em] transition-all duration-200"
             >
-              <Sparkles size={14} />
-              Reset Filters
+              <Sparkles size={13} />
+              Show all stories
             </button>
           </div>
         )}
 
-        {/* Pagination */}
+        {/* ── Pagination ── */}
         {totalPages > 1 && (
-          <div className="flex justify-center items-center gap-4 sm:gap-8 mt-14 sm:mt-16 md:mt-24 pt-8 sm:pt-10 border-t border-slate-100 dark:border-white/5">
+          <div className="flex items-center justify-center gap-2 mt-16 sm:mt-20 pt-8 border-t border-slate-100 dark:border-white/[0.05]">
+            {/* Prev */}
             <button
               onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
               disabled={currentPage === 1}
-              className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 text-[10px] font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] text-slate-500 dark:text-slate-400 disabled:opacity-20 hover:text-[#D4AF37] bg-white dark:bg-[#0f0f0f] border border-slate-200 dark:border-white/10 rounded-xl hover:border-[#D4AF37]/30 transition-all duration-300"
+              aria-label="Previous page"
+              className="w-9 h-9 flex items-center justify-center rounded-lg border border-slate-200 dark:border-white/[0.08] text-slate-400 dark:text-slate-600 hover:text-slate-700 dark:hover:text-slate-300 hover:border-slate-300 dark:hover:border-white/15 disabled:opacity-25 disabled:pointer-events-none transition-all duration-200"
             >
-              <ChevronLeft size={14} />
-              <span className="hidden sm:inline">Prev</span>
+              <ChevronLeft size={15} />
             </button>
 
-            {/* Page numbers - always visible, compact on mobile */}
-            <div className="flex items-center gap-1.5 sm:gap-2">
+            {/* Page numbers */}
+            <div className="flex items-center gap-1.5">
               {[...Array(Math.min(totalPages, 5))].map((_, idx) => {
                 let pageNum: number;
                 if (totalPages <= 5) {
@@ -283,14 +182,15 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
                 } else {
                   pageNum = currentPage - 2 + idx;
                 }
+                const isActive = currentPage === pageNum;
                 return (
                   <button
                     key={idx}
                     onClick={() => setCurrentPage(pageNum)}
-                    className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 ${
-                      currentPage === pageNum
-                        ? "bg-[#D4AF37] text-black shadow-md shadow-[#D4AF37]/20 scale-110"
-                        : "text-slate-400 dark:text-slate-500 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-300"
+                    className={`w-9 h-9 rounded-lg text-[13px] font-semibold transition-all duration-200 ${
+                      isActive
+                        ? "bg-[#D4AF37] text-black"
+                        : "text-slate-400 dark:text-slate-600 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06]"
                     }`}
                   >
                     {pageNum}
@@ -299,14 +199,20 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
               })}
             </div>
 
+            {/* Next */}
             <button
               onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 text-[10px] font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] text-slate-500 dark:text-slate-400 disabled:opacity-20 hover:text-[#D4AF37] bg-white dark:bg-[#0f0f0f] border border-slate-200 dark:border-white/10 rounded-xl hover:border-[#D4AF37]/30 transition-all duration-300"
+              aria-label="Next page"
+              className="w-9 h-9 flex items-center justify-center rounded-lg border border-slate-200 dark:border-white/[0.08] text-slate-400 dark:text-slate-600 hover:text-slate-700 dark:hover:text-slate-300 hover:border-slate-300 dark:hover:border-white/15 disabled:opacity-25 disabled:pointer-events-none transition-all duration-200"
             >
-              <span className="hidden sm:inline">Next</span>
-              <ChevronRight size={14} />
+              <ChevronRight size={15} />
             </button>
+
+            {/* Page context */}
+            <span className="ml-2 text-[11px] text-slate-400 dark:text-slate-600 uppercase tracking-[0.1em] font-medium">
+              {currentPage} / {totalPages}
+            </span>
           </div>
         )}
       </main>

@@ -1,74 +1,127 @@
 "use client";
 
-import { Code2, Layers, Link2 } from "lucide-react";
+import { Code2, Layers, Link2, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
 const features = [
   {
+    icon: Code2,
+    label: "Cloud",
     title: "SaaS Development",
-    desc: "Scalable cloud platforms tailored to your workflow.",
-    icon: <Code2 className="w-7 h-7 text-[#d4af37]" />,
+    desc: "We architect multi-tenant cloud platforms built for scale — from onboarding flows to billing infrastructure, every layer is production-ready from day one.",
+    stat: "50+ platforms",
+    href: "/service/saas-app-development",
   },
   {
-    title: "Next.js & MERN",
-    desc: "Powerful modern web apps built with proven stacks.",
-    icon: <Layers className="w-7 h-7 text-[#d4af37]" />,
+    icon: Layers,
+    label: "Frontend & Backend",
+    title: "Next.js & MERN Stack",
+    desc: "Lightning-fast web apps powered by Next.js, React, Node, and MongoDB. Server-side rendering, API routes, and optimised Core Web Vitals — out of the box.",
+    stat: "Sub-100ms loads",
+    href: "/service/website-design-development",
   },
   {
-    title: "API Integration",
-    desc: "Robust backend services & third-party API integrations.",
-    icon: <Link2 className="w-7 h-7 text-[#d4af37]" />,
+    icon: Link2,
+    label: "Integrations",
+    title: "API & Backend Services",
+    desc: "Stripe, Twilio, Auth0, OpenAI — we connect your product to the ecosystem it needs. Robust REST and GraphQL APIs designed for reliability and developer experience.",
+    stat: "100+ integrations",
+    href: "/service/api-integration-automation",
   },
 ];
 
 const Features = () => {
   return (
-    <section className="bg-white dark:bg-darkbg1 text-center py-12 sm:py-20 px-3 sm:px-6">
-      <div className="max-w-6xl mx-auto">
-        {/* Heading */}
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-navy dark:text-white px-2">
-          Our Key Offerings
-        </h2>
-        <p className="text-gray-600 dark:text-gray-400 mt-3 mb-8 sm:mb-12 text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-2">
-          Fast-track your success with custom digital solutions designed to
-          scale.
-        </p>
-
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 text-left">
-          {features.map((item, i) => (
-            <div
-              key={i}
-              className="p-4 sm:p-6 rounded-2xl border border-gray-200 dark:border-gray-700 
-              bg-gradient-to-br from-gray-50 to-white dark:from-[#1a1a1a] dark:to-[#111]
-              hover:shadow-2xl hover:border-gold hover:-translate-y-1 transition-all duration-300 group"
-            >
-              <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-                <div
-                  className="p-2 sm:p-3 rounded-full bg-[#f5f5f5] dark:bg-[#2c2c2c] 
-                  group-hover:ring-2 group-hover:ring-[#d4af37] transition-all"
-                >
-                  {item.icon}
-                </div>
-                <h3 className="text-base sm:text-lg font-semibold dark:text-white">
-                  {item.title}
-                </h3>
-              </div>
-              <p className="text-xs sm:text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-                {item.desc}
-              </p>
-            </div>
-          ))}
+    <section className="py-16 sm:py-28 bg-[#FAFAF8] dark:bg-[#080808]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        {/* ── Header ── */}
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12 sm:mb-16">
+          <div>
+            <p className="text-[11px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37] mb-3">
+              What we build
+            </p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-slate-900 dark:text-white leading-[1.1] tracking-tight">
+              Our core
+              <br className="hidden sm:block" /> offerings.
+            </h2>
+          </div>
+          <p className="text-[15px] text-slate-500 dark:text-slate-400 leading-relaxed max-w-sm sm:text-right">
+            Custom digital solutions designed to ship fast and scale further.
+          </p>
         </div>
 
-        {/* CTA */}
-        <div className="mt-10 sm:mt-14">
+        {/* ── Feature cards ── */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+          {features.map((item, i) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={i}
+                href={item.href}
+                className="group relative flex flex-col bg-white dark:bg-[#0F0F0F] rounded-2xl border border-slate-100 dark:border-white/[0.06] hover:border-[#D4AF37]/40 dark:hover:border-[#D4AF37]/25 hover:shadow-[0_16px_48px_-8px_rgba(212,175,55,0.13)] p-6 sm:p-7 transition-all duration-300 overflow-hidden"
+              >
+                {/* Large background index number */}
+                <span className="absolute top-4 right-5 text-[64px] font-serif font-bold text-slate-50 dark:text-white/[0.03] leading-none select-none pointer-events-none">
+                  0{i + 1}
+                </span>
+
+                {/* Gold top accent */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#D4AF37]/0 via-[#D4AF37] to-[#D4AF37]/0 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-400 ease-out" />
+
+                {/* Icon + label */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-11 h-11 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center">
+                    <Icon className="w-5 h-5 text-[#D4AF37]" />
+                  </div>
+                  <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-slate-300 dark:text-slate-700">
+                    {item.label}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h3 className="text-[16px] sm:text-[18px] font-bold leading-[1.2] tracking-[-0.01em] text-slate-900 dark:text-white group-hover:text-[#B8940F] dark:group-hover:text-[#D4AF37] transition-colors duration-200 mb-3">
+                  {item.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-[13px] text-slate-500 dark:text-slate-500 leading-relaxed flex-1 mb-6">
+                  {item.desc}
+                </p>
+
+                {/* Stat + arrow */}
+                <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-white/[0.06] group-hover:border-[#D4AF37]/12 transition-colors duration-200">
+                  <span className="text-[11px] font-bold text-[#D4AF37] uppercase tracking-[0.12em]">
+                    {item.stat}
+                  </span>
+                  <div className="w-7 h-7 rounded-full border border-slate-200 dark:border-white/[0.08] flex items-center justify-center group-hover:border-[#D4AF37]/50 group-hover:bg-[#D4AF37]/8 transition-all duration-200">
+                    <ArrowUpRight
+                      size={12}
+                      className="text-slate-400 dark:text-slate-600 group-hover:text-[#D4AF37] transition-colors duration-200"
+                    />
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* ── CTA row ── */}
+        <div className="mt-12 sm:mt-14 flex flex-col sm:flex-row items-center justify-between gap-5 pt-8 border-t border-slate-100 dark:border-white/[0.05]">
+          <p className="text-[13.5px] text-slate-500 dark:text-slate-500 text-center sm:text-left">
+            Not sure what you need?{" "}
+            <Link
+              href="/contact"
+              className="text-[#D4AF37] font-semibold hover:underline underline-offset-2"
+            >
+              Let's talk first.
+            </Link>
+          </p>
           <Link
             href="/services"
-            className="inline-block px-6 sm:px-8 py-2.5 sm:py-3 bg-[#d4af37] text-black rounded font-semibold 
-            shadow-md hover:shadow-xl hover:bg-[#c29e2f] transition-all duration-300 text-sm sm:text-base"
+            className="inline-flex items-center gap-2.5 px-7 py-3 rounded-xl bg-[#D4AF37] hover:bg-[#c9a630] text-black text-[11px] font-bold uppercase tracking-[0.14em] transition-all duration-200 hover:shadow-[0_8px_24px_-4px_rgba(212,175,55,0.4)] whitespace-nowrap"
           >
             See All Services
+            <ArrowUpRight size={13} />
           </Link>
         </div>
       </div>

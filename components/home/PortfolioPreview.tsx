@@ -4,133 +4,151 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useGetProjectsQuery } from "@/services/projectsApi";
+
 const PortfolioPreview = () => {
   const { data: projects = [], isLoading, isError } = useGetProjectsQuery();
 
-  if (isLoading) {
-    return (
-      <section className="py-10 sm:py-16 bg-white dark:bg-[#0D1321]">
-        <div className="text-center text-gray-500 dark:text-gray-400 text-sm sm:text-base">
-          Loading recent projects...
-        </div>
-      </section>
-    );
-  }
-
-  if (isError) {
-    return (
-      <section className="py-10 sm:py-16 bg-white dark:bg-[#0D1321]">
-        <div className="text-center text-red-500 dark:text-red-400 text-sm sm:text-base">
-          Failed to load projects.
-        </div>
-      </section>
-    );
-  }
+  const sorted = [...projects]
+    .sort(
+      (a, b) =>
+        new Date(b.updatedAt || b.createdAt || "").getTime() -
+        new Date(a.updatedAt || a.createdAt || "").getTime(),
+    )
+    .slice(0, 3);
 
   return (
-    <section className="py-10 sm:py-16 bg-white dark:bg-[#0D1321]">
-      <div className="max-w-6xl mx-auto px-3 sm:px-4">
-        {/* Heading */}
-        <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 dark:text-white px-2">
-            Recent Work
-          </h2>
-          <p className="text-center text-gray-500 dark:text-gray-400 mt-2 text-sm sm:text-base">
-            Crafting digital solutions with precision, performance & passion.
-          </p>
+    <section className="py-16 sm:py-24 bg-[#FAFAF8] dark:bg-[#080808]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        {/* ── Header ── */}
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 sm:mb-14">
+          <div>
+            <p className="text-[11px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37] mb-2">
+              Selected Work
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 dark:text-white leading-[1.1] tracking-tight">
+              Recent Projects
+            </h2>
+          </div>
+          <Link
+            href="/portfolio"
+            className="self-start sm:self-auto inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[#D4AF37]/40 hover:border-[#D4AF37] bg-transparent hover:bg-[#D4AF37]/8 text-[#B8940F] dark:text-[#D4AF37] text-[11px] font-bold uppercase tracking-[0.12em] transition-all duration-200"
+          >
+            All Projects
+            <ArrowUpRight size={13} />
+          </Link>
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-          {[...projects]
-            .sort(
-              (a, b) =>
-                new Date(b.updatedAt || b.createdAt || "").getTime() -
-                new Date(a.updatedAt || a.createdAt || "").getTime(),
-            )
-            .slice(0, 3)
-            .map((project, i) => {
+        {/* ── States ── */}
+        {isLoading && (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            {[...Array(3)].map((_, i) => (
+              <div
+                key={i}
+                className="rounded-2xl bg-slate-100 dark:bg-white/[0.04] animate-pulse"
+              >
+                <div className="aspect-[4/3] rounded-t-2xl bg-slate-200 dark:bg-white/[0.06]" />
+                <div className="p-5 space-y-3">
+                  <div className="h-4 w-2/3 rounded bg-slate-200 dark:bg-white/[0.06]" />
+                  <div className="h-3 w-full rounded bg-slate-100 dark:bg-white/[0.04]" />
+                  <div className="h-3 w-4/5 rounded bg-slate-100 dark:bg-white/[0.04]" />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {isError && (
+          <div className="py-16 text-center text-sm text-slate-400 dark:text-slate-600">
+            Could not load projects. Please try again later.
+          </div>
+        )}
+
+        {/* ── Grid ── */}
+        {!isLoading && !isError && (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            {sorted.map((project, i) => {
               const coverImage =
                 project.image && project.image.length > 0
                   ? project.image[0]
                   : "/placeholder.png";
 
               return (
-                <div
+                <Link
                   key={project._id}
-                  className="group relative bg-white dark:bg-[#1A1A1A] rounded-xl shadow-sm hover:shadow-2xl hover:shadow-[#D4AF37]/10 dark:hover:shadow-[#D4AF37]/5 overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-[#D4AF37]/40 dark:hover:border-[#D4AF37]/30 transition-all duration-500 ease-out"
+                  href={`/projects/${project.slug}`}
+                  className="group relative flex flex-col bg-white dark:bg-[#0F0F0F] rounded-2xl overflow-hidden border border-slate-100 dark:border-white/[0.06] hover:border-[#D4AF37]/40 dark:hover:border-[#D4AF37]/25 hover:shadow-[0_20px_60px_-12px_rgba(212,175,55,0.14)] dark:hover:shadow-[0_20px_60px_-12px_rgba(212,175,55,0.08)] transition-all duration-300 ease-out"
                 >
                   {/* Image */}
-                  <Link
-                    href={`/projects/${project.slug}`}
-                    className="block relative overflow-hidden"
-                  >
-                    <div className="relative h-44 sm:h-52 w-full overflow-hidden">
-                      <Image
-                        height={400}
-                        width={600}
-                        src={coverImage}
-                        alt={project.title}
-                        className="object-cover w-full h-full transition-transform duration-700 ease-out group-hover:scale-110"
-                      />
-                      {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <Image
+                      height={400}
+                      width={600}
+                      src={coverImage}
+                      alt={project.title}
+                      className="object-cover w-full h-full transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+                    />
+                    {/* Scrim */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-                      {/* Type badge */}
-                      {project.type && (
-                        <span className="absolute top-3 left-3 inline-block px-2.5 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-[#D4AF37]/90 text-black rounded-md shadow-lg backdrop-blur-sm z-10">
-                          {project.type}
-                        </span>
-                      )}
+                    {/* Type badge */}
+                    {project.type && (
+                      <span className="absolute top-3.5 left-3.5 inline-flex items-center px-2.5 py-1 rounded-full bg-[#D4AF37] text-[9px] font-bold uppercase tracking-[0.16em] text-black z-10">
+                        {project.type}
+                      </span>
+                    )}
 
-                      {/* View More Icon - appears on hover */}
-                      <div className="absolute top-3 right-3 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 dark:bg-[#1A1A1A]/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400 ease-out shadow-lg z-10">
-                        <ArrowUpRight size={16} className="text-[#D4AF37]" />
-                      </div>
+                    {/* Arrow icon */}
+                    <div className="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-white/12 border border-white/20 flex items-center justify-center opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-250 z-10">
+                      <ArrowUpRight size={14} className="text-[#D4AF37]" />
                     </div>
-                  </Link>
 
-                  {/* Content */}
-                  <Link href={`/projects/${project.slug}`}>
-                    <div className="p-4 sm:p-5 relative">
-                      {/* Gold Accent Line on hover */}
-                      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
-
-                      <h3 className="text-base sm:text-xl font-bold text-gray-800 dark:text-white group-hover:text-[#D4AF37] dark:group-hover:text-[#D4AF37] transition-colors duration-300">
-                        {project.title}
-                      </h3>
-
-                      <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-2 line-clamp-3 leading-relaxed">
-                        {project.description}
-                      </p>
-
-                      {/* View Project Link */}
-                      <div className="mt-3 sm:mt-4 pt-3 border-t border-gray-100 dark:border-gray-800">
-                        <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 group-hover:text-[#D4AF37] transition-colors duration-300">
-                          View Project
-                          <ArrowUpRight
-                            size={14}
-                            className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                          />
-                        </span>
-                      </div>
+                    {/* Index number */}
+                    <div className="absolute bottom-3.5 right-3.5 text-[10px] font-bold tabular-nums text-white/30 tracking-widest z-10">
+                      0{i + 1}
                     </div>
-                  </Link>
-                </div>
+                  </div>
+
+                  {/* Body */}
+                  <div className="flex flex-col flex-1 p-5 relative">
+                    {/* Accent bar */}
+                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#D4AF37]/0 via-[#D4AF37] to-[#D4AF37]/0 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-400 ease-out" />
+
+                    <h3 className="text-[15px] sm:text-[17px] font-bold leading-[1.2] tracking-[-0.01em] text-slate-900 dark:text-white group-hover:text-[#B8940F] dark:group-hover:text-[#D4AF37] transition-colors duration-200 mb-2.5">
+                      {project.title}
+                    </h3>
+
+                    <p className="text-[12.5px] text-slate-500 dark:text-slate-500 leading-relaxed line-clamp-2 flex-1 mb-4">
+                      {project.description}
+                    </p>
+
+                    <div className="flex items-center justify-between pt-3.5 border-t border-slate-100 dark:border-white/[0.06] group-hover:border-[#D4AF37]/12 transition-colors duration-200">
+                      <span className="text-[10px] uppercase tracking-[0.12em] font-semibold text-slate-400 dark:text-slate-600 group-hover:text-[#D4AF37] transition-colors duration-200 flex items-center gap-1">
+                        View project
+                        <ArrowUpRight
+                          size={12}
+                          className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"
+                        />
+                      </span>
+                    </div>
+                  </div>
+                </Link>
               );
             })}
-        </div>
+          </div>
+        )}
 
-        {/* Explore More Button */}
-        <div className="flex justify-center mt-10 sm:mt-12">
-          <Link
-            href="/portfolio"
-            className="inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold transition-all duration-300 text-sm sm:text-base bg-[#D4AF37] text-black hover:bg-[#D4AF37]/90 hover:shadow-lg hover:shadow-[#D4AF37]/25"
-          >
-            Explore More Projects
-            <ArrowUpRight size={16} />
-          </Link>
-        </div>
+        {/* ── CTA ── */}
+        {!isLoading && !isError && sorted.length > 0 && (
+          <div className="flex justify-center mt-12 sm:mt-16">
+            <Link
+              href="/portfolio"
+              className="inline-flex items-center gap-2.5 px-7 py-3 rounded-xl bg-[#D4AF37] hover:bg-[#c9a630] text-black text-[12px] font-bold uppercase tracking-[0.14em] transition-all duration-200 hover:shadow-[0_8px_24px_-4px_rgba(212,175,55,0.4)]"
+            >
+              Explore All Projects
+              <ArrowUpRight size={14} />
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );
