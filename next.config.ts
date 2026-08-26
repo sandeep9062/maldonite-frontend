@@ -41,9 +41,6 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // Enable standalone output for smaller Docker images
-  output: "standalone",
-
   // Experimental optimizations
   experimental: {
     optimizePackageImports: [
