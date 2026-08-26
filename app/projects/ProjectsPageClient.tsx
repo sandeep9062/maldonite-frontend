@@ -67,7 +67,7 @@ const ProjectsPageClient = () => {
   };
 
   return (
-    <section className="min-h-screen bg-white dark:bg-darkbg1 py-10 sm:py-20 px-3 sm:px-6 md:px-10">
+    <section className="min-h-screen bg-white dark:bg-darkbg1 pt-28 sm:pt-36 pb-10 sm:pb-20 px-3 sm:px-6 md:px-10">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <motion.h2
@@ -87,8 +87,8 @@ const ProjectsPageClient = () => {
               onClick={() => handleCategoryChange(cat)}
               className={`px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-full border font-medium transition duration-200 ${
                 active === cat
-                  ? "bg-[#D4AF37] text-black border-transparent"
-                  : "text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-[#D4AF37]/20"
+                  ? "bg-gold text-black border-transparent"
+                  : "text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gold/20"
               }`}
             >
               {cat}
@@ -111,7 +111,7 @@ const ProjectsPageClient = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group relative bg-white dark:bg-[#1A1A1A] rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-2xl hover:shadow-[#D4AF37]/10 dark:hover:shadow-[#D4AF37]/5 hover:border-[#D4AF37]/40 dark:hover:border-[#D4AF37]/30 transition-all duration-500 ease-out"
+                className="group relative bg-white dark:bg-darkbg2 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-2xl hover:shadow-gold/10 dark:hover:shadow-gold/5 hover:border-gold/40 dark:hover:border-gold/30 transition-all duration-500 ease-out"
               >
                 {/* Image Container with zoom & overlay */}
                 <Link
@@ -130,13 +130,13 @@ const ProjectsPageClient = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     {/* Category Badge */}
                     <div className="absolute top-3 left-3">
-                      <span className="inline-block px-2.5 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-wider bg-[#D4AF37]/90 text-black rounded-md shadow-lg backdrop-blur-sm">
+                      <span className="inline-block px-2.5 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-wider bg-gold/90 text-black rounded-md shadow-lg backdrop-blur-sm">
                         {project.type}
                       </span>
                     </div>
                     {/* View More Icon - appears on hover */}
-                    <div className="absolute top-3 right-3 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 dark:bg-[#1A1A1A]/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400 ease-out shadow-lg">
-                      <ArrowUpRight size={16} className="text-[#D4AF37]" />
+                    <div className="absolute top-3 right-3 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 dark:bg-darkbg2/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400 ease-out shadow-lg">
+                      <ArrowUpRight size={16} className="text-gold" />
                     </div>
                   </div>
                 </Link>
@@ -145,9 +145,9 @@ const ProjectsPageClient = () => {
                 <Link href={`/projects/${project.slug}`}>
                   <div className="p-4 sm:p-5 relative">
                     {/* Gold Accent Line on hover */}
-                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
+                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out" />
 
-                    <h3 className="text-base sm:text-lg font-bold text-navy dark:text-white group-hover:text-[#D4AF37] dark:group-hover:text-[#D4AF37] transition-colors duration-300">
+                    <h3 className="text-base sm:text-lg font-bold text-navy dark:text-white group-hover:text-gold dark:group-hover:text-gold transition-colors duration-300">
                       {project.title}
                     </h3>
                     <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-2 leading-relaxed line-clamp-2 sm:line-clamp-3">
@@ -156,7 +156,7 @@ const ProjectsPageClient = () => {
 
                     {/* View Project Link */}
                     <div className="mt-4 sm:mt-5 pt-3 sm:pt-4 border-t border-gray-100 dark:border-gray-800">
-                      <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 group-hover:text-[#D4AF37] transition-colors duration-300">
+                      <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 group-hover:text-gold transition-colors duration-300">
                         View Project
                         <ExternalLink
                           size={14}
@@ -187,8 +187,8 @@ const ProjectsPageClient = () => {
                 onClick={() => setCurrentPage(i + 1)}
                 className={`px-2.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-full font-medium border transition duration-200 ${
                   currentPage === i + 1
-                    ? "bg-[#D4AF37] text-black border-[#D4AF37]"
-                    : "bg-gray-100 dark:bg-[#1a1a1a] text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-[#D4AF37]/20"
+                    ? "bg-gold text-black border-gold"
+                    : "bg-gray-100 dark:bg-darkbg2 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gold/20"
                 }`}
               >
                 {i + 1}

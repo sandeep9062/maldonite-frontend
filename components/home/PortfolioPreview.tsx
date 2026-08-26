@@ -17,21 +17,21 @@ const PortfolioPreview = () => {
     .slice(0, 3);
 
   return (
-    <section className="py-16 sm:py-24 bg-[#FAFAF8] dark:bg-[#080808]">
+    <section className="py-16 sm:py-24 bg-white dark:bg-darkbg2">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* ── Header ── */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 sm:mb-14">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.2em] font-semibold text-[#D4AF37] mb-2">
+            <p className="text-[11px] uppercase tracking-[0.2em] font-semibold text-gold mb-2">
               Selected Work
             </p>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 dark:text-white leading-[1.1] tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-sans font-bold text-slate-900 dark:text-white leading-[1.1] tracking-tight">
               Recent Projects
             </h2>
           </div>
           <Link
             href="/portfolio"
-            className="self-start sm:self-auto inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[#D4AF37]/40 hover:border-[#D4AF37] bg-transparent hover:bg-[#D4AF37]/8 text-[#B8940F] dark:text-[#D4AF37] text-[11px] font-bold uppercase tracking-[0.12em] transition-all duration-200"
+            className="self-start sm:self-auto inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-gold/40 hover:border-gold bg-transparent hover:bg-gold/8 text-gold dark:text-gold text-[11px] font-bold uppercase tracking-[0.12em] transition-all duration-200"
           >
             All Projects
             <ArrowUpRight size={13} />
@@ -76,7 +76,7 @@ const PortfolioPreview = () => {
                 <Link
                   key={project._id}
                   href={`/projects/${project.slug}`}
-                  className="group relative flex flex-col bg-white dark:bg-[#0F0F0F] rounded-2xl overflow-hidden border border-slate-100 dark:border-white/[0.06] hover:border-[#D4AF37]/40 dark:hover:border-[#D4AF37]/25 hover:shadow-[0_20px_60px_-12px_rgba(212,175,55,0.14)] dark:hover:shadow-[0_20px_60px_-12px_rgba(212,175,55,0.08)] transition-all duration-300 ease-out"
+                  className="group relative flex flex-col bg-white dark:bg-darkbg2 rounded-2xl overflow-hidden border border-slate-100 dark:border-white/[0.06] hover:border-gold/40 dark:hover:border-gold/25 hover:shadow-[0_20px_60px_-12px_rgba(212,175,55,0.14)] dark:hover:shadow-[0_20px_60px_-12px_rgba(212,175,55,0.08)] transition-all duration-300 ease-out"
                 >
                   {/* Image */}
                   <div className="relative aspect-[4/3] overflow-hidden">
@@ -92,14 +92,14 @@ const PortfolioPreview = () => {
 
                     {/* Type badge */}
                     {project.type && (
-                      <span className="absolute top-3.5 left-3.5 inline-flex items-center px-2.5 py-1 rounded-full bg-[#D4AF37] text-[9px] font-bold uppercase tracking-[0.16em] text-black z-10">
+                      <span className="absolute top-3.5 left-3.5 inline-flex items-center px-2.5 py-1 rounded-full bg-gold text-[9px] font-bold uppercase tracking-[0.16em] text-black z-10">
                         {project.type}
                       </span>
                     )}
 
                     {/* Arrow icon */}
                     <div className="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-white/12 border border-white/20 flex items-center justify-center opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-250 z-10">
-                      <ArrowUpRight size={14} className="text-[#D4AF37]" />
+                      <ArrowUpRight size={14} className="text-gold" />
                     </div>
 
                     {/* Index number */}
@@ -111,9 +111,9 @@ const PortfolioPreview = () => {
                   {/* Body */}
                   <div className="flex flex-col flex-1 p-5 relative">
                     {/* Accent bar */}
-                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#D4AF37]/0 via-[#D4AF37] to-[#D4AF37]/0 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-400 ease-out" />
+                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-gold/0 via-gold to-gold/0 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-400 ease-out" />
 
-                    <h3 className="text-[15px] sm:text-[17px] font-bold leading-[1.2] tracking-[-0.01em] text-slate-900 dark:text-white group-hover:text-[#B8940F] dark:group-hover:text-[#D4AF37] transition-colors duration-200 mb-2.5">
+                    <h3 className="text-[15px] sm:text-[17px] font-bold leading-[1.2] tracking-[-0.01em] text-slate-900 dark:text-white group-hover:text-gold dark:group-hover:text-gold transition-colors duration-200 mb-2.5">
                       {project.title}
                     </h3>
 
@@ -121,8 +121,8 @@ const PortfolioPreview = () => {
                       {project.description}
                     </p>
 
-                    <div className="flex items-center justify-between pt-3.5 border-t border-slate-100 dark:border-white/[0.06] group-hover:border-[#D4AF37]/12 transition-colors duration-200">
-                      <span className="text-[10px] uppercase tracking-[0.12em] font-semibold text-slate-400 dark:text-slate-600 group-hover:text-[#D4AF37] transition-colors duration-200 flex items-center gap-1">
+                    <div className="flex items-center justify-between pt-3.5 border-t border-slate-100 dark:border-white/[0.06] group-hover:border-gold/12 transition-colors duration-200">
+                      <span className="text-[10px] uppercase tracking-[0.12em] font-semibold text-slate-400 dark:text-slate-600 group-hover:text-gold transition-colors duration-200 flex items-center gap-1">
                         View project
                         <ArrowUpRight
                           size={12}
@@ -142,7 +142,7 @@ const PortfolioPreview = () => {
           <div className="flex justify-center mt-12 sm:mt-16">
             <Link
               href="/portfolio"
-              className="inline-flex items-center gap-2.5 px-7 py-3 rounded-xl bg-[#D4AF37] hover:bg-[#c9a630] text-black text-[12px] font-bold uppercase tracking-[0.14em] transition-all duration-200 hover:shadow-[0_8px_24px_-4px_rgba(212,175,55,0.4)]"
+              className="inline-flex items-center gap-2.5 px-7 py-3 rounded-xl bg-gold hover:bg-gold text-black text-[12px] font-bold uppercase tracking-[0.14em] transition-all duration-200 hover:shadow-[0_8px_24px_-4px_rgba(212,175,55,0.4)]"
             >
               Explore All Projects
               <ArrowUpRight size={14} />

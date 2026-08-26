@@ -8,7 +8,7 @@ const Hero = () => {
   const { data: siteSettings } = useGetSiteSettingsQuery();
 
   return (
-    <section className="relative bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-[#0D1321] dark:via-[#0F111A] dark:to-[#1a1a1a] text-center pt-16 sm:pt-22 pb-10 sm:pb-16 overflow-hidden">
+    <section className="relative text-center pt-28 sm:pt-36 pb-10 sm:pb-16 overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-20 -right-20 sm:-top-40 sm:-right-40 w-40 h-40 sm:w-80 sm:h-80 bg-gold/10 rounded-full blur-3xl"></div>
@@ -49,7 +49,7 @@ const Hero = () => {
         </motion.h1>
 
         <motion.p
-          className="max-w-xl mx-auto mt-3 sm:mt-4 text-base sm:text-lg text-gray-600 dark:text-gray-300 px-4 sm:px-0"
+          className="max-w-xl mx-auto mt-3 sm:mt-4 text-base sm:text-lg text-slate-600 dark:text-gray-300 px-4 sm:px-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.6 }}
@@ -61,13 +61,13 @@ const Hero = () => {
         <motion.div className="mt-6 sm:mt-12 flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 px-4 sm:px-0">
           <Link
             href="/services"
-            className="inline-block px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-gold text-navy font-semibold shadow-lg hover:bg-[#c89d2a] transform hover:scale-105 transition-all duration-300 w-full sm:w-auto text-sm sm:text-base"
+            className="inline-block px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-gold text-navy font-semibold shadow-lg hover:bg-gold transform hover:scale-105 transition-all duration-300 w-full sm:w-auto text-sm sm:text-base"
           >
             Explore Our Services
           </Link>
           <Link
             href="/quote"
-            className="inline-block px-6 sm:px-8 py-2.5 sm:py-3 rounded-full text-gray-900 dark:text-white border border-gray-400 dark:border-gray-600 font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 w-full sm:w-auto text-sm sm:text-base"
+            className="inline-block px-6 sm:px-8 py-2.5 sm:py-3 rounded-full text-gray-900 dark:text-white border border-gold/40 dark:border-white/20 font-semibold hover:bg-gold/10 dark:hover:bg-white/10 transition-all duration-300 w-full sm:w-auto text-sm sm:text-base"
           >
             Get Custom Quote
           </Link>
@@ -76,7 +76,7 @@ const Hero = () => {
 
       {/* Social Proof Section - more integrated */}
       <motion.div className="mt-10 sm:mt-36 w-full mx-auto px-4">
-        <div className="grid grid-cols-3 gap-2 sm:gap-8 text-gray-400 dark:text-gray-600">
+        <div className="grid grid-cols-3 gap-2 sm:gap-8 text-slate-600 dark:text-gray-400">
           <div className="flex flex-col items-center">
             <div className="text-base sm:text-xl font-bold text-navy dark:text-gray-400">
               {siteSettings?.clientsServed} +

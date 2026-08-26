@@ -41,7 +41,7 @@ export default function Milestones() {
   ];
 
   return (
-    <section className="py-12 sm:py-20 px-4 mt-10 sm:mt-16 bg-white dark:bg-darkbg1 transition-colors duration-300">
+    <section className="pt-28 sm:pt-36 pb-12 sm:pb-20 px-4 bg-white dark:bg-darkbg1 transition-colors duration-300">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -49,7 +49,7 @@ export default function Milestones() {
         transition={{ duration: 0.6 }}
         className="max-w-6xl mx-auto text-center"
       >
-        <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-[#0d1321] dark:text-white mb-6 sm:mb-12">
+        <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-navy dark:text-white mb-6 sm:mb-12">
           Our Milestones
         </h2>
 
@@ -62,8 +62,8 @@ export default function Milestones() {
               viewport={{ once: true }}
               transition={{ delay: 0.2 + idx * 0.2 }}
               className="
-              p-3 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] dark:text-[#ffffff] 
-              hover:shadow-xl hover:border-[#d4af37] transition-all duration-300 group
+              p-3 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-darkbg2 dark:text-white 
+              hover:shadow-xl hover:border-gold transition-all duration-300 group
               "
             >
               <div className="mb-2 sm:mb-4 text-gold [&>svg]:w-5 [&>svg]:h-5 sm:[&>svg]:w-7 sm:[&>svg]:h-7">

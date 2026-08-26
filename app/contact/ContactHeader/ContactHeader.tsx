@@ -2,7 +2,7 @@
 
 const ContactHeader = () => {
   return (
-    <section className="text-center mt-8 sm:mt-16 py-10 sm:py-20 px-4 bg-gradient-to-br from-white to-gray-300 dark:from-[#0D1321] dark:to-[#1a1a1a]">
+    <section className="text-center pt-28 sm:pt-36 pb-10 sm:pb-20 px-4 bg-gradient-to-br from-white to-gray-300 dark:from-navy dark:to-darkbg2">
       <div>
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy dark:text-white mb-3 sm:mb-4">
           Get in Touch

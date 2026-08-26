@@ -62,7 +62,7 @@ export default function ServiceDetailClient({
     return IconComponent || null;
   };
 
-  const ACCENT_COLOR = "#d4af37"; // Gold
+  const ACCENT_COLOR = "var(--color-gold)"; // Gold
   const ACCENT_TEXT_COLOR = "text-gray-900 dark:text-gray-100";
 
   if (isLoading && !initialService) {
@@ -99,7 +99,7 @@ export default function ServiceDetailClient({
     : null;
 
   return (
-    <main className="bg-white dark:bg-darkbg1 pt-20 sm:pt-24 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8 min-h-screen text-gray-900 dark:text-gray-100">
+    <main className="bg-white dark:bg-darkbg1 pt-28 sm:pt-36 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8 min-h-screen text-gray-900 dark:text-gray-100">
       <motion.div
         initial="hidden"
         animate="visible"
@@ -161,6 +161,7 @@ export default function ServiceDetailClient({
               src={currentService.serviceImage}
               alt={currentService.title}
               fill
+              sizes="(max-width: 768px) 100vw, 60vw"
               className="object-cover"
               priority
             />
@@ -190,7 +191,7 @@ export default function ServiceDetailClient({
           {currentService.duration && (
             <div className="bg-gray-50 dark:bg-gray-800 p-4 sm:p-6 rounded-xl border border-gray-200 dark:border-gray-700">
               <div className="flex items-center gap-3 mb-3">
-                <Clock className="text-[#d4af37]" size={20} />
+                <Clock className="text-gold" size={20} />
                 <h3 className="text-lg sm:text-xl font-semibold">Duration</h3>
               </div>
               <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
@@ -202,7 +203,7 @@ export default function ServiceDetailClient({
           {currentService.pricing && (
             <div className="bg-gray-50 dark:bg-gray-800 p-4 sm:p-6 rounded-xl border border-gray-200 dark:border-gray-700">
               <div className="flex items-center gap-3 mb-3">
-                <DollarSign className="text-[#d4af37]" size={20} />
+                <DollarSign className="text-gold" size={20} />
                 <h3 className="text-lg sm:text-xl font-semibold">Pricing</h3>
               </div>
               <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
@@ -214,7 +215,7 @@ export default function ServiceDetailClient({
           {currentService.targetAudience && (
             <div className="bg-gray-50 dark:bg-gray-800 p-4 sm:p-6 rounded-xl border border-gray-200 dark:border-gray-700">
               <div className="flex items-center gap-3 mb-3">
-                <Users className="text-[#d4af37]" size={20} />
+                <Users className="text-gold" size={20} />
                 <h3 className="text-lg sm:text-xl font-semibold">
                   Target Audience
                 </h3>
@@ -239,7 +240,7 @@ export default function ServiceDetailClient({
                   className="flex items-start gap-3 p-3 sm:p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700"
                 >
                   <CheckCircle
-                    className="text-[#d4af37] mt-1 flex-shrink-0"
+                    className="text-gold mt-1 flex-shrink-0"
                     size={18}
                   />
                   <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
@@ -266,7 +267,7 @@ export default function ServiceDetailClient({
                       className="bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-gray-800 dark:to-gray-700 p-4 sm:p-6 rounded-xl border border-amber-200 dark:border-gray-600"
                     >
                       <div className="flex items-center gap-3 mb-3">
-                        <Star className="text-[#d4af37]" size={18} />
+                        <Star className="text-gold" size={18} />
                         <span className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">
                           Benefit {index + 1}
                         </span>
@@ -309,7 +310,7 @@ export default function ServiceDetailClient({
             </h2>
             <div className="bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-gray-800 dark:to-gray-700 p-4 sm:p-6 md:p-8 rounded-xl border border-amber-200 dark:border-gray-600">
               <div className="flex items-center gap-3 mb-4">
-                <Award className="text-[#d4af37]" size={24} />
+                <Award className="text-gold" size={24} />
                 <h3 className="text-lg sm:text-xl font-semibold">
                   Our Commitment
                 </h3>
@@ -363,7 +364,7 @@ export default function ServiceDetailClient({
         {/* Call to Action */}
         {currentService.cta && (
           <motion.section variants={sectionVariants} className="text-center">
-            <div className="bg-[#d4af37] text-black p-6 sm:p-8 rounded-xl">
+            <div className="bg-gold text-black p-6 sm:p-8 rounded-xl">
               <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">
                 Ready to Get Started?
               </h2>
@@ -372,7 +373,7 @@ export default function ServiceDetailClient({
               </p>
               <Link
                 href="/contact"
-                className="inline-block bg-black text-[#d4af37] px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold text-sm sm:text-base hover:scale-102 transition-colors"
+                className="inline-block bg-black text-gold px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold text-sm sm:text-base hover:scale-102 transition-colors"
               >
                 Contact Us Today
               </Link>

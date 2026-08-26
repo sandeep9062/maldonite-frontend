@@ -5,19 +5,39 @@ import Link from "next/link";
 import { MapPin, Mail, Phone } from "lucide-react";
 import React from "react";
 import SocialMediaLinks from "../app/contact/SocialLinks/SocialMediaLinks";
-import { motion, easeOut } from "framer-motion"; // ✅ import easing
 import { useGetSiteSettingsQuery } from "@/services/siteSettingsApi";
+import { useGetServicesQuery } from "@/services/servicesApi";
 
-const fadeInUp = {};
+type FooterLink = { name: string; href: string };
+
+const quickLinks: FooterLink[] = [
+  { name: "Home", href: "/" },
+  { name: "About Us", href: "/about" },
+  { name: "Services", href: "/services" },
+  { name: "Portfolio", href: "/portfolio" },
+  { name: "Blog", href: "/blog" },
+  { name: "Careers", href: "/career" },
+  { name: "Contact", href: "/contact" },
+];
+
+const ColumnTitle = ({ children }: { children: React.ReactNode }) => (
+  <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-gold">
+    {children}
+  </h3>
+);
 
 const Footer: React.FC = () => {
   const currentYear: number = new Date().getFullYear();
-
   const { data: siteSettings, isLoading, isError } = useGetSiteSettingsQuery();
+  const { data: services = [] } = useGetServicesQuery();
+  const featuredServices = services.slice(0, 6);
 
   return (
-    <footer className="bg-[#0D1321] text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+    <footer className="bg-navy text-white">
+      {/* Gold gradient accent bar */}
+      <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-gold to-transparent" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 pb-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
         {/* Logo & Tagline */}
         <div className="space-y-3 sm:space-y-4">
           <Link href="/" className="flex items-center gap-3">
@@ -27,6 +47,7 @@ const Footer: React.FC = () => {
                   src={siteSettings.logoUrl}
                   alt="Maldonite"
                   fill
+                  sizes="40px"
                   className="object-contain"
                   priority
                 />
@@ -44,20 +65,9 @@ const Footer: React.FC = () => {
 
         {/* Quick Links */}
         <div>
-          <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-gold">
-            Quick Links
-          </h3>
-          <ul className="grid grid-cols-2 gap-1.5 sm:gap-2 text-xs sm:text-sm text-gray-300">
-            {[
-              ["Home", "/"],
-              ["About Us", "/about"],
-              ["Services", "/services"],
-              ["Portfolio", "/portfolio"],
-
-              ["Blog", "/blog"],
-              ["Careers", "/career"],
-              ["Contact", "/contact"],
-            ].map(([name, href]) => (
+          <ColumnTitle>Quick Links</ColumnTitle>
+          <ul className="text-xs sm:text-sm space-y-2 sm:space-y-3 text-gray-300">
+            {quickLinks.map(({ name, href }) => (
               <li key={name}>
                 <Link href={href} className="hover:text-gold transition">
                   {name}
@@ -67,11 +77,38 @@ const Footer: React.FC = () => {
           </ul>
         </div>
 
+        {/* Services */}
+        <div>
+          <ColumnTitle>Services</ColumnTitle>
+          <Link
+            href="/services"
+            className="inline-block mb-3 text-xs sm:text-sm text-gold hover:text-white transition"
+          >
+            View All <span aria-hidden>→</span>
+          </Link>
+          <ul className="text-xs sm:text-sm space-y-2 sm:space-y-3 text-gray-300">
+            {featuredServices.length > 0 ? (
+              featuredServices.map((service) => (
+                <li key={service.slug || service._id}>
+                  <Link
+                    href={`/service/${service.slug}`}
+                    className="hover:text-gold transition"
+                  >
+                    {service.title}
+                  </Link>
+                </li>
+              ))
+            ) : (
+              <li className="text-xs sm:text-sm text-gray-500">
+                Loading services...
+              </li>
+            )}
+          </ul>
+        </div>
+
         {/* Contact Info */}
         <div>
-          <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-[#D4AF37]">
-            Contact Us
-          </h3>
+          <ColumnTitle>Contact Us</ColumnTitle>
           <ul className="text-xs sm:text-sm space-y-2 sm:space-y-3 text-gray-300">
             {isLoading && (
               <li className="text-xs sm:text-sm">Loading contact info...</li>
@@ -98,32 +135,31 @@ const Footer: React.FC = () => {
                   )}
                 </li>
 
-                <li className="flex items-center gap-2">
-                  <Phone className="text-gold shrink-0" size={16} />
-                  {siteSettings.contactNo1 && (
-                    <a
-                      href={`tel:+91${siteSettings.contactNo1}`}
-                      className="hover:text-white transition"
-                    >
-                      +91 {siteSettings.contactNo1}
-                    </a>
-                  )}
-                  {siteSettings.contactNo2 && (
-                    <span className="ml-1">
-                      ,{" "}
+                <li className="flex items-start gap-2 sm:gap-3">
+                  <Phone className="text-gold shrink-0 mt-0.5" size={16} />
+                  <span>
+                    {siteSettings.contactNo1 && (
+                      <a
+                        href={`tel:+91${siteSettings.contactNo1}`}
+                        className="hover:text-white transition"
+                      >
+                        +91 {siteSettings.contactNo1}
+                      </a>
+                    )}
+                    {siteSettings.contactNo2 && (
                       <a
                         href={`tel:+91${siteSettings.contactNo2}`}
                         className="hover:text-white transition"
                       >
-                        +91 {siteSettings.contactNo2}
+                        , +91 {siteSettings.contactNo2}
                       </a>
-                    </span>
-                  )}
+                    )}
+                  </span>
                 </li>
 
                 {siteSettings.email && (
-                  <li className="flex items-center gap-2 sm:gap-3">
-                    <Mail className="text-gold shrink-0" size={16} />
+                  <li className="flex items-start gap-2 sm:gap-3">
+                    <Mail className="text-gold shrink-0 mt-0.5" size={16} />
                     <a
                       href={`mailto:${siteSettings.email}`}
                       className="hover:text-white transition"
@@ -142,8 +178,16 @@ const Footer: React.FC = () => {
       <SocialMediaLinks />
 
       {/* Footer Bottom */}
-      <div className="border-t border-gray-700 text-center text-[10px] sm:text-sm text-gray-500 py-3 sm:py-4 px-4 sm:px-6">
-        &copy; {currentYear} Maldonite. All rights reserved.
+      <div className="border-t border-gray-700">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-[10px] sm:text-sm text-gray-500">
+          <p>&copy; {currentYear} Maldonite. All rights reserved.</p>
+          <p className="flex items-center gap-1.5">
+            Shaping Digital Gold
+            <span className="text-gold" aria-hidden>
+              ✦
+            </span>
+          </p>
+        </div>
       </div>
     </footer>
   );

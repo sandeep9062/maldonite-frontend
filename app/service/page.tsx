@@ -13,8 +13,8 @@ const ServicesGrid = () => {
   // Handle loading and error states
   if (isLoading) {
     return (
-      <main className="bg-white mt-16 dark:bg-[#0D1321] text-black dark:text-white">
-        <section className="text-center py-16 px-4">
+      <main className="bg-white dark:bg-navy text-black dark:text-white">
+        <section className="text-center pt-28 sm:pt-36 pb-16">
           <h1 className="text-4xl font-bold">Loading Services...</h1>
         </section>
       </main>
@@ -23,8 +23,8 @@ const ServicesGrid = () => {
 
   if (isError) {
     return (
-      <main className="bg-white mt-16 dark:bg-[#0D1321] text-black dark:text-white">
-        <section className="text-center py-16 px-4">
+      <main className="bg-white dark:bg-navy text-black dark:text-white">
+        <section className="text-center pt-28 sm:pt-36 pb-16">
           <h1 className="text-4xl font-bold">Error loading services.</h1>
         </section>
       </main>
@@ -38,9 +38,9 @@ const ServicesGrid = () => {
   };
 
   return (
-    <main className="bg-white mt-16 dark:bg-[#0D1321] text-black dark:text-white">
+    <main className="bg-white dark:bg-navy text-black dark:text-white">
       {/* Header Section */}
-      <section className="text-center py-12 sm:py-16 px-4 bg-gradient-to-br from-white to-gray-100 dark:from-[#0D1321] dark:to-[#1a1a1a]">
+      <section className="text-center pt-28 sm:pt-36 pb-12 sm:pb-16 px-4 bg-gradient-to-br from-white to-gray-100 dark:from-navy dark:to-darkbg2">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -91,16 +91,16 @@ const ServicesGrid = () => {
                   href={`/service/${service.slug}`}
                   className="block h-full"
                 >
-                  <div className="h-full cursor-pointer p-4 sm:p-6 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 hover:border-[#d4af37] group">
+                  <div className="h-full cursor-pointer p-4 sm:p-6 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-darkbg2 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 hover:border-gold group">
                     {/* Icon */}
                     {IconComponent && (
-                      <div className="flex items-center justify-center w-14 h-14 rounded-full bg-[#d4af37]/20 mb-5 group-hover:scale-110 transition-transform duration-300">
-                        <IconComponent className="text-[#d4af37] text-2xl" />
+                      <div className="flex items-center justify-center w-14 h-14 rounded-full bg-gold/20 mb-5 group-hover:scale-110 transition-transform duration-300">
+                        <IconComponent className="text-gold text-2xl" />
                       </div>
                     )}
 
                     {/* Title */}
-                    <h3 className="text-xl font-semibold mb-2 text-[#0d1321] dark:text-white">
+                    <h3 className="text-xl font-semibold mb-2 text-navy dark:text-white">
                       {service.title}
                     </h3>
 
@@ -120,7 +120,7 @@ const ServicesGrid = () => {
 
                     {/* CTA */}
                     <div className="mt-auto">
-                      <span className="inline-block px-4 py-2 text-sm font-semibold hover:text-gold text-[#0d1321] dark:text-gray-100 rounded-lg transition-all duration-300">
+                      <span className="inline-block px-4 py-2 text-sm font-semibold hover:text-gold text-navy dark:text-gray-100 rounded-lg transition-all duration-300">
                         Know More →
                       </span>
                     </div>

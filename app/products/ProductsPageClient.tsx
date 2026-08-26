@@ -48,7 +48,7 @@ export default function ProductsPageClient() {
   }
 
   return (
-    <section className="min-h-screen bg-white dark:bg-darkbg1 py-8 sm:py-10 px-3 sm:px-6 md:px-10 transition-colors duration-300">
+    <section className="min-h-screen bg-white dark:bg-darkbg1 pt-28 sm:pt-36 pb-8 sm:pb-10 px-3 sm:px-6 md:px-10 transition-colors duration-300">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -97,13 +97,13 @@ export default function ProductsPageClient() {
             <div className="flex flex-wrap gap-2 sm:gap-4">
               <Link
                 href={`/products/${product.slug}`}
-                className="px-4 sm:px-6 py-1.5 sm:py-2 rounded-full bg-[#D4AF37] text-black text-sm sm:text-base font-medium hover:bg-[#D4AF37]/80 transition"
+                className="px-4 sm:px-6 py-1.5 sm:py-2 rounded-full bg-gold text-black text-sm sm:text-base font-medium hover:bg-gold/80 transition"
               >
                 Learn More
               </Link>
               <Link
                 href="/contact"
-                className="px-4 sm:px-6 py-1.5 sm:py-2 rounded-full border border-[#D4AF37] text-[#D4AF37] text-sm sm:text-base font-medium hover:bg-[#D4AF37]/10 transition"
+                className="px-4 sm:px-6 py-1.5 sm:py-2 rounded-full border border-gold text-gold text-sm sm:text-base font-medium hover:bg-gold/10 transition"
               >
                 Book a Demo
               </Link>

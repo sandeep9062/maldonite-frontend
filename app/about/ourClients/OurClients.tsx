@@ -14,7 +14,7 @@ const OurClients = () => {
     return (
       <section className="py-10 sm:py-14 md:py-20 bg-white dark:bg-darkbg1">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#0D1321] dark:text-white mb-2 sm:mb-3 md:mb-4">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-navy dark:text-white mb-2 sm:mb-3 md:mb-4">
             Trusted by Global <span className="text-gold">Clients</span>
           </h2>
           <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-6 sm:mb-8 md:mb-10">
@@ -41,7 +41,7 @@ const OurClients = () => {
   return (
     <section className="py-10 sm:py-14 md:py-20 bg-white dark:bg-darkbg1">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#0D1321] dark:text-white mb-2 sm:mb-3 md:mb-4">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-navy dark:text-white mb-2 sm:mb-3 md:mb-4">
           Trusted by Global <span className="text-gold">Clients</span>
         </h2>
         <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-6 sm:mb-8 md:mb-10">
@@ -75,7 +75,7 @@ const OurClients = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
-                className="flex flex-col items-center justify-center p-2 sm:p-3 md:p-4 rounded-lg sm:rounded bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-[#d4af37] transition-all duration-300"
+                className="flex flex-col items-center justify-center p-2 sm:p-3 md:p-4 rounded-lg sm:rounded bg-white dark:bg-darkbg2 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-gold transition-all duration-300"
               >
                 {client.icon && (
                   <Image

@@ -29,7 +29,7 @@ const TechStack = () => {
   ];
 
   return (
-    <section className="bg-[#0b0b0f] text-white py-20 px-6 md:px-16 min-h-screen flex flex-col justify-center">
+    <section className="bg-darkbg2 text-white py-20 px-6 md:px-16 min-h-screen flex flex-col justify-center">
       <div className="max-w-6xl mx-auto w-full">
         {/* Top Accent Subheading */}
         <div className="flex items-center gap-3 mb-4">
@@ -55,7 +55,7 @@ const TechStack = () => {
           {technologies.map((tech, index) => (
             <div
               key={index}
-              className="flex items-center gap-2.5 bg-[#14141c] hover:bg-[#1a1a24] border border-gray-800/60 rounded-full px-4 py-2 text-xs md:text-sm text-gray-300 font-medium transition-all duration-200 cursor-pointer shadow-sm hover:border-gray-700 hover:text-white"
+              className="flex items-center gap-2.5 bg-darkbg2 hover:bg-darkbg2 border border-gray-800/60 rounded-full px-4 py-2 text-xs md:text-sm text-gray-300 font-medium transition-all duration-200 cursor-pointer shadow-sm hover:border-gray-700 hover:text-white"
             >
               {/* Colored Dot Indicator */}
               <span className={`w-2 h-2 rounded-full ${tech.color} shrink-0`} />

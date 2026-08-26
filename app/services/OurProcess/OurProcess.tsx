@@ -47,7 +47,10 @@ const ServiceTimeline = () => {
           Our Process, Start to Success
         </h2>
 
-        <div className="relative border-l-2" style={{ borderColor: "#d4af37" }}>
+        <div
+          className="relative border-l-2"
+          style={{ borderColor: "var(--color-gold)" }}
+        >
           <div className="pl-4 sm:pl-6 space-y-8 sm:space-y-12 lg:space-y-16">
             {steps.map((step, i) => (
               <motion.div

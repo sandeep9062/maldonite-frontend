@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen bg-white dark:bg-[#0D1321] flex items-center justify-center px-4">
+    <main className="min-h-screen bg-white dark:bg-navy flex items-center justify-center px-4">
       <div className="max-w-lg text-center">
         <h1 className="text-8xl font-extrabold text-gold mb-4">404</h1>
         <h2 className="text-2xl font-bold text-navy dark:text-white mb-4">
@@ -16,7 +16,7 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <Link
             href="/"
-            className="px-6 py-3 rounded-lg bg-gold text-navy font-semibold hover:bg-[#c89d2a] transition-colors"
+            className="px-6 py-3 rounded-lg bg-gold text-navy font-semibold hover:bg-gold transition-colors"
           >
             Go Home
           </Link>

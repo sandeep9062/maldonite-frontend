@@ -75,7 +75,7 @@ export default function ProductDetailClient({
 
   return (
     <>
-      <section className="min-h-screen mt-10 bg-white dark:bg-darkbg1 py-16 px-6 md:px-10 transition-colors duration-300">
+      <section className="min-h-screen bg-white dark:bg-darkbg1 pt-28 sm:pt-36 pb-16 px-6 md:px-10 transition-colors duration-300">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -84,11 +84,11 @@ export default function ProductDetailClient({
         >
           {/* Breadcrumb */}
           <nav className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-8 space-x-1">
-            <Link href="/" className="hover:text-[#D4AF37] transition">
+            <Link href="/" className="hover:text-gold transition">
               Home
             </Link>
             <ChevronRight className="w-4 h-4" />
-            <Link href="/products" className="hover:text-[#D4AF37] transition">
+            <Link href="/products" className="hover:text-gold transition">
               Products
             </Link>
             <ChevronRight className="w-4 h-4" />
@@ -171,13 +171,13 @@ export default function ProductDetailClient({
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="/contact"
-                  className="px-6 py-2.5 rounded-full border border-[#D4AF37] text-[#D4AF37] font-medium hover:bg-[#D4AF37]/10 transition"
+                  className="px-6 py-2.5 rounded-full border border-gold text-gold font-medium hover:bg-gold/10 transition"
                 >
                   Book a Demo
                 </Link>
                 <Link
                   href="/products"
-                  className="px-6 py-2.5 rounded-full bg-[#D4AF37] text-black font-medium hover:bg-[#D4AF37]/80 transition shadow-md"
+                  className="px-6 py-2.5 rounded-full bg-gold text-black font-medium hover:bg-gold/80 transition shadow-md"
                 >
                   Back to Products
                 </Link>

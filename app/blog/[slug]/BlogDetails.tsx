@@ -90,7 +90,7 @@ export default function BlogDetails({ blog }: { blog: Blog }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <section className="min-h-screen mt-10 bg-white dark:bg-[#0D1321] py-10 sm:py-16 lg:py-24 px-4 sm:px-6 md:px-8">
+      <section className="min-h-screen bg-white dark:bg-navy pt-28 sm:pt-36 pb-10 sm:pb-16 lg:pb-24 px-4 sm:px-6 md:px-8">
         <div className="max-w-6xl mx-auto px-0 sm:px-2">
           {/* Back to Blog List Button */}
           <div className="mb-6">
@@ -166,7 +166,7 @@ export default function BlogDetails({ blog }: { blog: Blog }) {
           {/* Image */}
           {image && (
             <div className="relative w-full h-[250px] sm:h-[350px] md:h-[500px] mb-6 sm:mb-10 rounded-xl overflow-hidden shadow-lg">
-              <Image src={image} alt={title} fill className="object-cover" />
+              <Image src={image} alt={title} fill sizes="100vw" className="object-cover" />
             </div>
           )}
 

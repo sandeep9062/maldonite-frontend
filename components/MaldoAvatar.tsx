@@ -7,6 +7,7 @@ const MaldoAvatar = () => {
         src="/maldo-hello.gif"
         alt="Maldo waving hello"
         fill
+        sizes="128px"
         className="object-contain"
         priority
       />

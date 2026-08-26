@@ -72,7 +72,7 @@ export default function PopupFormModal() {
 
   return (
     <div className="fixed inset-0 bg-opacity-50 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
-      <div className="relative w-full max-w-lg bg-[#1e1e1f] text-white rounded-xl shadow-2xl p-4 sm:p-8 mx-2 sm:mx-0">
+      <div className="relative w-full max-w-lg bg-darkbg2 text-white rounded-xl shadow-2xl p-4 sm:p-8 mx-2 sm:mx-0">
         {/* Close Button */}
         <button
           className="absolute top-3 right-3 sm:top-4 sm:right-4 text-white hover:text-gray-400 transition p-1"
@@ -144,7 +144,7 @@ export default function PopupFormModal() {
                       borderRadius: "0",
                     }}
                     dropdownStyle={{
-                      backgroundColor: "#1e1e1f",
+                      backgroundColor: "var(--color-darkbg2)",
                       color: "white",
                     }}
                   />
@@ -175,7 +175,7 @@ export default function PopupFormModal() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full mt-4 sm:mt-6 bg-gold text-black py-2.5 sm:py-3 font-semibold rounded hover:bg-yellow-500 transition disabled:opacity-50 text-sm sm:text-base"
+                className="w-full mt-4 sm:mt-6 bg-gold text-navy py-2.5 sm:py-3 font-semibold rounded hover:bg-gold/80 transition disabled:opacity-50 text-sm sm:text-base"
               >
                 {isLoading ? "Sending..." : "Request a Free Quote"}
               </button>

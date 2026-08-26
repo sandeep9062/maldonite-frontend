@@ -46,7 +46,7 @@ export default function FeaturedBlogs({ blogs }: { blogs: Blog[] }) {
   }
 
   return (
-    <section className="py-20 px-4 bg-white dark:bg-[#0D1321]">
+    <section className="py-20 px-4 bg-white dark:bg-navy">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <motion.div
@@ -73,7 +73,7 @@ export default function FeaturedBlogs({ blogs }: { blogs: Blog[] }) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
               viewport={{ once: true }}
-              className="group rounded-xl min-h-[480px] overflow-hidden border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-[#1a1a1a] shadow-sm hover:shadow-lg hover:border-[#D4AF37] transition-all duration-300 flex flex-col"
+              className="group rounded-xl min-h-[480px] overflow-hidden border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-darkbg2 shadow-sm hover:shadow-lg hover:border-gold transition-all duration-300 flex flex-col"
             >
               <Link
                 href={`/blog/${blog.slug}`}
@@ -85,12 +85,13 @@ export default function FeaturedBlogs({ blogs }: { blogs: Blog[] }) {
                       src={blog.images[0]}
                       alt={blog.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       priority={i < 3}
                       className="object-cover w-full h-full transition-transform group-hover:scale-105 duration-500"
                     />
                   )}
                   {blog.isFeatured && (
-                    <div className="absolute top-4 left-4 bg-[#D4AF37] text-black px-3 py-1 rounded-full text-xs font-semibold">
+                    <div className="absolute top-4 left-4 bg-gold text-black px-3 py-1 rounded-full text-xs font-semibold">
                       Featured
                     </div>
                   )}
@@ -99,7 +100,7 @@ export default function FeaturedBlogs({ blogs }: { blogs: Blog[] }) {
                 <div className="flex flex-col justify-between flex-1 p-4">
                   <div>
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="text-xs font-medium text-[#D4AF37] uppercase">
+                      <span className="text-xs font-medium text-gold uppercase">
                         {blog.category}
                       </span>
                       <span className="text-xs text-gray-400">•</span>
@@ -107,7 +108,7 @@ export default function FeaturedBlogs({ blogs }: { blogs: Blog[] }) {
                         {blog.readTime} min read
                       </span>
                     </div>
-                    <h3 className="text-lg font-semibold text-[#0d1321] dark:text-white mb-1 group-hover:text-[#D4AF37] transition-colors">
+                    <h3 className="text-lg font-semibold text-navy dark:text-white mb-1 group-hover:text-gold transition-colors">
                       {blog.title}
                     </h3>
                     <p className="text-sm text-gray-700 dark:text-gray-300 mb-4 line-clamp-3">
@@ -143,7 +144,7 @@ export default function FeaturedBlogs({ blogs }: { blogs: Blog[] }) {
         >
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-[#D4AF37] text-black font-semibold rounded-full hover:bg-[#D4AF37]/90 transition-all duration-300 hover:shadow-lg"
+            className="inline-flex items-center gap-2 px-8 py-3 bg-gold text-black font-semibold rounded-full hover:bg-gold/90 transition-all duration-300 hover:shadow-lg"
           >
             View All Blogs
             <svg

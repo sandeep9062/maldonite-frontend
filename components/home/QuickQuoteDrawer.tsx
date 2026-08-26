@@ -173,11 +173,11 @@ const QuickQuoteDrawer = () => {
           onClick={() => setIsOpen(true)}
           title="Get a free project estimate"
           aria-label="Open quick quote form"
-          className={`bg-[#14141c] text-[#d4af37] border border-gray-800 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:bg-[#1a1a26] transition-all duration-300 z-[9999] group cursor-pointer
+          className={`bg-darkbg2 text-gold border border-gray-800 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:bg-darkbg2 transition-all duration-300 z-[9999] group cursor-pointer
             ${
               isMobile
                 ? "w-12 h-12 rounded-full flex items-center justify-center border-gray-700/70"
-                : "py-5 px-2.5 rounded-l-xl border-r-0 hover:text-[#d4af37]/90"
+                : "py-5 px-2.5 rounded-l-xl border-r-0 hover:text-gold/90"
             }
             ${isOpen ? "scale-0 opacity-0 pointer-events-none" : "scale-100 opacity-100"}`}
           style={
@@ -217,7 +217,7 @@ const QuickQuoteDrawer = () => {
               animate="animate"
               exit="exit"
               transition={{ type: "spring", damping: 30, stiffness: 220 }}
-              className="bg-[#14141c] text-white relative overflow-hidden border-gray-800/80 shadow-[0_-8px_30px_rgba(0,0,0,0.5)] md:shadow-[0_0_40px_rgba(0,0,0,0.5)]
+              className="bg-darkbg2 text-white relative overflow-hidden border-gray-800/80 shadow-[0_-8px_30px_rgba(0,0,0,0.5)] md:shadow-[0_0_40px_rgba(0,0,0,0.5)]
                 fixed bottom-0 left-0 right-0 top-auto md:top-1/2 md:-translate-y-1/2 md:bottom-auto md:right-0
                 w-full md:w-[19.5rem] 
                 max-h-[82vh] md:max-h-none
@@ -259,7 +259,7 @@ const QuickQuoteDrawer = () => {
               <div className="flex gap-4 relative z-10">
                 {/* Desktop Side Branding Accent */}
                 <div
-                  className="hidden md:block text-[#d4af37]/10 font-extrabold tracking-[0.25em] uppercase text-[10px] self-center select-none"
+                  className="hidden md:block text-gold/10 font-extrabold tracking-[0.25em] uppercase text-[10px] self-center select-none"
                   style={{ writingMode: "vertical-rl", rotate: "180deg" }}
                 >
                   Quick Quote
@@ -271,7 +271,7 @@ const QuickQuoteDrawer = () => {
                     <h3 className="text-gray-400 uppercase text-[9px] font-bold tracking-[0.18em]">
                       Free Project Estimate
                     </h3>
-                    <div className="h-[1.5px] w-6 bg-[#d4af37] mt-1.5 rounded-full mx-auto md:mx-0" />
+                    <div className="h-[1.5px] w-6 bg-gold mt-1.5 rounded-full mx-auto md:mx-0" />
                   </div>
 
                   {/* SUCCESS */}
@@ -305,7 +305,7 @@ const QuickQuoteDrawer = () => {
                       </p>
                       <button
                         onClick={handleReset}
-                        className="mt-4 text-[11px] text-[#d4af37] hover:text-[#d4af37]/80 font-medium underline underline-offset-4 transition-colors"
+                        className="mt-4 text-[11px] text-gold hover:text-gold/80 font-medium underline underline-offset-4 transition-colors"
                       >
                         Submit New Request
                       </button>
@@ -390,10 +390,10 @@ const QuickQuoteDrawer = () => {
                               onBlur={() => handleBlur(key)}
                               disabled={formState === "submitting"}
                               autoComplete={input.auto}
-                              className={`w-full bg-[#1c1c26]/60 border rounded-lg py-2.5 px-3.5 text-base md:text-xs text-white placeholder-gray-500 font-medium transition-all duration-200 outline-none select-text touch-manipulation ${
+                              className={`w-full bg-darkbg2/60 border rounded-lg py-2.5 px-3.5 text-base md:text-xs text-white placeholder-gray-500 font-medium transition-all duration-200 outline-none select-text touch-manipulation ${
                                 hasError
                                   ? "border-red-500/50 focus:border-red-500 bg-red-500/[0.01]"
-                                  : "border-gray-800/80 focus:border-[#d4af37]/40 focus:bg-[#1c1c26]"
+                                  : "border-gray-800/80 focus:border-gold/40 focus:bg-darkbg2"
                               }`}
                             />
                             {hasError && (
@@ -408,12 +408,12 @@ const QuickQuoteDrawer = () => {
                       <button
                         type="submit"
                         disabled={formState === "submitting"}
-                        className="w-full bg-[#d4af37] hover:bg-[#d4af37]/90 disabled:bg-[#d4af37]/50 text-[#14141c] font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-1.5 mt-3 transition-all text-xs active:scale-[0.99] disabled:cursor-not-allowed touch-manipulation relative overflow-hidden group"
+                        className="w-full bg-gold hover:bg-gold/90 disabled:bg-gold/50 text-navy font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-1.5 mt-3 transition-all text-xs active:scale-[0.99] disabled:cursor-not-allowed touch-manipulation relative overflow-hidden group"
                       >
                         {formState === "submitting" ? (
                           <div className="flex items-center gap-2">
                             <svg
-                              className="animate-spin h-3.5 w-3.5 text-[#14141c]"
+                              className="animate-spin h-3.5 w-3.5 text-navy"
                               fill="none"
                               viewBox="0 0 24 24"
                             >

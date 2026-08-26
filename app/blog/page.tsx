@@ -26,9 +26,9 @@ export default async function BlogPage() {
 
   return (
     <>
-      <main className="bg-white dark:bg-[#0D1321] text-black dark:text-white mt-16">
+      <main className="bg-white dark:bg-navy text-black dark:text-white">
         {/* Hero */}
-        <section className="text-center py-12 bg-gradient-to-br from-white to-gray-200 dark:from-[#0D1321] dark:to-[#1a1a1a]">
+        <section className="text-center pt-28 sm:pt-36 pb-12 bg-gradient-to-br from-white to-gray-200 dark:from-navy dark:to-darkbg2">
           <h1 className="text-4xl md:text-5xl font-extrabold text-navy dark:text-white mb-4">
             Insights from Maldonite
           </h1>

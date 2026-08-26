@@ -36,8 +36,7 @@ import { useGetSiteSettingsQuery } from "@/services/siteSettingsApi";
 import { useGetServicesQuery } from "@/services/servicesApi";
 import SocialMediaLinks from "@/app/contact/SocialLinks/SocialMediaLinks";
 const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "AboutUs", href: "/about" },
+  { name: "About Us", href: "/about" },
   { name: "Services", href: "/services" },
   { name: "Portfolio", href: "/portfolio" },
 
@@ -59,11 +58,22 @@ export default function Navbar() {
   };
 
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const pathname = usePathname();
   const menuRef = useRef<HTMLDivElement>(null);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Track scroll position to switch navbar background when scrolled down
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Close drawer on outside click
   useEffect(() => {
@@ -99,8 +109,14 @@ export default function Navbar() {
   };
 
   return (
-    <header className="bg-[#0D1321] text-white shadow-md w-full z-50 fixed top-0">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex justify-between items-center h-14 sm:h-16">
+    <header
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 text-navy dark:text-white ${
+        scrolled
+          ? "bg-white/95 dark:bg-navy/95 shadow-md backdrop-blur-md border-b border-slate-200/70 dark:border-white/10"
+          : "bg-transparent shadow-none border-none"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-8 pt-6 pb-4 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-[4px] sm:gap-[6px]">
           {siteSettings?.logoUrl && (
@@ -116,16 +132,16 @@ export default function Navbar() {
             <h1 className="text-base sm:text-xl font-semibold mt-1 sm:mt-2 leading-none">
               Maldon<span className="text-gold">i</span>te
             </h1>
-            <p className="text-[8px] sm:text-[9px] text-silver">
+            <p className="text-[8px] sm:text-[9px] text-gray-500 dark:text-silver">
               Shaping Digital Gold
             </p>
           </div>
         </Link>
 
         {/* Desktop Nav + Dark Mode Toggle + Quote Button */}
-        <div className="hidden md:flex items-center justify-between w-full">
-          {/* Center: Menu Links */}
-          <nav className="flex-1 flex justify-center items-center gap-8">
+        <div className="hidden md:flex items-center gap-8">
+          {/* Menu Links */}
+          <nav className="flex items-center gap-8">
             {navLinks.map((link) => {
               if (link.name === "Services") {
                 return (
@@ -136,11 +152,11 @@ export default function Navbar() {
                     onMouseLeave={handleMouseLeave}
                   >
                     <button
-                      className={`text-sm transition px-2 py-1 rounded flex items-center gap-1 ${
+                      className={`text-xs font-medium tracking-wider uppercase transition px-2 py-1 rounded flex items-center gap-1 ${
                         pathname === link.href ||
                         pathname.startsWith("/service/")
-                          ? "text-[#D4AF37] font-semibold"
-                          : "text-white hover:text-[#D4AF37]"
+                          ? "text-gold font-semibold"
+                          : "text-navy dark:text-white hover:text-gold"
                       }`}
                       aria-expanded={servicesDropdownOpen}
                       aria-haspopup="true"
@@ -160,20 +176,20 @@ export default function Navbar() {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: -10, scale: 0.95 }}
                           transition={{ duration: 0.2, ease: "easeOut" }}
-                          className="absolute top-full left-0 mt-3 w-80 bg-[#0D1321] border border-gray-700/50 rounded-xl shadow-2xl backdrop-blur-sm z-50 overflow-hidden"
+                          className="absolute top-full left-0 mt-3 w-80 bg-navy border border-gray-700/50 rounded-xl shadow-2xl backdrop-blur-sm z-50 overflow-hidden"
                           onMouseEnter={handleMouseEnter}
                           onMouseLeave={handleMouseLeave}
                           role="menu"
                           aria-label="Services submenu"
                         >
                           {/* Header */}
-                          <div className="px-4 py-3 border-b border-gray-700/50 bg-gradient-to-r from-[#D4AF37]/10 to-transparent">
+                          <div className="px-4 py-3 border-b border-gray-700/50 bg-gradient-to-r from-gold/10 to-transparent">
                             <Link
                               href="/services"
-                              className="flex items-center gap-2 text-sm text-[#D4AF37] hover:text-[#D4AF37]/80 transition-colors font-semibold group"
+                              className="flex items-center gap-2 text-sm text-gold hover:text-gold/80 transition-colors font-semibold group"
                               onClick={() => setServicesDropdownOpen(false)}
                             >
-                              <span className="w-2 h-2 bg-[#D4AF37] rounded-full"></span>
+                              <span className="w-2 h-2 bg-gold rounded-full"></span>
                               All Services
                               <span className="ml-auto text-xs opacity-70 group-hover:opacity-100 transition-opacity">
                                 →
@@ -195,11 +211,11 @@ export default function Navbar() {
                               >
                                 <Link
                                   href={`/service/${service.slug}`}
-                                  className="flex items-start gap-3 px-4 py-3 text-sm text-white hover:bg-gradient-to-r hover:from-gray-700/50 hover:to-[#D4AF37]/10 hover:text-[#D4AF37] transition-all duration-200 group border-b border-gray-800/30 last:border-b-0"
+                                  className="flex items-start gap-3 px-4 py-3 text-sm text-white hover:bg-gradient-to-r hover:from-gray-700/50 hover:to-gold/10 hover:text-gold transition-all duration-200 group border-b border-gray-800/30 last:border-b-0"
                                   onClick={() => setServicesDropdownOpen(false)}
                                 >
                                   {/* Icon */}
-                                  <div className="flex-shrink-0 w-8 h-8 bg-[#D4AF37]/20 rounded-lg flex items-center justify-center mt-0.5 group-hover:bg-[#D4AF37]/30 transition-colors">
+                                  <div className="flex-shrink-0 w-8 h-8 bg-gold/20 rounded-lg flex items-center justify-center mt-0.5 group-hover:bg-gold/30 transition-colors">
                                     {(() => {
                                       const IconComponent = getIconComponent(
                                         service.icon,
@@ -207,17 +223,17 @@ export default function Navbar() {
                                       return IconComponent ? (
                                         <IconComponent
                                           size={16}
-                                          className="text-[#D4AF37] group-hover:text-white transition-colors"
+                                          className="text-gold group-hover:text-white transition-colors"
                                         />
                                       ) : (
-                                        <div className="w-3 h-3 bg-[#D4AF37] rounded-full"></div>
+                                        <div className="w-3 h-3 bg-gold rounded-full"></div>
                                       );
                                     })()}
                                   </div>
 
                                   {/* Content */}
                                   <div className="flex-1 min-w-0">
-                                    <div className="font-medium text-white group-hover:text-[#D4AF37] transition-colors line-clamp-1">
+                                    <div className="font-medium text-white group-hover:text-gold transition-colors line-clamp-1">
                                       {service.title}
                                     </div>
                                     {service.desc && (
@@ -228,7 +244,7 @@ export default function Navbar() {
                                       </div>
                                     )}
                                     {service.category && (
-                                      <div className="text-xs text-[#D4AF37]/70 mt-1 uppercase tracking-wide">
+                                      <div className="text-xs text-gold/70 mt-1 uppercase tracking-wide">
                                         {service.category}
                                       </div>
                                     )}
@@ -238,7 +254,7 @@ export default function Navbar() {
                                   <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
                                     <ChevronDown
                                       size={14}
-                                      className="rotate-[-90deg] text-[#D4AF37]"
+                                      className="rotate-[-90deg] text-gold"
                                     />
                                   </div>
                                 </Link>
@@ -248,10 +264,10 @@ export default function Navbar() {
 
                           {/* Footer */}
                           {services.length > 8 && (
-                            <div className="px-4 py-3 border-t border-gray-700/50 bg-gradient-to-r from-transparent to-[#D4AF37]/5">
+                            <div className="px-4 py-3 border-t border-gray-700/50 bg-gradient-to-r from-transparent to-gold/5">
                               <Link
                                 href="/services"
-                                className="flex items-center justify-center gap-2 text-sm text-[#D4AF37] hover:text-white transition-colors font-semibold group"
+                                className="flex items-center justify-center gap-2 text-sm text-gold hover:text-white transition-colors font-semibold group"
                                 onClick={() => setServicesDropdownOpen(false)}
                               >
                                 <span>View All Services</span>
@@ -272,10 +288,10 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-sm transition ${
+                  className={`text-xs font-medium tracking-wider uppercase transition ${
                     pathname === link.href
-                      ? "text-[#D4AF37] font-semibold"
-                      : "text-white hover:text-[#D4AF37]"
+                      ? "text-gold font-semibold"
+                      : "text-navy dark:text-white hover:text-gold"
                   }`}
                 >
                   {link.name}
@@ -285,11 +301,11 @@ export default function Navbar() {
           </nav>
 
           {/* Right: Dark Mode Toggle + CTA */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <ToggleButton />
             <Link
               href="/quote"
-              className="px-4 py-2 rounded-md bg-gold text-black text-[13px] font-semibold hover:bg-gold/80 transition-colors"
+              className="inline-flex items-center justify-center rounded-md bg-gold px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-black hover:bg-gold/80 transition-colors"
             >
               Get Quote
             </Link>
@@ -300,7 +316,7 @@ export default function Navbar() {
         <div className="md:hidden flex items-center gap-3">
           <ToggleButton />
           <button
-            className="text-white p-1"
+            className="text-navy dark:text-white p-1"
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
           >
@@ -318,7 +334,7 @@ export default function Navbar() {
             animate={{ y: 0 }}
             exit={{ y: "-100%" }}
             transition={{ type: "spring", stiffness: 80, damping: 20 }}
-            className="absolute top-0 left-0 w-full bg-[#0D1321] shadow-lg z-50 max-h-screen overflow-y-auto"
+            className="absolute top-0 left-0 w-full bg-navy shadow-lg z-50 max-h-screen overflow-y-auto"
           >
             {/* Drawer Header */}
             <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 border-b border-gray-700">
@@ -350,7 +366,7 @@ export default function Navbar() {
               </Link>
               <button
                 onClick={() => setOpen(false)}
-                className="text-white hover:text-[#D4AF37] p-1"
+                className="text-white hover:text-gold p-1"
                 aria-label="Close menu"
               >
                 <X size={20} />
@@ -367,11 +383,11 @@ export default function Navbar() {
                         onClick={() =>
                           setMobileServicesOpen(!mobileServicesOpen)
                         }
-                        className={`flex items-center justify-center gap-1.5 sm:gap-2 text-[13px] sm:text-[14px] transition w-full ${
+                        className={`flex items-center justify-center gap-1.5 sm:gap-2 text-xs font-medium tracking-wider uppercase transition w-full ${
                           pathname === link.href ||
                           pathname.startsWith("/service/")
                             ? "text-gold font-semibold"
-                            : "text-white hover:text-[#D4AF37]"
+                            : "text-white hover:text-gold"
                         }`}
                         aria-expanded={mobileServicesOpen}
                         aria-haspopup="true"
@@ -391,19 +407,19 @@ export default function Navbar() {
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.3 }}
-                            className="mt-3 mx-4 space-y-1 overflow-hidden bg-[#0D1321] border border-gray-700/50 rounded-xl"
+                            className="mt-3 mx-4 space-y-1 overflow-hidden bg-navy border border-gray-700/50 rounded-xl"
                           >
                             {/* Mobile Services Header */}
-                            <div className="px-4 py-2 border-b border-gray-700/50 bg-gradient-to-r from-[#D4AF37]/10 to-transparent">
+                            <div className="px-4 py-2 border-b border-gray-700/50 bg-gradient-to-r from-gold/10 to-transparent">
                               <Link
                                 href="/services"
-                                className="flex items-center gap-2 text-sm text-[#D4AF37] font-semibold"
+                                className="flex items-center gap-2 text-sm text-gold font-semibold"
                                 onClick={() => {
                                   setOpen(false);
                                   setMobileServicesOpen(false);
                                 }}
                               >
-                                <span className="w-2 h-2 bg-[#D4AF37] rounded-full"></span>
+                                <span className="w-2 h-2 bg-gold rounded-full"></span>
                                 All Services
                               </Link>
                             </div>
@@ -422,14 +438,14 @@ export default function Navbar() {
                               >
                                 <Link
                                   href={`/service/${service.slug}`}
-                                  className="flex items-start gap-3 px-4 py-3 text-sm text-white hover:bg-gradient-to-r hover:from-gray-700/50 hover:to-[#D4AF37]/10 hover:text-[#D4AF37] transition-all duration-200 group border-b border-gray-800/30 last:border-b-0"
+                                  className="flex items-start gap-3 px-4 py-3 text-sm text-white hover:bg-gradient-to-r hover:from-gray-700/50 hover:to-gold/10 hover:text-gold transition-all duration-200 group border-b border-gray-800/30 last:border-b-0"
                                   onClick={() => {
                                     setOpen(false);
                                     setMobileServicesOpen(false);
                                   }}
                                 >
                                   {/* Icon */}
-                                  <div className="flex-shrink-0 w-8 h-8 bg-[#D4AF37]/20 rounded-lg flex items-center justify-center mt-0.5 group-hover:bg-[#D4AF37]/30 transition-colors">
+                                  <div className="flex-shrink-0 w-8 h-8 bg-gold/20 rounded-lg flex items-center justify-center mt-0.5 group-hover:bg-gold/30 transition-colors">
                                     {(() => {
                                       const IconComponent = getIconComponent(
                                         service.icon,
@@ -437,17 +453,17 @@ export default function Navbar() {
                                       return IconComponent ? (
                                         <IconComponent
                                           size={16}
-                                          className="text-[#D4AF37] group-hover:text-white transition-colors"
+                                          className="text-gold group-hover:text-white transition-colors"
                                         />
                                       ) : (
-                                        <div className="w-3 h-3 bg-[#D4AF37] rounded-full"></div>
+                                        <div className="w-3 h-3 bg-gold rounded-full"></div>
                                       );
                                     })()}
                                   </div>
 
                                   {/* Content */}
                                   <div className="flex-1 min-w-0">
-                                    <div className="font-medium text-white group-hover:text-[#D4AF37] transition-colors line-clamp-1">
+                                    <div className="font-medium text-white group-hover:text-gold transition-colors line-clamp-1">
                                       {service.title}
                                     </div>
                                     {service.desc && (
@@ -458,7 +474,7 @@ export default function Navbar() {
                                       </div>
                                     )}
                                     {service.category && (
-                                      <div className="text-xs text-[#D4AF37]/70 mt-1 uppercase tracking-wide">
+                                      <div className="text-xs text-gold/70 mt-1 uppercase tracking-wide">
                                         {service.category}
                                       </div>
                                     )}
@@ -468,7 +484,7 @@ export default function Navbar() {
                                   <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
                                     <ChevronDown
                                       size={14}
-                                      className="rotate-[-90deg] text-[#D4AF37]"
+                                      className="rotate-[-90deg] text-gold"
                                     />
                                   </div>
                                 </Link>
@@ -477,10 +493,10 @@ export default function Navbar() {
 
                             {/* Mobile Footer */}
                             {services.length > 8 && (
-                              <div className="px-4 py-3 border-t border-gray-700/50 bg-gradient-to-r from-transparent to-[#D4AF37]/5">
+                              <div className="px-4 py-3 border-t border-gray-700/50 bg-gradient-to-r from-transparent to-gold/5">
                                 <Link
                                   href="/services"
-                                  className="flex items-center justify-center gap-2 text-sm text-[#D4AF37] hover:text-white transition-colors font-semibold group"
+                                  className="flex items-center justify-center gap-2 text-sm text-gold hover:text-white transition-colors font-semibold group"
                                   onClick={() => {
                                     setOpen(false);
                                     setMobileServicesOpen(false);
@@ -504,10 +520,10 @@ export default function Navbar() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`text-[13px] sm:text-[14px] transition ${
+                    className={`text-xs font-medium tracking-wider uppercase transition ${
                       pathname === link.href
                         ? "text-gold font-semibold"
-                        : "text-white hover:text-[#D4AF37]"
+                        : "text-slate-800 dark:text-white hover:text-gold"
                     }`}
                     onClick={() => setOpen(false)}
                   >
@@ -522,14 +538,11 @@ export default function Navbar() {
               <Link
                 href="/quote"
                 onClick={() => setOpen(false)}
-                className="block w-full text-center py-2.5 sm:py-3 rounded bg-gold text-black font-semibold hover:bg-gold/80 transition-colors text-sm sm:text-base"
+                className="block w-full text-center py-2.5 sm:py-3 rounded-md bg-gold text-black text-xs font-semibold uppercase tracking-wider hover:bg-gold/80 transition-colors"
               >
                 Get Quote
               </Link>
             </div>
-
-            {/* Social Media Links */}
-            <SocialMediaLinks />
           </motion.div>
         )}
       </AnimatePresence>

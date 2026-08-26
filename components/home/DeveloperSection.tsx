@@ -91,7 +91,7 @@ const DeveloperSection = () => {
   ];
 
   return (
-    <section className="relative bg-gradient-to-br from-gray-50 to-white dark:from-[#0D1321] dark:to-[#1a1a1a] py-20 px-4">
+    <section className="relative bg-gradient-to-br from-gray-50 to-white dark:from-navy dark:to-darkbg2 py-20 px-4">
       {/* Subtle Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(212,175,55,0.3)_1px,transparent_0)] bg-[length:20px_20px]"></div>
@@ -131,7 +131,7 @@ const DeveloperSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
-            className="bg-white dark:bg-[#1a1a1a] rounded-2xl border border-gray-200 dark:border-gray-700 shadow-xl"
+            className="bg-white dark:bg-darkbg2 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-xl"
           >
             <div className="p-8">
               {/* Profile Header */}
@@ -311,7 +311,7 @@ const DeveloperSection = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 + index * 0.1, duration: 0.5 }}
                   viewport={{ once: true }}
-                  className="bg-white dark:bg-[#1a1a1a] p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg text-center"
+                  className="bg-white dark:bg-darkbg2 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg text-center"
                 >
                   <div className="inline-flex items-center justify-center w-10 h-10 bg-gold/10 rounded-lg mb-4">
                     {stat.icon}
@@ -342,7 +342,7 @@ const DeveloperSection = () => {
               </p>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-3 px-8 py-3 bg-gold text-navy font-semibold rounded-lg shadow-lg hover:bg-[#c89d2a] transform hover:scale-105 transition-all duration-300"
+                className="inline-flex items-center gap-3 px-8 py-3 bg-gold text-navy font-semibold rounded-lg shadow-lg hover:bg-gold transform hover:scale-105 transition-all duration-300"
               >
                 Get In Touch
               </Link>

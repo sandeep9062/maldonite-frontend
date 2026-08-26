@@ -11,7 +11,7 @@ const ContactPage = () => {
 
 
   return (
-    <section className="relative bg-[#F9FAFB] dark:bg-[#0D1321] py-20 px-4 md:px-10">
+    <section className="relative bg-white dark:bg-navy py-20 px-4 md:px-10">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-start">
         {/* Contact Info */}
         <motion.div
@@ -22,7 +22,7 @@ const ContactPage = () => {
           className="space-y-8"
         >
           <div className="flex items-start space-x-4">
-            <Mail className="text-[#D4AF37] mt-1" />
+            <Mail className="text-gold mt-1" />
             <div>
               <h4 className="text-lg font-semibold text-navy dark:text-white">
                 Email treek
@@ -33,7 +33,7 @@ const ContactPage = () => {
             </div>
           </div>
           <div className="flex items-start space-x-4">
-            <Phone className="text-[#D4AF37] mt-1" />
+            <Phone className="text-gold mt-1" />
             <div>
               <h4 className="text-lg font-semibold text-navy dark:text-white">
                 Phone
@@ -44,7 +44,7 @@ const ContactPage = () => {
             </div>
           </div>
           <div className="flex items-start space-x-4">
-            <MapPin className="text-[#D4AF37] mt-1" />
+            <MapPin className="text-gold mt-1" />
             <div>
               <h4 className="text-lg font-semibold text-navy dark:text-white">
                 Location

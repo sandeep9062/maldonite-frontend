@@ -11,7 +11,7 @@ const Services = () => {
   // Handle loading and error states
   if (isLoading) {
     return (
-      <main className="bg-white mt-20 dark:bg-[#0D1321] text-black dark:text-white">
+      <main className="bg-white mt-20 dark:bg-navy text-black dark:text-white">
         <section className="text-center py-16 px-4">
           <h1 className="text-4xl font-bold">Loading Services...</h1>
         </section>
@@ -21,7 +21,7 @@ const Services = () => {
 
   if (isError) {
     return (
-      <main className="bg-white mt-20 dark:bg-[#0D1321] text-black dark:text-white">
+      <main className="bg-white mt-20 dark:bg-navy text-black dark:text-white">
         <section className="text-center py-16 px-4">
           <h1 className="text-4xl font-bold">Error loading services.</h1>
         </section>
@@ -71,7 +71,7 @@ const Services = () => {
                   href={`/service/${service.slug}`}
                   className="
                   block w-full max-w-[140px] sm:max-w-[160px] h-28 sm:h-40 mx-auto group
-                  rounded-xl bg-white dark:bg-[#1A1A1A] shadow-lg
+                  rounded-xl bg-white dark:bg-darkbg2 shadow-lg
                   border border-gray-200 dark:border-gray-700
                   flex flex-col items-center justify-center text-center space-y-1 sm:space-y-3
                   transform hover:scale-105 hover:shadow-xl hover:border-gold

@@ -63,18 +63,20 @@ export default function AboutPageClient() {
 
   return (
     <>
-      <main className="min-h-screen pt-16 sm:pt-20 mt-16 text-gray-800 dark:text-gray-100 bg-white dark:bg-darkbg1 px-4 sm:px-6 md:px-8 lg:px-12 transition-colors duration-300">
+      <main className="min-h-screen pt-28 sm:pt-36 text-gray-800 dark:text-gray-100 bg-white dark:bg-darkbg1 px-4 sm:px-6 md:px-8 lg:px-12 transition-colors duration-300">
         {/* Hero Section */}
         <section className="text-center max-w-4xl mx-auto px-0 sm:px-4">
           {siteSettings?.logoUrl && (
-            <Image
-              src={siteSettings.logoUrl}
-              alt="Maldonite logo"
-              width={64}
-              height={64}
-              className="mx-auto mb-4 sm:mb-6 sparkle-animation w-16 sm:w-20 h-auto"
-              priority
-            />
+            <div className="relative mx-auto mb-4 sm:mb-6 sparkle-animation w-16 h-16 sm:w-20 sm:h-20">
+              <Image
+                src={siteSettings.logoUrl}
+                alt="Maldonite logo"
+                fill
+                sizes="80px"
+                className="object-contain"
+                priority
+              />
+            </div>
           )}
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-3 sm:mb-4 md:mb-6 leading-tight">
             About Maldon<span className="text-gold">i</span>te
@@ -161,7 +163,7 @@ export default function AboutPageClient() {
           {aboutStats.map((stat, index) => (
             <div
               key={index}
-              className="bg-muted dark:bg-[#1E1E20] p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl shadow-sm hover:shadow-md transition"
+              className="bg-muted dark:bg-darkbg2 p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl shadow-sm hover:shadow-md transition"
             >
               <div className="mb-2 sm:mb-3 flex justify-center text-gold">
                 {stat.icon}

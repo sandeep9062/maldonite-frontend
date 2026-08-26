@@ -85,7 +85,7 @@ const LeadFormContent = ({
       <button
         onClick={handleSend}
         disabled={isLoading}
-        className="w-full bg-[#D4AF37] text-black py-2 rounded font-semibold disabled:opacity-50"
+        className="w-full bg-gold text-black py-2 rounded font-semibold disabled:opacity-50"
       >
         {isLoading ? "Sending..." : "Send"}
       </button>

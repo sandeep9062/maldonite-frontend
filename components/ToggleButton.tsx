@@ -4,26 +4,19 @@ import { MoonIcon, SunIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 const ToggleButton = () => {
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== "undefined") {
-      const storedTheme = localStorage.getItem("theme");
-      if (storedTheme) {
-        return storedTheme === "dark";
-      }
-      // Default to light mode when no theme is stored
-      return false;
-    }
-    return false;
-  });
+  // Initialize statically on both server & client to avoid hydration mismatch.
+  // The stored theme is read in an effect (after hydration) instead.
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
+    setIsDark(
+      typeof window !== "undefined" && localStorage.getItem("theme") === "dark"
+    );
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", isDark);
+    localStorage.setItem("theme", isDark ? "dark" : "light");
   }, [isDark]);
 
   const toggleTheme = () => {

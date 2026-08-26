@@ -35,22 +35,27 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <section className="pt-16 ">
+      {/* Full background canvas — sits at top-0 behind the fixed transparent
+          header so the navbar natively blends into the hero gradient. */}
+      <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#fdf4e3] via-white to-white dark:from-darkbg2 dark:via-navy dark:to-navy">
+        {/* Soft warm radial glow behind the top header area for depth */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[460px] bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-amber-100/40 via-white to-white dark:from-amber-200/10 dark:via-white/[0.03] dark:to-transparent" />
         <Hero />
-        <Services />
+      </div>
 
-        {/* <BubbleWrapper /> */}
+      <Services />
 
-        <WhyUs />
-        <Features />
-        <PortfolioPreview />
+      {/* <BubbleWrapper /> */}
 
-        <Testimonials />
+      <WhyUs />
+      <Features />
+      <PortfolioPreview />
 
-        <PopupFormModal />
+      <Testimonials />
 
-        <CTAWithForm />
-      </section>
+      <PopupFormModal />
+
+      <CTAWithForm />
     </>
   );
 }

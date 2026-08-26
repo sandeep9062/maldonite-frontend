@@ -1,0 +1,1 @@
+<section className="text-center pt-28 sm:pt-36 pb-10 sm:pb-20 px-4 bg-gradient-to-br from-white to-gray-300 dark:from-navy dark:to-darkbg2">

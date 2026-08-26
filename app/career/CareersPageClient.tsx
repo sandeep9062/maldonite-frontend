@@ -225,14 +225,14 @@ export default function CareersPageClient() {
       : jobs.filter((job) => job.department === activeTab);
 
   return (
-    <main className="min-h-screen pt-16 sm:pt-20 mt-16 text-gray-800 dark:text-gray-100 bg-white dark:bg-darkbg1 transition-colors duration-300 overflow-hidden">
+    <main className="min-h-screen text-gray-800 dark:text-gray-100 bg-white dark:bg-darkbg1 transition-colors duration-300 overflow-hidden">
       {/* ═══════════════════════════════════════════════════════════
           HERO SECTION — Immersive gradient mesh with floating orbs
       ═══════════════════════════════════════════════════════════ */}
-      <section className="relative text-center py-16 sm:py-20 md:py-28 px-4 overflow-hidden">
+      <section className="relative text-center pt-28 sm:pt-36 pb-16 sm:pb-20 md:pb-28 px-4 overflow-hidden">
         {/* Background Gradient Mesh */}
         <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-[#0D1321] dark:via-[#111827] dark:to-[#0D1321]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-navy dark:via-navy dark:to-navy" />
           {/* Floating Orb 1 */}
           <motion.div
             animate={{
@@ -354,7 +354,7 @@ export default function CareersPageClient() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-700 rounded-2xl shadow-xl shadow-black/5 dark:shadow-black/20 p-6 sm:p-8 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8"
+            className="bg-white dark:bg-darkbg2 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-xl shadow-black/5 dark:shadow-black/20 p-6 sm:p-8 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8"
           >
             {stats.map((stat, i) => (
               <AnimatedCounter key={i} value={stat.number} label={stat.label} />
@@ -411,7 +411,7 @@ export default function CareersPageClient() {
                 <div
                   className={`absolute -inset-0.5 bg-gradient-to-r ${card.accent} rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-500`}
                 />
-                <div className="relative h-full bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-700 rounded-2xl p-6 sm:p-7 md:p-8 transition-all duration-300 group-hover:shadow-2xl group-hover:-translate-y-1">
+                <div className="relative h-full bg-white dark:bg-darkbg2 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 sm:p-7 md:p-8 transition-all duration-300 group-hover:shadow-2xl group-hover:-translate-y-1">
                   {/* Icon + Number */}
                   <div className="flex items-center justify-between mb-5 sm:mb-6">
                     <div className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-gold/10 to-gold/5 text-gold group-hover:scale-110 transition-transform duration-300 shadow-inner">
@@ -468,7 +468,7 @@ export default function CareersPageClient() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
-              className="group relative p-5 sm:p-6 rounded-xl sm:rounded-2xl bg-gray-50 dark:bg-[#1E1E20] border border-gray-100 dark:border-gray-700/50 hover:border-gold/30 dark:hover:border-gold/30 hover:bg-white dark:hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-gold/5 hover:-translate-y-0.5"
+              className="group relative p-5 sm:p-6 rounded-xl sm:rounded-2xl bg-gray-50 dark:bg-darkbg2 border border-gray-100 dark:border-gray-700/50 hover:border-gold/30 dark:hover:border-gold/30 hover:bg-white dark:hover:bg-darkbg2 transition-all duration-300 hover:shadow-lg hover:shadow-gold/5 hover:-translate-y-0.5"
             >
               <div className="flex items-start gap-4">
                 <div className="flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-gold/10 text-gold shrink-0 group-hover:scale-110 transition-transform duration-300">
@@ -522,7 +522,7 @@ export default function CareersPageClient() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="flex space-x-1 bg-gray-100 dark:bg-[#1E1E20] p-1 rounded-xl border border-gray-200 dark:border-gray-700"
+            className="flex space-x-1 bg-gray-100 dark:bg-darkbg2 p-1 rounded-xl border border-gray-200 dark:border-gray-700"
           >
             {(["All", "Business & Ops", "Engineering"] as const).map((tab) => (
               <button
@@ -562,7 +562,7 @@ export default function CareersPageClient() {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     layout
                   >
-                    <div className="group relative bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-700 hover:border-gold/50 rounded-2xl sm:rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-gold/5 transition-all duration-400">
+                    <div className="group relative bg-white dark:bg-darkbg2 border border-gray-200 dark:border-gray-700 hover:border-gold/50 rounded-2xl sm:rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-gold/5 transition-all duration-400">
                       {/* Gold accent line at top */}
                       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-gold/0 via-gold to-gold/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
@@ -706,7 +706,7 @@ export default function CareersPageClient() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-center py-16 sm:py-20 bg-gray-50 dark:bg-[#1E1E20] rounded-2xl sm:rounded-3xl border border-dashed border-gray-300 dark:border-gray-700"
+                className="text-center py-16 sm:py-20 bg-gray-50 dark:bg-darkbg2 rounded-2xl sm:rounded-3xl border border-dashed border-gray-300 dark:border-gray-700"
               >
                 <FaBriefcase className="w-12 h-12 sm:w-14 sm:h-14 text-gray-300 dark:text-gray-600 mx-auto mb-4 sm:mb-5" />
                 <p className="text-base sm:text-lg font-semibold text-gray-500 dark:text-gray-400 mb-1 sm:mb-2">
@@ -732,7 +732,7 @@ export default function CareersPageClient() {
       >
         {/* Background */}
         <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-[#0D1321] dark:via-[#111827] dark:to-[#0D1321]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-navy dark:via-navy dark:to-navy" />
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gold/5 dark:bg-gold/8 rounded-full blur-3xl" />
         </div>
 
@@ -773,7 +773,7 @@ export default function CareersPageClient() {
                 href="https://wa.me/919034009062?text=Hi%20Maldonite%2C%20I%20would%20like%20to%20apply%20for%20a%20position.%20Here%20is%20my%20profile%3A%0AName%3A%0ALinkedIn%3A%0AGitHub%3A%0APortfolio%3A"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative block h-full p-6 sm:p-7 bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-700 rounded-2xl hover:border-gold/50 shadow-sm hover:shadow-xl hover:shadow-gold/5 transition-all duration-300 hover:-translate-y-1"
+                className="group relative block h-full p-6 sm:p-7 bg-white dark:bg-darkbg2 border border-gray-200 dark:border-gray-700 rounded-2xl hover:border-gold/50 shadow-sm hover:shadow-xl hover:shadow-gold/5 transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-400 to-emerald-500 rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="flex items-center gap-4 mb-4">
@@ -809,7 +809,7 @@ export default function CareersPageClient() {
             >
               <a
                 href="mailto:maldonitesolutions@gmail.com"
-                className="group relative block h-full p-6 sm:p-7 bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-700 rounded-2xl hover:border-gold/50 shadow-sm hover:shadow-xl hover:shadow-gold/5 transition-all duration-300 hover:-translate-y-1"
+                className="group relative block h-full p-6 sm:p-7 bg-white dark:bg-darkbg2 border border-gray-200 dark:border-gray-700 rounded-2xl hover:border-gold/50 shadow-sm hover:shadow-xl hover:shadow-gold/5 transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="flex items-center gap-4 mb-4">

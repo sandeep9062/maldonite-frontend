@@ -98,7 +98,7 @@ export default function ProjectDetailsClient({ project }: { project: Project }) 
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="min-h-screen mt-5 bg-white dark:bg-darkbg1 py-16 sm:py-24 px-4 md:px-8"
+        className="min-h-screen bg-white dark:bg-darkbg1 pt-28 sm:pt-36 pb-16 sm:pb-24 px-4 md:px-8"
       >
         <div className="max-w-6xl mx-auto">
           {/* Back to Portfolio Button */}
@@ -151,6 +151,7 @@ export default function ProjectDetailsClient({ project }: { project: Project }) 
                         src={img}
                         alt={`${project.title} image ${i + 1}`}
                         fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
                         className="object-cover"
                       />
                       {/* Add a subtle dark overlay to help navigation/pagination stand out */}

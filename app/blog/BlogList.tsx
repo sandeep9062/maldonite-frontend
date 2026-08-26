@@ -69,9 +69,9 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAF8] dark:bg-[#080808] text-slate-900 dark:text-slate-100 transition-colors duration-500 pb-24">
+    <div className="min-h-screen bg-white dark:bg-darkbg2 text-slate-900 dark:text-slate-100 transition-colors duration-500 pb-24">
       {/* ── Category filter bar ── */}
-      <nav className="sticky top-0 z-50 bg-[#FAFAF8]/80 dark:bg-[#080808]/80 backdrop-blur-xl border-b border-slate-100 dark:border-white/[0.05]">
+      <nav className="sticky top-0 z-50 bg-white/80 dark:bg-darkbg2/80 backdrop-blur-xl border-b border-slate-100 dark:border-white/[0.05]">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6">
           <div className="flex items-center gap-1 overflow-x-auto no-scrollbar py-3">
             {categories.map((cat) => {
@@ -87,7 +87,7 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
                     transition-all duration-200
                     ${
                       isActive
-                        ? "bg-[#D4AF37] text-black"
+                        ? "bg-gold text-black"
                         : "text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06]"
                     }
                   `}
@@ -117,7 +117,7 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
             {activeCategory !== "All" && (
               <>
                 {" "}
-                &mdash; <span className="text-[#D4AF37]">{activeCategory}</span>
+                &mdash; <span className="text-gold">{activeCategory}</span>
               </>
             )}
           </p>
@@ -143,12 +143,12 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
             </h3>
             <p className="text-sm text-slate-400 dark:text-slate-600 mb-8 max-w-[240px] leading-relaxed">
               Nothing in{" "}
-              <span className="text-[#D4AF37]">{activeCategory}</span> yet. Try
+              <span className="text-gold">{activeCategory}</span> yet. Try
               another category.
             </p>
             <button
               onClick={() => handleCategory("All")}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#D4AF37]/10 hover:bg-[#D4AF37]/20 border border-[#D4AF37]/25 hover:border-[#D4AF37]/50 text-[#B8940F] dark:text-[#D4AF37] text-[11px] font-bold uppercase tracking-[0.12em] transition-all duration-200"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gold/10 hover:bg-gold/20 border border-gold/25 hover:border-gold/50 text-gold dark:text-gold text-[11px] font-bold uppercase tracking-[0.12em] transition-all duration-200"
             >
               <Sparkles size={13} />
               Show all stories
@@ -189,7 +189,7 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
                     onClick={() => setCurrentPage(pageNum)}
                     className={`w-9 h-9 rounded-lg text-[13px] font-semibold transition-all duration-200 ${
                       isActive
-                        ? "bg-[#D4AF37] text-black"
+                        ? "bg-gold text-black"
                         : "text-slate-400 dark:text-slate-600 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.06]"
                     }`}
                   >

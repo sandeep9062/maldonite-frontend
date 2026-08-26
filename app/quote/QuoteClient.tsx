@@ -256,11 +256,11 @@ const QuoteFormContent = () => {
                   }`}
                   style={{
                     backgroundColor: isCompleted
-                      ? "#d4af37"
+                      ? "var(--color-gold)"
                       : isActive
-                        ? "#d4af37"
+                        ? "var(--color-gold)"
                         : "rgb(55, 65, 81)",
-                    color: "#fff",
+                    color: "var(--color-white)",
                   }}
                 >
                   {isCompleted ? (
@@ -698,7 +698,7 @@ const QuoteFormContent = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-[#0D1321] text-black dark:text-white min-h-screen transition-colors duration-300 relative overflow-hidden">
+    <div className="bg-white dark:bg-navy text-black dark:text-white min-h-screen transition-colors duration-300 relative overflow-hidden">
       {/* ── Background decorative elements ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-20 left-10 w-72 h-72 bg-gold/5 rounded-full blur-3xl" />
@@ -706,9 +706,9 @@ const QuoteFormContent = () => {
         <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-yellow-500/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-4 py-8 relative z-10">
+      <div className="container mx-auto px-4 pb-8 relative z-10">
         {/* ── Hero Section ── */}
-        <div className="text-center mb-10 mt-20">
+        <div className="text-center pt-28 sm:pt-36 mb-10">
           <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
             Get Your <span className="text-gold">Custom Quote</span>
           </h1>
@@ -724,7 +724,7 @@ const QuoteFormContent = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 items-start">
           {/* ── Form Card ── */}
           <div className="lg:col-span-2">
-            <Card className="bg-white dark:bg-[#1a1a1a] backdrop-blur-sm border-gray-200 dark:border-gray-700 shadow-xl shadow-black/5 dark:shadow-black/20 rounded-2xl overflow-hidden transition-all duration-300">
+            <Card className="bg-white dark:bg-darkbg2 backdrop-blur-sm border-gray-200 dark:border-gray-700 shadow-xl shadow-black/5 dark:shadow-black/20 rounded-2xl overflow-hidden transition-all duration-300">
               <div className="h-1.5 bg-gradient-to-r from-gold via-yellow-400 to-gold" />
               <CardHeader>
                 <CardTitle className="text-2xl flex items-center gap-2">
@@ -754,7 +754,7 @@ const QuoteFormContent = () => {
           {/* ── Sidebar ── */}
           <div className="space-y-6">
             {/* What You Get */}
-            <Card className="dark:bg-[#1a1a1a] backdrop-blur-sm border-gray-200 dark:border-gray-700 shadow-lg rounded-2xl overflow-hidden group hover:shadow-xl transition-all duration-300">
+            <Card className="dark:bg-darkbg2 backdrop-blur-sm border-gray-200 dark:border-gray-700 shadow-lg rounded-2xl overflow-hidden group hover:shadow-xl transition-all duration-300">
               <div className="h-1 bg-gradient-to-r from-gold via-yellow-400 to-gold" />
               <CardHeader>
                 <CardTitle className="flex items-center text-lg">
@@ -775,7 +775,7 @@ const QuoteFormContent = () => {
             </Card>
 
             {/* Quick Response */}
-            <Card className="relative dark:bg-[#1a1a1a] backdrop-blur-sm border-gray-200 dark:border-gray-700 shadow-lg rounded-2xl overflow-hidden group hover:shadow-xl transition-all duration-300">
+            <Card className="relative dark:bg-darkbg2 backdrop-blur-sm border-gray-200 dark:border-gray-700 shadow-lg rounded-2xl overflow-hidden group hover:shadow-xl transition-all duration-300">
               <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <CardHeader>
                 <CardTitle className="flex items-center text-lg">
@@ -798,7 +798,7 @@ const QuoteFormContent = () => {
             </Card>
 
             {/* Need Help */}
-            <Card className="dark:bg-[#1a1a1a] backdrop-blur-sm border-gray-200 dark:border-gray-700 shadow-lg rounded-2xl overflow-hidden group hover:shadow-xl transition-all duration-300">
+            <Card className="dark:bg-darkbg2 backdrop-blur-sm border-gray-200 dark:border-gray-700 shadow-lg rounded-2xl overflow-hidden group hover:shadow-xl transition-all duration-300">
               <CardHeader>
                 <CardTitle className="flex items-center text-lg">
                   <AlertCircle className="h-5 w-5 mr-2 text-gold" />
@@ -863,7 +863,7 @@ const QuoteClient = () => {
 
   if (!siteKey) {
     return (
-      <div className="bg-white dark:bg-[#0D1321] text-black dark:text-white min-h-screen transition-colors duration-300 flex items-center justify-center">
+      <div className="bg-white dark:bg-navy text-black dark:text-white min-h-screen transition-colors duration-300 flex items-center justify-center">
         <div className="text-center px-4">
           <div className="w-20 h-20 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-6">
             <AlertCircle className="w-10 h-10 text-gold" />
@@ -882,7 +882,7 @@ const QuoteClient = () => {
 
   if (!isClient) {
     return (
-      <div className="bg-white dark:bg-[#0D1321] text-black dark:text-white min-h-screen transition-colors duration-300 flex items-center justify-center">
+      <div className="bg-white dark:bg-navy text-black dark:text-white min-h-screen transition-colors duration-300 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-gold/30 border-t-gold rounded-full animate-spin mx-auto mb-4" />
           <p className="text-lg text-gray-500">Loading...</p>

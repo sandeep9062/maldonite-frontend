@@ -46,7 +46,7 @@ export default function SocialMediaLinks() {
     },
   ];
   return (
-    <section className="text-center py-2 sm:py-3 bg-white dark:bg-[#0F111A]">
+    <section className="text-center py-2 sm:py-3 bg-navy dark:bg-darkbg2">
       <div className="flex justify-center gap-4 sm:gap-6">
         {socialLinks.map((item, i) => (
           <a
@@ -55,7 +55,7 @@ export default function SocialMediaLinks() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={item.label}
-            className={`text-base sm:text-xl text-gray-700 dark:text-gray-300 hover:scale-110 transition duration-300 ${item.color}`}
+            className={`text-base sm:text-xl text-white dark:text-gray-300 hover:scale-110 transition duration-300 ${item.color}`}
           >
             {item.icon}
           </a>

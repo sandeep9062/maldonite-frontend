@@ -21,7 +21,7 @@ export default function WhatsAppWidget() {
         } w-[calc(100vw-2rem)] sm:w-80 max-w-sm bg-white rounded-xl shadow-xl`}
       >
         {/* Header */}
-        <div className="bg-[#d4af37] text-white p-3 sm:p-4 flex items-start rounded-t-xl">
+        <div className="bg-gold text-white p-3 sm:p-4 flex items-start rounded-t-xl">
           <FaWhatsapp className="text-white text-2xl sm:text-3xl mt-1 mr-2 sm:mr-3 shrink-0" />
           <div className="flex-1 min-w-0">
             <h2 className="text-base sm:text-lg font-semibold">
@@ -62,7 +62,7 @@ export default function WhatsAppWidget() {
       {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-[#d4af37] hover:bg-[#c2a536] p-3 sm:p-4 rounded-full shadow-xl text-white transition duration-300"
+        className="bg-gold hover:bg-gold p-3 sm:p-4 rounded-full shadow-xl text-white transition duration-300"
       >
         {isOpen ? (
           <IoMdClose className="text-white text-xl sm:text-2xl" />

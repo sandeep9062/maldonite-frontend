@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const BottomCTA = () => {
   return (
-    <section className="bg-[#d4af37] dark:bg-[#D4AF37] text-black py-16 sm:py-20">
+    <section className="bg-gold dark:bg-gold text-black py-16 sm:py-20">
       <div className="max-w-4xl mx-auto text-center px-4 sm:px-6">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}

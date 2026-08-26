@@ -20,7 +20,7 @@
 @layer components {
   /* to apply styling to the buttons  */
   .bttn {
-    @apply px-4 py-2 bg-blue-400 text-white rounded-2xl hover:bg-blue-800 transition-colors;
+    @apply px-4 py-2 bg-gold text-navy rounded-2xl hover:bg-gold/90 transition-colors;
   }
 }
 
@@ -227,8 +227,8 @@
 /* Add this to app/globals.css */
 
 .swiper-container-custom {
-   --swiper-navigation-color: #f59e0b; /* yellow-500 */
-   --swiper-pagination-color: #f59e0b;
+   --swiper-navigation-color: #d4af37; /* gold */
+   --swiper-pagination-color: #d4af37;
    --swiper-navigation-size: 30px;
 }
 

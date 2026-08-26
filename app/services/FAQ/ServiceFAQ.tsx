@@ -48,14 +48,14 @@ const ServiceFAQ = () => {
   };
 
   return (
-    <section className="py-12 sm:py-20 bg-white dark:bg-[#0D1321]">
+    <section className="py-12 sm:py-20 bg-white dark:bg-navy">
       <Script
         id="faq-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-[#0d1321] dark:text-white mb-8 sm:mb-10">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-navy dark:text-white mb-8 sm:mb-10">
           Frequently Asked Questions
         </h2>
 
@@ -63,7 +63,7 @@ const ServiceFAQ = () => {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-sm"
+              className="bg-white dark:bg-darkbg2 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-sm"
             >
               <button
                 onClick={() => toggle(index)}
