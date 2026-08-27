@@ -181,12 +181,7 @@ const Footer: React.FC = () => {
       <div className="border-t border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-[10px] sm:text-sm text-gray-500">
           <p>&copy; {currentYear} Maldonite. All rights reserved.</p>
-          <p className="flex items-center gap-1.5">
-            Shaping Digital Gold
-            <span className="text-gold" aria-hidden>
-              ✦
-            </span>
-          </p>
+          <p className="flex items-center gap-1.5">Shaping Digital Gold !</p>
         </div>
       </div>
     </footer>

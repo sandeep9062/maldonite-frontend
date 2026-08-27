@@ -8,7 +8,7 @@ const Hero = () => {
   const { data: siteSettings } = useGetSiteSettingsQuery();
 
   return (
-    <section className="relative text-center pt-28 sm:pt-36 pb-10 sm:pb-16 overflow-hidden">
+    <section className="relative text-center pt-30 sm:pt-48 pb-12 sm:pb-18 overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-20 -right-20 sm:-top-40 sm:-right-40 w-40 h-40 sm:w-80 sm:h-80 bg-gold/10 rounded-full blur-3xl"></div>
