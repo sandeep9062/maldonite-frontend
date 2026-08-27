@@ -75,29 +75,29 @@ const Hero = () => {
       </motion.div>
 
       {/* Social Proof Section - more integrated */}
-      <motion.div className="mt-10 sm:mt-36 w-full mx-auto px-4">
-        <div className="grid grid-cols-3 gap-2 sm:gap-8 text-slate-600 dark:text-gray-400">
+      <motion.div className="mt-6 pt-16 sm:mt-16 sm:pt-28 w-full mx-auto px-4">
+        <div className="grid grid-cols-3 gap-2 sm:gap-6 text-slate-600 dark:text-gray-400">
           <div className="flex flex-col items-center">
-            <div className="text-base sm:text-xl font-bold text-navy dark:text-gray-400">
+            <div className="text-sm sm:text-lg font-bold text-navy dark:text-gray-400">
               {siteSettings?.clientsServed} +
             </div>
-            <div className="mt-1 sm:mt-2 text-[10px] sm:text-sm uppercase tracking-wide">
+            <div className="mt-0.5 sm:mt-1 text-[9px] sm:text-xs uppercase tracking-wide">
               Happy Clients
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <div className="text-base sm:text-xl font-bold text-navy dark:text-gray-400">
+            <div className="text-sm sm:text-lg font-bold text-navy dark:text-gray-400">
               {siteSettings?.projectsCompleted}+
             </div>
-            <div className="mt-1 sm:mt-2 text-[10px] sm:text-sm uppercase tracking-wide">
+            <div className="mt-0.5 sm:mt-1 text-[9px] sm:text-xs uppercase tracking-wide">
               Projects Delivered
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <div className="text-base sm:text-xl font-bold text-navy dark:text-gray-400">
+            <div className="text-sm sm:text-lg font-bold text-navy dark:text-gray-400">
               99%
             </div>
-            <div className="mt-1 sm:mt-2 text-[10px] sm:text-sm uppercase tracking-wide">
+            <div className="mt-0.5 sm:mt-1 text-[9px] sm:text-xs uppercase tracking-wide">
               Satisfaction Rate
             </div>
           </div>
