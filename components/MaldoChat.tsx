@@ -101,7 +101,7 @@ export default function MaldoChat() {
   }, [isOpen]);
 
   return (
-    <div className="fixed bottom-4 right-5 z-50">
+    <div className="fixed bottom-4 right-5 z-(--z-chat-widget)">
       {/* Animated Assistant Appearing from Bottom */}
       <AnimatePresence>
         {showAssistant && !isOpen && (

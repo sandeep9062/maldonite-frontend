@@ -46,7 +46,7 @@ const philosophyCards = [
     title: "Zero Bureaucracy",
     description:
       "We care about functional code, exceptional user experiences, and real-world results. You own your outcomes — no red tape, no pointless meetings.",
-    accent: "from-blue-500 to-cyan-400",
+    accent: "from-accent-blue to-cyan-400",
   },
   {
     icon: FaLaptopCode,
@@ -258,7 +258,7 @@ export default function CareersPageClient() {
               y: [0, -20, 40, 0],
             }}
             transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-blue-500/5 dark:bg-blue-500/8 blur-3xl"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-accent-blue/5 dark:bg-accent-blue/8 blur-3xl"
           />
           {/* Grid Pattern Overlay */}
           <div
@@ -282,7 +282,7 @@ export default function CareersPageClient() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
-            <span className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider uppercase px-4 sm:px-5 py-2 bg-gold/10 text-gold rounded-full border border-gold/20 backdrop-blur-sm mb-6 sm:mb-8 shadow-lg shadow-gold/5">
+            <span className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider uppercase px-4 sm:px-5 py-2 bg-gold/10 text-gold-text dark:text-gold rounded-full border border-gold/20 backdrop-blur-sm mb-6 sm:mb-8 shadow-lg shadow-gold/5">
               <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
               We're Hiring
             </span>
@@ -374,7 +374,7 @@ export default function CareersPageClient() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12 sm:mb-16"
         >
-          <span className="inline-block text-xs sm:text-sm font-semibold tracking-wider uppercase text-gold mb-3 sm:mb-4">
+          <span className="inline-block text-xs sm:text-sm font-semibold tracking-wider uppercase text-gold-text dark:text-gold mb-3 sm:mb-4">
             Our DNA
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-navy dark:text-white mb-3 sm:mb-4">
@@ -449,7 +449,7 @@ export default function CareersPageClient() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12 sm:mb-16"
         >
-          <span className="inline-block text-xs sm:text-sm font-semibold tracking-wider uppercase text-gold mb-3 sm:mb-4">
+          <span className="inline-block text-xs sm:text-sm font-semibold tracking-wider uppercase text-gold-text dark:text-gold mb-3 sm:mb-4">
             Perks & Benefits
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-navy dark:text-white mb-3 sm:mb-4">
@@ -505,7 +505,7 @@ export default function CareersPageClient() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <span className="inline-block text-xs sm:text-sm font-semibold tracking-wider uppercase text-gold mb-2 sm:mb-3">
+            <span className="inline-block text-xs sm:text-sm font-semibold tracking-wider uppercase text-gold-text dark:text-gold mb-2 sm:mb-3">
               Join the Team
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-navy dark:text-white">

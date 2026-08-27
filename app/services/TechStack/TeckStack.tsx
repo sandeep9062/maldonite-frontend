@@ -68,7 +68,7 @@ const stack = [
     name: "PostgreSQL",
     icon: <SiPostgresql size={32} className="text-blue-700" />,
   },
-  { name: "MySQL", icon: <SiMysql size={32} className="text-blue-500" /> },
+  { name: "MySQL", icon: <SiMysql size={32} className="text-accent-blue" /> },
   {
     name: "Prisma ORM",
     icon: <SiPrisma size={32} className="text-indigo-600" />,
@@ -91,7 +91,7 @@ const stack = [
     name: "Cloudflare",
     icon: <SiCloudflare size={32} className="text-orange-400" />,
   },
-  { name: "Docker", icon: <SiDocker size={32} className="text-blue-500" /> },
+  { name: "Docker", icon: <SiDocker size={32} className="text-accent-blue" /> },
   { name: "Git", icon: <SiGit size={32} className="text-red-500" /> },
   {
     name: "GitHub",

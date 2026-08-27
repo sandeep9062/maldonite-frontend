@@ -71,7 +71,7 @@ export default function PopupFormModal() {
   }
 
   return (
-    <div className="fixed inset-0 bg-opacity-50 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-opacity-50 backdrop-blur-sm z-(--z-modal) flex items-center justify-center p-4">
       <div className="relative w-full max-w-lg bg-darkbg2 text-white rounded-xl shadow-2xl p-4 sm:p-8 mx-2 sm:mx-0">
         {/* Close Button */}
         <button

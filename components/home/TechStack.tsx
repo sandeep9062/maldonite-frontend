@@ -16,7 +16,7 @@ const TechStack = () => {
     { name: "Swift/iOS", color: "bg-slate-400" },
     { name: "Kotlin/Android", color: "bg-emerald-400" },
     { name: "AWS", color: "bg-amber-500" },
-    { name: "Google Cloud", color: "bg-blue-500" },
+    { name: "Google Cloud", color: "bg-accent-blue" },
     { name: "Docker", color: "bg-sky-500" },
     { name: "Kubernetes", color: "bg-blue-600" },
     { name: "GitHub Actions", color: "bg-emerald-500" },
@@ -33,8 +33,8 @@ const TechStack = () => {
       <div className="max-w-6xl mx-auto w-full">
         {/* Top Accent Subheading */}
         <div className="flex items-center gap-3 mb-4">
-          <div className="h-[2px] w-6 bg-blue-500"></div>
-          <span className="text-blue-500 uppercase tracking-widest text-xs font-bold">
+          <div className="h-[2px] w-6 bg-accent-blue"></div>
+          <span className="text-accent-blue uppercase tracking-widest text-xs font-bold">
             Technologies
           </span>
         </div>

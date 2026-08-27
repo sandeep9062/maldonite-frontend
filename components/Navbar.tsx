@@ -44,6 +44,11 @@ const navLinks = [
   { name: "Contact", href: "/contact" },
 ];
 
+// Dropdown-close grace period. Mirrors --duration-fast (MOTION DURATION
+// TOKENS in globals.css); reading the CSS var from JS is not worth the
+// runtime cost here, so this constant documents the coupling instead.
+const NAVBAR_DROPDOWN_CLOSE_DELAY_MS = 300;
+
 export default function Navbar() {
   const { data: siteSettings } = useGetSiteSettingsQuery();
   const { data: services = [] } = useGetServicesQuery();
@@ -96,7 +101,7 @@ export default function Navbar() {
   const handleMouseLeave = () => {
     dropdownTimeoutRef.current = setTimeout(() => {
       setServicesDropdownOpen(false);
-    }, 300); // 300ms delay before closing
+    }, NAVBAR_DROPDOWN_CLOSE_DELAY_MS); // = --duration-fast
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -110,7 +115,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 text-navy dark:text-white ${
+      className={`fixed top-0 left-0 w-full z-(--z-navbar) transition-all duration-300 text-navy dark:text-white ${
         scrolled
           ? "bg-white/95 dark:bg-navy/95 shadow-md backdrop-blur-md "
           : "bg-transparent shadow-none border-none"
@@ -155,8 +160,8 @@ export default function Navbar() {
                       className={`text-xs font-medium tracking-wider uppercase transition px-2 py-1 rounded flex items-center gap-1 ${
                         pathname === link.href ||
                         pathname.startsWith("/service/")
-                          ? "text-gold font-semibold"
-                          : "text-navy dark:text-white hover:text-gold"
+                          ? "text-gold-text dark:text-gold font-semibold"
+                          : "text-navy dark:text-white hover:text-gold-text dark:hover:text-gold"
                       }`}
                       aria-expanded={servicesDropdownOpen}
                       aria-haspopup="true"
@@ -176,7 +181,7 @@ export default function Navbar() {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: -10, scale: 0.95 }}
                           transition={{ duration: 0.2, ease: "easeOut" }}
-                          className="absolute top-full left-0 mt-3 w-80 bg-navy border border-gray-700/50 rounded-xl shadow-2xl backdrop-blur-sm z-50 overflow-hidden"
+                          className="absolute top-full left-0 mt-3 w-80 bg-navy border border-gray-700/50 rounded-xl shadow-2xl backdrop-blur-sm z-(--z-dropdown) overflow-hidden"
                           onMouseEnter={handleMouseEnter}
                           onMouseLeave={handleMouseLeave}
                           role="menu"
@@ -290,8 +295,8 @@ export default function Navbar() {
                   href={link.href}
                   className={`text-xs font-medium tracking-wider uppercase transition ${
                     pathname === link.href
-                      ? "text-gold font-semibold"
-                      : "text-navy dark:text-white hover:text-gold"
+                      ? "text-gold-text dark:text-gold font-semibold"
+                      : "text-navy dark:text-white hover:text-gold-text dark:hover:text-gold"
                   }`}
                 >
                   {link.name}
@@ -334,7 +339,7 @@ export default function Navbar() {
             animate={{ y: 0 }}
             exit={{ y: "-100%" }}
             transition={{ type: "spring", stiffness: 80, damping: 20 }}
-            className="absolute top-0 left-0 w-full bg-navy shadow-lg z-50 max-h-screen overflow-y-auto"
+            className="absolute top-0 left-0 w-full bg-navy shadow-lg z-(--z-dropdown) max-h-screen overflow-y-auto"
           >
             {/* Drawer Header */}
             <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 border-b border-gray-700">

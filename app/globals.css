@@ -1,24 +1,85 @@
+/* ==========================================================================
+   ACCENT USAGE RULE  (decision locked 2026-08-27)
+   --------------------------------------------------------------------------
+   GOLD -- --color-gold -- : PRIMARY BRAND ACCENT.
+     All marketing surfaces, navigation (active links, hover states), every
+     CTA/button (.bttn), section eyebrow labels on gold-branded sections,
+     hover borders, glow/shine effects. When in doubt on anything
+     marketing/navigation related, use gold.
+
+   BLUE -- --color-accent-blue -- : RESERVED FOR NEW COMMERCE / PRICING UI
+   ONLY.
+     Pricing tiers, quote/commerce-flow surfaces, price displays. New
+     commerce components must reference it via token utilities
+     (text-accent-blue, bg-accent-blue, from-accent-blue …), never raw hex.
+     Gold CTAs/buttons stay gold even inside pricing/commerce UI.
+
+   NOTE ON LEGACY SPOTS: decorative blue usages migrated from Tailwind's
+   default `blue-500` in the existing marketing sections (TechStack
+   eyebrow/dots, Careers gradients & glows, DeveloperSection skill icon,
+   services TechStack icons) are tolerated AS-IS but frozen — do not copy
+   that pattern into any new non-commerce component. No third blue may be
+   introduced; extend @theme first if a new shade is genuinely needed.
+   ========================================================================== */
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* =========================================================
+   MALDONITE BRAND THEME
+   One consolidated gold/navy/silver system. Every gold-ish
+   hex used anywhere in the app should map to one of these
+   tokens — do not hardcode new gold/cream/amber hex values
+   in components. If you need a shade that isn't here, add
+   it here first, with a comment on its intended use.
+   ========================================================= */
 @theme {
   --breakpoint-xs: 320px;
-  --color-gold: #d4af37; /* Logo, call-to-action buttons */
-  --color-navy: #0d1321; /* Background, header/footer */
-  --color-silver: #c0c0c0; /*Icons, text highlights*/
-  --color-white: #ffffff; /*Text,backgournd*/
-  --color-light: #ddd;
-  --color-darkbg1:#0D1321;
-  --color-darkbg2:#0F111A;
+
+  /* --- Gold family (single source of truth) --- */
+  --color-gold: #d4af37;        /* Primary brand gold — logo, CTAs, borders, .bttn */
+  --color-gold-shine: #ffd700;  /* Bright highlight — shine/shimmer gradients only */
+  --color-gold-light: #fff6c5;  /* Palest highlight — midpoint of shine gradients */
+  --color-gold-cream: #fdf4e3;  /* Warm cream — light-mode hero background start */
+  --color-gold-glow: #fef3c7;   /* Soft amber tint — subtle radial glows behind headers */
+
+  /* --- Gold TEXT variant (WCAG remediation — Task 5) ---
+     Darker antique gold for gold-colored TEXT on LIGHT surfaces (white /
+     gold-cream / gold-glow / gray backgrounds): passes AA >= 4.5:1 on every
+     light surface measured (white 6.04 · cream 5.53 · glow 5.43 ·
+     gray-100 5.49). Contract: `text-gold-text dark:text-gold` — no single
+     gold can pass on BOTH white and navy (luminance windows don't overlap),
+     so raw --color-gold remains correct for text on dark surfaces AND for
+     all background usage (.bttn, bg-gold CTAs are intentionally untouched). */
+  --color-gold-text: #77601e;
+
+  /* --- Blue accent family ---
+     Secondary accent (royal blue). Formalizes the legacy Tailwind
+     `blue-500` (#3B82F6) so the value is never hardcoded again — consume
+     it via token utilities (text-accent-blue, bg-accent-blue,
+     from-accent-blue …). If another shade is ever needed, register it
+     here FIRST (e.g. --color-accent-blue-light) instead of adding a raw
+     hex inside a component. What blue may be used FOR (vs. gold) is
+     governed by the "ACCENT USAGE RULE" comment at the top of this file. */
+  --color-accent-blue: #3b82f6;
+
+  /* --- Navy family (dark backgrounds) --- */
+  --color-navy: #0d1321;        /* Primary dark — header, footer, global shell */
+  --color-darkbg1: #0d1321;     /* = navy. Global shell / header / footer background */
+  --color-darkbg2: #0f111a;     /* Slightly darker — card & section surfaces sitting on darkbg1 */
+
+  /* --- Silver / neutrals --- */
+  --color-silver: #c0c0c0;      /* Icons, text highlights, metal accents */
+  --color-white: #ffffff;       /* Text, light-mode background */
+  --color-light: #ddd;          /* Borders / light accents */
 }
 
 @layer base {
   /* to apply default styling to plain html likr H1 P */
 }
+
 @layer components {
-  /* to apply styling to the buttons  */
   .bttn {
     @apply px-4 py-2 bg-gold text-navy rounded-2xl hover:bg-gold/90 transition-colors;
   }
@@ -26,15 +87,15 @@
 
 @keyframes sparklePulse {
   0% {
-    filter: brightness(1) drop-shadow(0 0 0px gold);
+    filter: brightness(1) drop-shadow(0 0 0px var(--color-gold));
     transform: scale(1);
   }
   10% {
-    filter: brightness(2) drop-shadow(0 0 6px gold);
+    filter: brightness(2) drop-shadow(0 0 6px var(--color-gold));
     transform: scale(1.05);
   }
   20% {
-    filter: brightness(1.2) drop-shadow(0 0 3px gold);
+    filter: brightness(1.2) drop-shadow(0 0 3px var(--color-gold));
     transform: scale(1.02);
   }
   100% {
@@ -44,27 +105,27 @@
 }
 
 .sparkle-animation {
-  animation: sparklePulse 3s infinite;
+  animation: sparklePulse var(--duration-slow) infinite; /* was 3s */
 }
 
-/*slogon*/
+/* slogan */
 
 .golden-shine {
   position: relative;
   display: inline-block;
-  color: #d4af37;
+  color: var(--color-gold);
   background: linear-gradient(
     to right,
-    #d4af37 0%,
-    #ffd700 20%,
-    #fff6c5 40%,
-    #ffd700 60%,
-    #d4af37 100%
+    var(--color-gold) 0%,
+    var(--color-gold-shine) 20%,
+    var(--color-gold-light) 40%,
+    var(--color-gold-shine) 60%,
+    var(--color-gold) 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shineMove 6s ease-out infinite;
+  animation: shineMove calc(var(--duration-slow) * 2) ease-out infinite; /* 2×slow = 6s */
 }
 
 @keyframes shineMove {
@@ -78,6 +139,7 @@
     background-position: -200% center;
   }
 }
+
 @keyframes shimmer {
   100% {
     transform: translateX(100%);
@@ -88,7 +150,20 @@
   animation: shimmer 1.5s infinite linear;
 }
 
+/* ==========================================================================
+   SEMANTIC UI TOKEN LAYER (shadcn/radix primitive contract)
+   Why TWO token systems coexist here: marketing components consume the
+   brand palette (@theme above) directly, while primitives in
+   components/ui/* (Button/Card/Input/Select/…) are written against the
+   standard shadcn contract (--background/--card/--radius/…). The semantic
+   vars declared in :root/.dark below are ALIASED to brand tokens, so the
+   two layers cannot drift apart visually.
+   DO NOT delete this layer: 139 rounded-{sm|md|lg|xl} utilities route
+   through --radius, and the base layer (body bg/text, universal border
+   color) plus every mounted primitive flow through these tokens.
+   ========================================================================== */
 @theme inline {
+  /* Radius scale — every rounded-{sm|md|lg|xl} utility depends on --radius */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -111,65 +186,103 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+}
+/* Pruned (Task 3): --color-chart-1..5 and --color-sidebar mappings were
+   removed — nothing in maldonite ever emitted a chart or sidebar utility. */
+
+/* ==========================================================================
+   SPACING SCALE (documentation of the de-facto system — Task 4)
+   Tailwind v4 derives every numeric p-/m-/gap-/space- step from the base
+   unit (default 0.25rem), so utilities already resolve consistently; there
+   is intentionally NO parallel named-spacing token set here yet (dead
+   tokens ≠ design system). The MEASURED rhythm used across pages:
+     • Section rhythm            py-16 (23×) · py-20 (22×) · py-28 (6×)
+                                 py-12 (9×) · py-24 · outliers: py-40, py-14, py-10
+     • Fixed-navbar clearance    pt-28 (17×) · pt-36 (16×)
+     • Intra-section breathing   py-4/py-6/py-8/py-10 · pb-8→pb-28 tails
+   INTENDED contract going forward:
+     – Sections:      py-16 (standard) → py-20 (feature/hero sections) →
+                      py-28 (page-level showcase ONLY, e.g. TechStack/TechMarquee)
+     – Under navbar:  always pt-36 for direct hero children, pt-28 elsewhere
+     – Never introduce odd steps (py-11, py-26 …); stick to the 4-base grid.
+   Consolidating into named tokens (e.g. --spacing-section) requires a
+   mechanical sweep across ~140 call sites — schedule separately before use.
+   ========================================================================== */
+
+/* ==========================================================================
+   STACKING ORDER (Z-INDEX) LADDER — single source of truth (Task 4)
+   Ascending = painted on top. Fixed/overlay layers MUST consume these via
+   Tailwind's var shorthand, e.g. z-(--z-navbar). Do not introduce
+   ad-hoc z-[9999]/z-50 values in new code. Local micro-layers that exist
+   wholly INSIDE a component's own stacking context (e.g. MaldoChat's
+   bubble z-10 vs window z-20, QuickQuoteDrawer's in-panel z-10 chrome)
+   stay local and are exempt from this ladder.
+   40 navbar            fixed header shell (solid/transparent states)
+   50 dropdown          Services mega-menu & mobile nav panel, scoped to header
+   60 chat-widget       MaldoChat root + WhatsAppWidget floating cluster
+   70 drawer            quick-quote dimming overlay (covers everything but tab)
+   80 quick-quote-tab   sticky vertical tab + trigger + open drawer body
+                        (must remain clickable ABOVE its own overlay)
+   90 modal             PopupFormModal & future blocking dialogs — topmost
+   ========================================================================== */
+:root {
+  --z-navbar: 40;
+  --z-dropdown: 50;
+  --z-chat-widget: 60;
+  --z-drawer: 70;
+  --z-quick-quote-tab: 80;
+  --z-modal: 90;
+
+  /* ==========================================================================
+     MOTION DURATION TOKENS — timing source of truth (Task 4)
+       fast   = 300ms  micro-interactions: menus, tooltips, transition-colors,
+                       Navbar dropdown-close grace period (JS mirrors it as
+                       NAVBAR_DROPDOWN_CLOSE_DELAY_MS — keep both in sync)
+       medium = 1200ms short attention loops: .animate-gold-bounce
+       slow   = 3000ms ambient loops: .sparkle-animation, .animate-float;
+                       .golden-shine runs calc(var(--duration-slow) * 2) = 6s
+     ========================================================================== */
+  --duration-fast: 300ms;
+  --duration-medium: 1200ms;
+  --duration-slow: 3000ms;
 }
 
 :root {
+  /* Semantic layer ALIASED to the Maldonite brand palette (Task 3 decision,
+     "Option A"): primitives such as <Button>/<Card>/<Select> now render as
+     gold CTAs on cream surfaces in light mode instead of neutral grays.
+     Always reference @theme tokens here — never raw hex values. */
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
+  --background: var(--color-white);
+  --foreground: var(--color-navy);
+  --card: var(--color-white);
+  --card-foreground: var(--color-navy);
+  --popover: var(--color-white);
+  --popover-foreground: var(--color-navy);
+  --primary: var(--color-gold);
+  --primary-foreground: var(--color-navy);
+  --secondary: var(--color-gold-glow);
+  --secondary-foreground: var(--color-navy);
+  --muted: var(--color-gold-glow);
   --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --accent: var(--color-gold-glow);
+  --accent-foreground: var(--color-navy);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --border: var(--color-light);
+  --input: var(--color-light);
+  --ring: var(--color-gold);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
+  /* Dark-mode aliases (Task 3): navy shell, darkbg2 surfaces, gold accents. */
+  --background: var(--color-darkbg1);
+  --foreground: var(--color-white);
+  --card: var(--color-darkbg2);
+  --card-foreground: var(--color-white);
+  --popover: var(--color-darkbg2);
+  --popover-foreground: var(--color-white);
+  --primary: var(--color-gold);
+  --primary-foreground: var(--color-navy);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -179,20 +292,7 @@
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --ring: var(--color-gold);
 }
 
 @layer base {
@@ -203,7 +303,6 @@
     @apply bg-background text-foreground;
   }
 }
-
 
 /* game gold */
 @keyframes gold-bounce {
@@ -217,26 +316,19 @@
 }
 
 .animate-gold-bounce {
-  animation: gold-bounce 1.2s infinite;
+  animation: gold-bounce var(--duration-medium) infinite; /* was 1.2s */
 }
 
-
-
-
-
-/* Add this to app/globals.css */
-
+/* Swiper theming */
 .swiper-container-custom {
-   --swiper-navigation-color: #d4af37; /* gold */
-   --swiper-pagination-color: #d4af37;
-   --swiper-navigation-size: 30px;
+  --swiper-navigation-color: var(--color-gold);
+  --swiper-pagination-color: var(--color-gold);
+  --swiper-navigation-size: 30px;
 }
 
-/* Example of further styling you might need */
 .swiper-container-custom .swiper-button-prev,
 .swiper-container-custom .swiper-button-next {
   color: white;
-  /* ... other styles */
 }
 
 /* Modern UI enhancements */
@@ -254,51 +346,54 @@
 .gradient-border {
   position: relative;
   background: linear-gradient(white, white) padding-box,
-              linear-gradient(45deg, #d4af37, #ffd700) border-box;
+    linear-gradient(45deg, var(--color-gold), var(--color-gold-shine)) border-box;
   border: 2px solid transparent;
 }
 
 .dark .gradient-border {
   background: linear-gradient(#1a1a1a, #1a1a1a) padding-box,
-              linear-gradient(45deg, #d4af37, #ffd700) border-box;
+    linear-gradient(45deg, var(--color-gold), var(--color-gold-shine)) border-box;
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .animate-float {
-  animation: float 3s ease-in-out infinite;
+  animation: float var(--duration-slow) ease-in-out infinite; /* was 3s */
 }
 
 /* ========== MOBILE RESPONSIVE UTILITY CLASSES ========== */
 
-/* Prevent overflow on mobile */
-html, body {
+html,
+body {
   overflow-x: hidden;
   width: 100%;
 }
 
-/* Ensure images don't overflow on mobile */
 img {
   max-width: 100%;
   height: auto;
 }
 
-/* Fix phone input on mobile */
 .react-tel-input .form-control {
   width: 100% !important;
   height: 48px !important;
 }
 
-/* Make sure tables and wide elements don't overflow */
-table, pre, code {
+table,
+pre,
+code {
   max-width: 100%;
   overflow-x: auto;
 }
 
-/* Custom scrollbar for better mobile UX */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -308,23 +403,21 @@ table, pre, code {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(212, 175, 55, 0.3);
+  background: rgba(212, 175, 55, 0.3); /* gold @ 30% opacity */
   border-radius: 3px;
 }
 
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Fix for fixed-width service cards on mobile */
 @media (max-width: 640px) {
   .service-card-fixed {
     width: 100% !important;
     height: auto !important;
     padding: 1.5rem 0.75rem !important;
   }
-  
+
   .grid-gap-mobile-sm {
     gap: 0.75rem !important;
   }

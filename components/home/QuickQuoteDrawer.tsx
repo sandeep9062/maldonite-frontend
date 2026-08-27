@@ -161,19 +161,19 @@ const QuickQuoteDrawer = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-xs z-[9998] md:bg-transparent md:backdrop-blur-none pointer-events-auto md:pointer-events-none"
+            className="fixed inset-0 bg-black/60 backdrop-blur-xs z-(--z-drawer) md:bg-transparent md:backdrop-blur-none pointer-events-auto md:pointer-events-none"
           />
         )}
       </AnimatePresence>
 
       {/* Main Structural Layout Box */}
-      <div className="fixed bottom-24 right-4 top-auto md:top-1/2 md:-translate-y-1/2 md:bottom-auto md:right-0 z-[9999] flex items-center h-auto">
+      <div className="fixed bottom-24 right-4 top-auto md:top-1/2 md:-translate-y-1/2 md:bottom-auto md:right-0 z-(--z-quick-quote-tab) flex items-center h-auto">
         {/* Trigger Bubble: Clean vertical badge on desktop, shifts straight above the WhatsApp floating widget on mobile */}
         <button
           onClick={() => setIsOpen(true)}
           title="Get a free project estimate"
           aria-label="Open quick quote form"
-          className={`bg-darkbg2 text-gold border border-gray-800 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:bg-darkbg2 transition-all duration-300 z-[9999] group cursor-pointer
+          className={`bg-darkbg2 text-gold border border-gray-800 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:bg-darkbg2 transition-all duration-300 z-(--z-quick-quote-tab) group cursor-pointer
             ${
               isMobile
                 ? "w-12 h-12 rounded-full flex items-center justify-center border-gray-700/70"

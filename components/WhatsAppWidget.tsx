@@ -11,7 +11,7 @@ export default function WhatsAppWidget() {
     "https://wa.me/919034009062?text=Hi%21%20I%27d%20like%20to%20know%20more%20about%20Maldonite%27s%20services.";
 
   return (
-    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-(--z-chat-widget) flex flex-col items-end">
       {/* Floating Card */}
       <div
         className={`transition-all duration-300 ease-in-out transform ${

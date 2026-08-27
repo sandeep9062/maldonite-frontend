@@ -107,7 +107,7 @@ export default function AboutPageClient() {
 
           {/* Right Text */}
           <div className="text-left">
-            <h2 className="font-bold mb-2 sm:mb-3 md:mb-4 text-2xl sm:text-3xl md:text-4xl text-primary">
+            <h2 className="font-bold mb-2 sm:mb-3 md:mb-4 text-2xl sm:text-3xl md:text-4xl text-navy dark:text-white">
               Our Mission
             </h2>
             <p className="text-sm sm:text-base md:text-lg text-gray-700 dark:text-gray-300 mb-2 sm:mb-3 md:mb-4 leading-relaxed">
@@ -129,7 +129,7 @@ export default function AboutPageClient() {
         <section className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center">
           {/* Left Text — shows first on mobile (text first), image below */}
           <div className="text-left order-1 md:order-none">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 text-primary">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 text-navy dark:text-white">
               What We Do
             </h2>
             <ul className="space-y-2 sm:space-y-3 md:space-y-4 text-sm sm:text-base md:text-lg text-gray-700 dark:text-gray-300">
@@ -168,7 +168,7 @@ export default function AboutPageClient() {
               <div className="mb-2 sm:mb-3 flex justify-center text-gold">
                 {stat.icon}
               </div>
-              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-primary">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-navy dark:text-white">
                 {stat.value}
               </h3>
               <p className="text-sm sm:text-sm md:text-base text-gray-500 dark:text-gray-400 mt-0.5 sm:mt-1">

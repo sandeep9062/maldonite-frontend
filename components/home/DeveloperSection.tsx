@@ -27,7 +27,7 @@ const DeveloperSection = () => {
     {
       name: "Full-Stack Development",
       icon: <Code className="w-5 h-5" />,
-      color: "text-blue-500",
+      color: "text-accent-blue",
       bgColor: "bg-blue-50 dark:bg-blue-900/20",
     },
     {
