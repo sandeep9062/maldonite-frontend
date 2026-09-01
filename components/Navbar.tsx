@@ -40,6 +40,7 @@ const navLinks = [
   { name: "Services", href: "/services" },
   { name: "Portfolio", href: "/portfolio" },
 
+  { name: "Meet Maldo", href: "/maldo" },
   { name: "Blogs", href: "/blog" },
   { name: "Contact", href: "/contact" },
 ];
