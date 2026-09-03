@@ -38,6 +38,7 @@ import SocialMediaLinks from "@/app/contact/SocialLinks/SocialMediaLinks";
 const navLinks = [
   { name: "About Us", href: "/about" },
   { name: "Services", href: "/services" },
+  { name: "Pricing", href: "/pricing" },
   { name: "Portfolio", href: "/portfolio" },
 
   { name: "Meet Maldo", href: "/maldo" },
