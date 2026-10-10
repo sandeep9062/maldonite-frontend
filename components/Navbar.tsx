@@ -34,6 +34,7 @@ const iconMap: Record<
 
 import { useGetServicesQuery } from "@/services/servicesApi";
 import SocialMediaLinks from "@/app/contact/SocialLinks/SocialMediaLinks";
+import { useGetSiteSettingsQuery } from "@/services/siteSettingsApi";
 const navLinks = [
   { name: "About Us", href: "/about" },
   { name: "Services", href: "/services" },
@@ -52,6 +53,13 @@ const NAVBAR_DROPDOWN_CLOSE_DELAY_MS = 300;
 
 export default function Navbar() {
   const { data: services = [] } = useGetServicesQuery();
+  const { data: siteSettings } = useGetSiteSettingsQuery();
+
+  // 🖼️ Hybrid: CMS logo first, local public asset as safety net
+  const logoUrl = siteSettings?.logoUrl;
+  const [logoFailed, setLogoFailed] = useState(false);
+  useEffect(() => setLogoFailed(false), [logoUrl]);
+  const logoSrc = !logoUrl || logoFailed ? "/ignot-logo.png" : logoUrl;
 
   // Helper function to get icon component dynamically
   const getIconComponent = (iconName: string | undefined) => {
@@ -125,11 +133,12 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-[4px] sm:gap-[6px]">
           <Image
-            src="/ignot-logo.png"
+            src={logoSrc}
             alt="Maldonite"
             width={36}
             height={36}
             className="object-contain sm:w-[42px] sm:h-[42px]"
+            onError={() => setLogoFailed(true)}
           />
           <div>
             <h1 className="text-base sm:text-xl font-semibold mt-1 sm:mt-2 leading-none">
@@ -347,11 +356,12 @@ export default function Navbar() {
                 className="flex items-center gap-[4px] sm:gap-[5px]"
               >
                 <Image
-                  src="/ignot-logo.png"
+                  src={logoSrc}
                   alt="Maldonite"
                   width={32}
                   height={32}
                   className="object-contain sm:w-[35px] sm:h-[35px]"
+                  onError={() => setLogoFailed(true)}
                 />
                 <h1 className="text-base sm:text-lg font-semibold">
                   Maldon<span className="text-gold">i</span>te

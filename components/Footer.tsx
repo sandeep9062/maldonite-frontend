@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Mail, Phone } from "lucide-react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SocialMediaLinks from "../app/contact/SocialLinks/SocialMediaLinks";
 import { useGetSiteSettingsQuery } from "@/services/siteSettingsApi";
 import { useGetServicesQuery } from "@/services/servicesApi";
@@ -34,6 +34,12 @@ const Footer: React.FC = () => {
   const { data: services = [] } = useGetServicesQuery();
   const featuredServices = services.slice(0, 6);
 
+  // 🖼️ Hybrid: CMS logo first, local public asset as safety net
+  const logoUrl = siteSettings?.logoUrl;
+  const [logoFailed, setLogoFailed] = useState(false);
+  useEffect(() => setLogoFailed(false), [logoUrl]);
+  const logoSrc = !logoUrl || logoFailed ? "/ignot-logo.png" : logoUrl;
+
   return (
     <footer className="bg-navy text-white">
       {/* Gold gradient accent bar */}
@@ -45,12 +51,13 @@ const Footer: React.FC = () => {
           <Link href="/" className="flex items-center gap-3">
             <div className="relative w-8 h-8 sm:w-10 sm:h-10">
               <Image
-                src="/ignot-logo.png"
+                src={logoSrc}
                 alt="Maldonite"
                 fill
                 sizes="40px"
                 className="object-contain"
                 priority
+                onError={() => setLogoFailed(true)}
               />
             </div>
             <h1 className="text-xl sm:text-2xl font-semibold">

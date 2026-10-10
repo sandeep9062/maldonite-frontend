@@ -1,20 +1,30 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { useGetSiteSettingsQuery } from "@/services/siteSettingsApi";
 
 const MaldoniteSpinner = () => {
+  const { data: siteSettings } = useGetSiteSettingsQuery();
+
+  // 🖼️ Hybrid: CMS logo first, local public asset as safety net
+  const logoUrl = siteSettings?.logoUrl;
+  const [logoFailed, setLogoFailed] = useState(false);
+  useEffect(() => setLogoFailed(false), [logoUrl]);
+  const logoSrc = !logoUrl || logoFailed ? "/ignot-logo.png" : logoUrl;
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-navy px-3 xs:px-4 sm:px-6 md:px-8">
       <div className="flex flex-col items-center text-center space-y-3 xs:space-y-4 sm:space-y-5 md:space-y-6 w-full max-w-md mx-auto">
         {/* Logo icon centered above */}
         <div className="sparkle-animation relative w-16 h-16 xs:w-20 xs:h-20 sm:w-24 sm:h-28 md:w-32 md:h-32 mb-0 xs:mb-1 sm:mb-2">
           <Image
-            src="/ignot-logo.png"
+            src={logoSrc}
             alt="Maldonite"
             fill
             sizes="(max-width: 320px) 64px, (max-width: 640px) 80px, (max-width: 768px) 96px, 128px"
             className="object-contain"
             priority
+            onError={() => setLogoFailed(true)}
           />
         </div>
 
