@@ -5,18 +5,12 @@ import {
   useGetSiteSettingsQuery,
 } from "@/services/siteSettingsApi";
 
-import { useGetWebsiteImageByContextQuery } from "@/services/websiteImagesApi";
-
 const ContactInfoSection = () => {
   // ✅ site settings query
   const { data: siteSettings } = useGetSiteSettingsQuery();
-  // ✅ mission image query
-  const { data: maldoniteLocationImage } =
-    useGetWebsiteImageByContextQuery("maldonite-location");
 
-  // 🖼️ Hybrid: CMS image first, bundled asset as safety net
-  const bgImage =
-    maldoniteLocationImage?.data?.url || "/images/maldonite-location.jpg";
+  // 🖼️ Location image served from the local public folder
+  const bgImage = "/images/maldonite-location.jpg";
 
   return (
     <section

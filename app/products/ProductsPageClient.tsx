@@ -5,23 +5,24 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useGetProductsQuery } from "../../services/productsApi";
+import { getProductImageBySlug } from "./productImages";
 
-// 🖼️ Hybrid: CMS image first, bundled asset as safety net
+// 🖼️ Hybrid: bundled asset (by slug) first, safety net as final fallback
 const PRODUCT_FALLBACK = "/images/maldonite.png";
 
 const ProductImage = ({
-  src,
+  slug,
   alt,
   priority,
 }: {
-  src?: string;
+  slug: string;
   alt: string;
   priority?: boolean;
 }) => {
   const [failed, setFailed] = useState(false);
   return (
     <Image
-      src={!failed && src ? src : PRODUCT_FALLBACK}
+      src={!failed ? getProductImageBySlug(slug) : PRODUCT_FALLBACK}
       alt={alt}
       fill
       className="object-cover"
@@ -102,7 +103,7 @@ export default function ProductsPageClient() {
             className="w-full md:w-1/2 h-40 sm:h-64 md:h-96 relative rounded-xl sm:rounded-2xl overflow-hidden shadow-md"
           >
             <ProductImage
-              src={product.image}
+              slug={product.slug}
               alt={product.name}
               priority={index === 0}
             />

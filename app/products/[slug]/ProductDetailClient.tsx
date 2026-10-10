@@ -8,8 +8,9 @@ import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 
 import { useGetProductBySlugQuery } from "../../../services/productsApi";
+import { getProductImageBySlug } from "../productImages";
 
-// 🖼️ Hybrid: CMS image first, bundled asset as safety net
+// 🖼️ Hybrid: bundled asset (by slug) first, safety net as final fallback
 const PRODUCT_FALLBACK = "/images/maldonite.png";
 
 interface ProductData {
@@ -126,9 +127,9 @@ export default function ProductDetailClient({
             >
               <Image
                 src={
-                  imageFailed || !currentProduct.image
+                  imageFailed
                     ? PRODUCT_FALLBACK
-                    : currentProduct.image
+                    : getProductImageBySlug(slug)
                 }
                 alt={currentProduct.name}
                 fill
