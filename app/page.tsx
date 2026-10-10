@@ -11,6 +11,7 @@ import DeveloperSection from "@/components/home/DeveloperSection";
 import BubbleWrapper from "@/components/home/BubbleWrapper";
 import TechStack from "@/components/home/TechStack";
 import DiscountCTA from "@/components/home/DiscountCTA";
+import QuickLinks from "@/components/QuickLinks";
 
 export const metadata: Metadata = {
   title: "Maldonite | Igniting Innovation with Scalable Code",
@@ -56,6 +57,7 @@ export default function Home() {
       <PopupFormModal />
 
       <CTAWithForm />
+      <QuickLinks />
     </>
   );
 }
