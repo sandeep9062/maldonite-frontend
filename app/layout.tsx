@@ -7,6 +7,8 @@ import Footer from "@/components/Footer";
 import ClientProvider from "./ClientProvider";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import SmoothScroll from "@/components/SmoothScroll";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 // Heading font — Space Grotesk (weights 500, 700)
 const spaceGrotesk = Space_Grotesk({
@@ -130,16 +132,19 @@ export default function RootLayout({
       </head>
       <body className="bg-white dark:bg-black">
         <ClientProvider>
-          <Script
-            id="organization-schema"
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-          />
-          <BreadcrumbSchema />
-          <Navbar />
-          {children}
-          <Footer />
-          <WhatsAppWidget />
+          <SmoothScroll>
+            <Script
+              id="organization-schema"
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+            />
+            <BreadcrumbSchema />
+            <Navbar />
+            {children}
+            <Footer />
+            <WhatsAppWidget />
+            <ScrollToTopButton />
+          </SmoothScroll>
         </ClientProvider>
       </body>
     </html>

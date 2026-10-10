@@ -28,6 +28,17 @@
 
 html {
   scroll-behavior: smooth;
+  /* Height of the fixed navbar. SmoothScroll reads this to offset #anchor
+     scroll targets so headings aren't hidden underneath the header. */
+  --navbar-height: 80px;
+}
+
+/* When Lenis is active it adds `.lenis` to <html> and drives scrolling via JS.
+   Native CSS smooth scrolling would fight Lenis's own scrollTo and cause janky
+   double-animations — so disable it while Lenis owns the scroll. When Lenis is
+   skipped (prefers-reduced-motion), the native `smooth` above still applies. */
+html.lenis {
+  scroll-behavior: auto;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -427,10 +438,6 @@ code {
 ::-webkit-scrollbar-thumb {
   background: rgba(212, 175, 55, 0.3); /* gold @ 30% opacity */
   border-radius: 3px;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 @media (max-width: 640px) {
