@@ -32,7 +32,6 @@ const iconMap: Record<
   FaCogs,
 };
 
-import { useGetSiteSettingsQuery } from "@/services/siteSettingsApi";
 import { useGetServicesQuery } from "@/services/servicesApi";
 import SocialMediaLinks from "@/app/contact/SocialLinks/SocialMediaLinks";
 const navLinks = [
@@ -52,7 +51,6 @@ const navLinks = [
 const NAVBAR_DROPDOWN_CLOSE_DELAY_MS = 300;
 
 export default function Navbar() {
-  const { data: siteSettings } = useGetSiteSettingsQuery();
   const { data: services = [] } = useGetServicesQuery();
 
   // Helper function to get icon component dynamically
@@ -126,15 +124,13 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-8 pt-6 pb-4 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-[4px] sm:gap-[6px]">
-          {siteSettings?.logoUrl && (
-            <Image
-              src={siteSettings.logoUrl}
-              alt="Maldonite"
-              width={36}
-              height={36}
-              className="object-contain sm:w-[42px] sm:h-[42px]"
-            />
-          )}
+          <Image
+            src="/ignot-logo.png"
+            alt="Maldonite"
+            width={36}
+            height={36}
+            className="object-contain sm:w-[42px] sm:h-[42px]"
+          />
           <div>
             <h1 className="text-base sm:text-xl font-semibold mt-1 sm:mt-2 leading-none">
               Maldon<span className="text-gold">i</span>te
@@ -350,23 +346,13 @@ export default function Navbar() {
                 onClick={() => setOpen(false)}
                 className="flex items-center gap-[4px] sm:gap-[5px]"
               >
-                {siteSettings?.logoUrl ? (
-                  <Image
-                    src={siteSettings.logoUrl}
-                    alt="Maldonite"
-                    width={32}
-                    height={32}
-                    className="object-contain sm:w-[35px] sm:h-[35px]"
-                  />
-                ) : (
-                  <Image
-                    src="/ignot-logo.png"
-                    alt="Logo"
-                    width={32}
-                    height={32}
-                    className="object-contain sm:w-[35px] sm:h-[35px]"
-                  />
-                )}
+                <Image
+                  src="/ignot-logo.png"
+                  alt="Maldonite"
+                  width={32}
+                  height={32}
+                  className="object-contain sm:w-[35px] sm:h-[35px]"
+                />
                 <h1 className="text-base sm:text-lg font-semibold">
                   Maldon<span className="text-gold">i</span>te
                 </h1>

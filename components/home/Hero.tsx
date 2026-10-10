@@ -26,16 +26,14 @@ const Hero = () => {
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5, type: "spring" }}
         >
-          {siteSettings?.logoUrl && (
-            <Image
-              src={siteSettings.logoUrl}
-              alt="Maldonite"
-              width={100}
-              height={100}
-              className="mx-auto mb-4 sm:mb-6 w-16 h-16 sm:w-[100px] sm:h-[100px] sparkle-animation"
-              priority
-            />
-          )}
+          <Image
+            src="/ignot-logo.png"
+            alt="Maldonite"
+            width={100}
+            height={100}
+            className="mx-auto mb-4 sm:mb-6 w-16 h-16 sm:w-[100px] sm:h-[100px] sparkle-animation"
+            priority
+          />
         </motion.div>
 
         <motion.h1

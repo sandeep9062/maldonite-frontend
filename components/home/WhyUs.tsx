@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import {
   ShieldCheck,
   LayoutDashboard,
@@ -9,6 +10,12 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useGetWebsiteImageByContextQuery } from "@/services/websiteImagesApi";
+
+// 🖼️ Hybrid image strategy: CMS/API image first, bundled asset as safety net
+const FALLBACK_IMAGE = {
+  src: "/images/why-us.jpg",
+  alt: "Maldonite team engineering scalable software products",
+};
 
 const points = [
   {
@@ -43,6 +50,21 @@ const WhyUs = () => {
     isLoading,
     isError,
   } = useGetWebsiteImageByContextQuery("why-us");
+
+  // 🖼️ Hybrid: prefer CMS image, fall back to local asset on error/missing URL
+  const apiImageUrl = isError ? undefined : imageData?.data?.url;
+  const [remoteFailed, setRemoteFailed] = useState(false);
+
+  // Reset the failed flag whenever a new CMS URL arrives
+  useEffect(() => {
+    setRemoteFailed(false);
+  }, [apiImageUrl]);
+
+  const usingFallback = !apiImageUrl || remoteFailed;
+  const imageSrc = usingFallback ? FALLBACK_IMAGE.src : apiImageUrl;
+  const imageAlt = usingFallback
+    ? FALLBACK_IMAGE.alt
+    : imageData?.data?.altText || FALLBACK_IMAGE.alt;
 
   return (
     <section className="py-16 sm:py-28 bg-white dark:bg-darkbg2">
@@ -98,22 +120,17 @@ const WhyUs = () => {
           {/* Image block */}
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden bg-slate-100 dark:bg-white/[0.04] border border-slate-100 dark:border-white/[0.06]">
-              {isLoading && (
+              {isLoading && !apiImageUrl ? (
                 <div className="w-full aspect-[4/3] animate-pulse bg-slate-200 dark:bg-white/[0.06] rounded-2xl" />
-              )}
-              {isError && (
-                <div className="w-full aspect-[4/3] flex items-center justify-center text-sm text-slate-400 dark:text-slate-600">
-                  Image unavailable
-                </div>
-              )}
-              {imageData?.data?.url && (
+              ) : (
                 <Image
-                  src={imageData.data.url}
-                  alt={imageData.data.altText}
+                  src={imageSrc}
+                  alt={imageAlt}
                   width={700}
                   height={525}
                   className="w-full h-auto object-cover"
                   priority
+                  onError={() => setRemoteFailed(true)}
                 />
               )}
             </div>

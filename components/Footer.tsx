@@ -44,16 +44,14 @@ const Footer: React.FC = () => {
         <div className="space-y-3 sm:space-y-4">
           <Link href="/" className="flex items-center gap-3">
             <div className="relative w-8 h-8 sm:w-10 sm:h-10">
-              {siteSettings?.logoUrl && (
-                <Image
-                  src={siteSettings.logoUrl}
-                  alt="Maldonite"
-                  fill
-                  sizes="40px"
-                  className="object-contain"
-                  priority
-                />
-              )}
+              <Image
+                src="/ignot-logo.png"
+                alt="Maldonite"
+                fill
+                sizes="40px"
+                className="object-contain"
+                priority
+              />
             </div>
             <h1 className="text-xl sm:text-2xl font-semibold">
               Maldon<span className="text-gold">i</span>te
