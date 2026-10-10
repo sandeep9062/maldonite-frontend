@@ -55,9 +55,8 @@ export default function Home() {
       <Testimonials />
 
       <PopupFormModal />
-
-      <CTAWithForm />
       <QuickLinks />
+      <CTAWithForm />
     </>
   );
 }
