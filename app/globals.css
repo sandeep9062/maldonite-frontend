@@ -43,6 +43,13 @@ html {
 @theme {
   --breakpoint-xs: 320px;
 
+  /* --- Typography ---
+     Body = Inter (--font-body), Headings = Space Grotesk (--font-heading).
+     The actual font families are injected on <html> by next/font in
+     app/layout.tsx; here we map Tailwind's `sans` utility to the body font so
+     `font-sans` and Tailwind's default font both resolve to Inter. */
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+
   /* --- Gold family (single source of truth) --- */
   --color-gold: #d4af37;        /* Primary brand gold — logo, CTAs, borders, .bttn */
   --color-gold-shine: #ffd700;  /* Bright highlight — shine/shimmer gradients only */
@@ -307,6 +314,15 @@ html {
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
   }
 }
 

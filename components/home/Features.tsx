@@ -40,7 +40,7 @@ const Features = () => {
             <p className="text-[11px] uppercase tracking-[0.2em] font-semibold text-gold mb-3">
               What we build
             </p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-sans font-bold text-slate-900 dark:text-white leading-[1.1] tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 dark:text-white leading-[1.1] tracking-tight">
               Our core
               <br className="hidden sm:block" /> offerings.
             </h2>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
+import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import Navbar from "@/components/Navbar";
@@ -8,23 +8,19 @@ import ClientProvider from "./ClientProvider";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-// Display font for headings (used by e.g. the Pricing page via
-// font-[var(--font-display)])
+// Heading font — Space Grotesk (weights 500, 700)
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-display",
+  weight: ["500", "700"],
+  variable: "--font-heading",
+  display: "swap",
+});
+
+// Body font — Inter (weights 400, 500, 600)
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
   display: "swap",
 });
 
@@ -126,11 +122,10 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <head>
         {/* Preconnect to critical origins for faster resource loading */}
         <link rel="preconnect" href="https://res.cloudinary.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
       </head>
       <body className="bg-white dark:bg-black">

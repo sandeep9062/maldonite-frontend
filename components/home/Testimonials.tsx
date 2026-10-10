@@ -145,7 +145,7 @@ const Testimonials = () => {
             <p className="text-[11px] uppercase tracking-[0.2em] font-semibold text-gold mb-3">
               Client Stories
             </p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-sans font-bold text-slate-900 dark:text-white leading-[1.1] tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 dark:text-white leading-[1.1] tracking-tight">
               Trusted by builders
               <br className="hidden sm:block" /> worldwide.
             </h2>

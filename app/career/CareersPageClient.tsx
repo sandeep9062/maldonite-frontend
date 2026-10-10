@@ -121,7 +121,7 @@ function AnimatedCounter({ value, label }: { value: string; label: string }) {
         initial={{ scale: 0.5, opacity: 0 }}
         animate={isInView ? { scale: 1, opacity: 1 } : {}}
         transition={{ type: "spring", stiffness: 100, damping: 10 }}
-        className="text-3xl sm:text-4xl md:text-5xl font-extrabold golden-shine mb-1"
+        className="text-3xl sm:text-4xl md:text-5xl font-[var(--font-heading)] font-extrabold golden-shine mb-1"
       >
         {value}
       </motion.div>

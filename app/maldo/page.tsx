@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Fraunces, Sora } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -23,21 +22,6 @@ import {
  *   /public/maldo/story.png       — also reused as the 4th Instagram post
  *
  */
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-fraunces",
-  display: "swap",
-});
-
-const sora = Sora({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-sora",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Meet Maldo | Maldonite",
@@ -228,8 +212,8 @@ function TopoLines({ className }: { className?: string }) {
 export default function MaldoPage() {
   return (
     <main
-      className={`${fraunces.variable} ${sora.variable} bg-navy text-white`}
-      style={{ fontFamily: "var(--font-sora)" }}
+      className={`bg-navy text-white`}
+      style={{ fontFamily: "var(--font-body)" }}
     >
       {/* ---------- HERO ---------- */}
       <section className="relative overflow-hidden border-b border-navy/10 bg-gradient-to-b from-gold-cream via-white to-white dark:border-white/10 dark:from-darkbg2 dark:via-navy dark:to-navy">
@@ -244,7 +228,7 @@ export default function MaldoPage() {
 
             <h1
               className="mt-4 text-5xl leading-[1.05] md:text-6xl text-navy dark:text-white"
-              style={{ fontFamily: "var(--font-fraunces)" }}
+              style={{ fontFamily: "var(--font-heading)" }}
             >
               Meet <span className=" italic">Maldo</span>.
             </h1>
@@ -320,7 +304,7 @@ export default function MaldoPage() {
           <div>
             <h2
               className="text-4xl md:text-5xl"
-              style={{ fontFamily: "var(--font-fraunces)" }}
+              style={{ fontFamily: "var(--font-heading)" }}
             >
               Why there&rsquo;s a face behind the code
             </h2>
@@ -346,7 +330,7 @@ export default function MaldoPage() {
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <h2
             className="max-w-lg text-4xl md:text-5xl"
-            style={{ fontFamily: "var(--font-fraunces)" }}
+            style={{ fontFamily: "var(--font-heading)" }}
           >
             How Maldo gets you from idea to impact
           </h2>
@@ -383,7 +367,7 @@ export default function MaldoPage() {
                   </span>
                   <p
                     className="mb-2 text-lg text-gold-text dark:text-gold"
-                    style={{ fontFamily: "var(--font-fraunces)" }}
+                    style={{ fontFamily: "var(--font-heading)" }}
                   >
                     {step.label}
                   </p>
@@ -417,7 +401,7 @@ export default function MaldoPage() {
                   )}
                   <p
                     className="text-lg text-gold-text dark:text-gold"
-                    style={{ fontFamily: "var(--font-fraunces)" }}
+                    style={{ fontFamily: "var(--font-heading)" }}
                   >
                     {step.label}
                   </p>
@@ -434,7 +418,7 @@ export default function MaldoPage() {
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <h2
             className="text-4xl md:text-5xl"
-            style={{ fontFamily: "var(--font-fraunces)" }}
+            style={{ fontFamily: "var(--font-heading)" }}
           >
             Off the clock
           </h2>
@@ -456,7 +440,7 @@ export default function MaldoPage() {
                 <dt className="text-sm text-navy/50 dark:text-white/50">{item.label}</dt>
                 <dd
                   className="mt-2 text-lg italic text-navy dark:text-white"
-                  style={{ fontFamily: "var(--font-fraunces)" }}
+                  style={{ fontFamily: "var(--font-heading)" }}
                 >
                   {item.value}
                 </dd>
@@ -478,7 +462,7 @@ export default function MaldoPage() {
               </p>
               <h2
                 className="mt-0.5 max-w-md text-2xl text-white md:text-3xl"
-                style={{ fontFamily: "var(--font-fraunces)" }}
+                style={{ fontFamily: "var(--font-heading)" }}
               >
                 She posts more than she pushes to prod
               </h2>
@@ -583,7 +567,7 @@ export default function MaldoPage() {
         <div className="relative mx-auto max-w-6xl px-6 py-20 text-center md:py-24">
           <h2
             className="text-3xl md:text-5xl text-navy dark:text-white"
-            style={{ fontFamily: "var(--font-fraunces)" }}
+            style={{ fontFamily: "var(--font-heading)" }}
           >
             Got a vision? Maldo&rsquo;s already sketching it.
           </h2>

@@ -285,7 +285,7 @@ export default function PricingPage() {
           </div>
 
           <h1
-            className="mx-auto mt-5 max-w-3xl font-[var(--font-display)] text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl md:text-6xl"
+            className="mx-auto mt-5 max-w-3xl font-[var(--font-heading)] text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl md:text-6xl"
           >
             Pricing built like the work
             <br />
@@ -395,7 +395,7 @@ export default function PricingPage() {
                     </span>
                   </div>
                   <div className="mt-1 flex items-baseline gap-1.5">
-                    <span className="font-[var(--font-display)] text-4xl font-extrabold tracking-tight text-accent-blue">
+                    <span className="font-[var(--font-heading)] text-4xl font-extrabold tracking-tight text-accent-blue">
                       ₹{currency(tier.price)}
                     </span>
                     <span className="text-sm text-gray-500 dark:text-gray-400">
@@ -465,7 +465,7 @@ export default function PricingPage() {
           <div
           >
             <SectionEyebrow>Comprehensive breakdown</SectionEyebrow>
-            <h2 className="mt-3 text-center font-[var(--font-display)] text-3xl font-extrabold tracking-tight sm:text-4xl">
+            <h2 className="mt-3 text-center font-[var(--font-heading)] text-3xl font-extrabold tracking-tight sm:text-4xl">
               Full feature comparison
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-center text-gray-500 dark:text-gray-400">
@@ -666,7 +666,7 @@ export default function PricingPage() {
             <p className="text-xs font-bold uppercase tracking-[0.25em] text-navy/70">
               Not sure yet?
             </p>
-            <h2 className="mt-3 font-[var(--font-display)] text-2xl font-extrabold tracking-tight text-navy sm:text-4xl">
+            <h2 className="mt-3 font-[var(--font-heading)] text-2xl font-extrabold tracking-tight text-navy sm:text-4xl">
               Tell us what your business needs
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-sm text-navy/80 sm:text-base">

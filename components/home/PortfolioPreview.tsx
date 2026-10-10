@@ -43,7 +43,7 @@ const PortfolioPreview = () => {
             <p className="text-[11px] uppercase tracking-[0.2em] font-semibold text-gold mb-2">
               Selected Work
             </p>
-            <h2 className="text-3xl sm:text-4xl font-sans font-bold text-slate-900 dark:text-white leading-[1.1] tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-[1.1] tracking-tight">
               Recent Projects
             </h2>
           </div>

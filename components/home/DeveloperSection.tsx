@@ -316,7 +316,7 @@ const DeveloperSection = () => {
                   <div className="inline-flex items-center justify-center w-10 h-10 bg-gold/10 rounded-lg mb-4">
                     {stat.icon}
                   </div>
-                  <div className="text-2xl font-bold text-navy dark:text-white mb-2">
+                  <div className="text-2xl font-[var(--font-heading)] font-bold text-navy dark:text-white mb-2">
                     {stat.value}
                   </div>
                   <div className="text-gray-700 dark:text-gray-300 font-medium text-sm mb-1">
