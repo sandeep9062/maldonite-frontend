@@ -6,6 +6,23 @@ import { useState } from "react";
 import { ExternalLink, ArrowUpRight } from "lucide-react";
 import { useGetProjectsQuery } from "../../services/projectsApi";
 
+// 🖼️ Hybrid: CMS image first, bundled asset as safety net
+const PROJECT_FALLBACK = "/images/maldonite.png";
+
+const ProjectCoverImage = ({ src, alt }: { src?: string; alt: string }) => {
+  const [failed, setFailed] = useState(false);
+  return (
+    <Image
+      src={!failed && src ? src : PROJECT_FALLBACK}
+      alt={alt}
+      width={600}
+      height={400}
+      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+      onError={() => setFailed(true)}
+    />
+  );
+};
+
 // ✅ Define project type with image as array
 interface Project {
   _id: string;
@@ -102,7 +119,7 @@ const ProjectsPageClient = () => {
             const coverImage =
               project.image && project.image.length > 0
                 ? project.image[0]
-                : "/placeholder.png"; // ✅ fallback if no image
+                : PROJECT_FALLBACK; // ✅ fallback if no image
 
             return (
               <motion.div
@@ -119,12 +136,9 @@ const ProjectsPageClient = () => {
                   className="block relative overflow-hidden"
                 >
                   <div className="relative h-44 sm:h-56 w-full overflow-hidden">
-                    <Image
+                    <ProjectCoverImage
                       src={coverImage}
                       alt={project.title || "Project image"}
-                      width={600}
-                      height={400}
-                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                     />
                     {/* Gradient Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

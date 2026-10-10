@@ -144,7 +144,7 @@ const DeveloperSection = () => {
               >
                 <div className="relative inline-block mb-6">
                   <Image
-                    src="/avatars/moh8it.png"
+                    src="/images/mohit.png"
                     alt="Lead Developer"
                     width={120}
                     height={120}

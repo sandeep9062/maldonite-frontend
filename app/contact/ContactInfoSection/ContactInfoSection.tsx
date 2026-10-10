@@ -14,7 +14,9 @@ const ContactInfoSection = () => {
   const { data: maldoniteLocationImage } =
     useGetWebsiteImageByContextQuery("maldonite-location");
 
-  const bgImage = maldoniteLocationImage?.data?.url;
+  // 🖼️ Hybrid: CMS image first, bundled asset as safety net
+  const bgImage =
+    maldoniteLocationImage?.data?.url || "/images/maldonite-location.jpg";
 
   return (
     <section

@@ -1,9 +1,36 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { CalendarDays, User } from "lucide-react";
+
+// 🖼️ Hybrid: CMS image first, bundled asset as safety net
+const BLOG_FALLBACK = "/images/maldonite.png";
+
+const BlogCoverImage = ({
+  src,
+  alt,
+  priority,
+}: {
+  src?: string;
+  alt: string;
+  priority?: boolean;
+}) => {
+  const [failed, setFailed] = useState(false);
+  return (
+    <Image
+      src={!failed && src ? src : BLOG_FALLBACK}
+      alt={alt}
+      fill
+      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+      priority={priority}
+      className="object-cover w-full h-full transition-transform group-hover:scale-105 duration-500"
+      onError={() => setFailed(true)}
+    />
+  );
+};
 
 interface Comment {
   name: string;
@@ -18,7 +45,7 @@ interface Blog {
   slug: string;
   desc: string;
   content: string;
-  images?: string;
+  image?: string;
   category: string;
   tags: string[];
   author: string;
@@ -80,16 +107,11 @@ export default function FeaturedBlogs({ blogs }: { blogs: Blog[] }) {
                 className="flex flex-col h-full"
               >
                 <div className="h-64 w-full relative overflow-hidden">
-                  {blog.images && (
-                    <Image
-                      src={blog.images[0]}
-                      alt={blog.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      priority={i < 3}
-                      className="object-cover w-full h-full transition-transform group-hover:scale-105 duration-500"
-                    />
-                  )}
+                  <BlogCoverImage
+                    src={blog.image}
+                    alt={blog.title}
+                    priority={i < 3}
+                  />
                   {blog.isFeatured && (
                     <div className="absolute top-4 left-4 bg-gold text-black px-3 py-1 rounded-full text-xs font-semibold">
                       Featured

@@ -1,13 +1,26 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
 import { useGetWebsiteImageByContextQuery } from "@/services/websiteImagesApi";
 
+// 🖼️ Hybrid: CMS image first, bundled asset as safety net
+const FALLBACK_IMAGE = {
+  src: "/images/team-maldonite.jpg",
+  alt: "The Maldonite team collaborating on scalable software",
+};
+
 export default function OurStory() {
   const { data: teamMaldoniteImage } =
     useGetWebsiteImageByContextQuery("team-maldonite");
+
+  const teamUrl = teamMaldoniteImage?.data?.url;
+  const [teamFailed, setTeamFailed] = useState(false);
+
+  // Reset the failed flag whenever a new CMS URL arrives
+  useEffect(() => setTeamFailed(false), [teamUrl]);
 
   return (
     <section className="bg-white text-gray-800 dark:bg-darkbg1 dark:text-white py-10 sm:py-14 md:py-20 px-4 sm:px-6 md:px-10 lg:px-20 transition-colors duration-300">
@@ -20,15 +33,18 @@ export default function OurStory() {
           viewport={{ once: true }}
           className="overflow-hidden rounded-xl shadow-md"
         >
-          {teamMaldoniteImage?.data?.url && (
-            <Image
-              src={teamMaldoniteImage.data.url}
-              alt={teamMaldoniteImage.data.altText}
-              width={600}
-              height={400}
-              className="w-full h-auto object-cover rounded-xl"
-            />
-          )}
+          <Image
+            src={!teamUrl || teamFailed ? FALLBACK_IMAGE.src : teamUrl}
+            alt={
+              !teamUrl || teamFailed
+                ? FALLBACK_IMAGE.alt
+                : teamMaldoniteImage?.data?.altText || FALLBACK_IMAGE.alt
+            }
+            width={600}
+            height={400}
+            className="w-full h-auto object-cover rounded-xl"
+            onError={() => setTeamFailed(true)}
+          />
         </motion.div>
 
         {/* Text Section */}

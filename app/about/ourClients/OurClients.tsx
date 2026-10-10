@@ -1,11 +1,28 @@
 "use client";
 
+import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import { motion } from "framer-motion";
 import "swiper/css";
 import Image from "next/image";
 import { useGetClientsQuery } from "@/services/clientApi";
+
+// 🖼️ Hybrid: hide broken CMS logos instead of showing a broken image
+const ClientLogo = ({ src, name }: { src?: string; name: string }) => {
+  const [failed, setFailed] = useState(false);
+  if (!src || failed) return null;
+  return (
+    <Image
+      src={src}
+      alt={name}
+      width={60}
+      height={60}
+      className="object-contain w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24"
+      onError={() => setFailed(true)}
+    />
+  );
+};
 
 const OurClients = () => {
   const { data: clients, isLoading, isError } = useGetClientsQuery();
@@ -77,15 +94,7 @@ const OurClients = () => {
                 transition={{ delay: i * 0.05 }}
                 className="flex flex-col items-center justify-center p-2 sm:p-3 md:p-4 rounded-lg sm:rounded bg-white dark:bg-darkbg2 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-gold transition-all duration-300"
               >
-                {client.icon && (
-                  <Image
-                    src={client.icon}
-                    alt={client.name}
-                    width={60}
-                    height={60}
-                    className="object-contain w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24"
-                  />
-                )}
+                <ClientLogo src={client.icon} name={client.name} />
                 <span className="mt-1 sm:mt-2 text-[10px] sm:text-xs md:text-sm text-gray-800 dark:text-gray-300 truncate max-w-full">
                   {client.name}
                 </span>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -27,6 +28,17 @@ const missionPoints = [
   "AI integrations: Chatbots, OCR, TTS, and automation",
 ];
 
+// 🖼️ Hybrid image strategy: CMS/API images first, bundled assets as safety net
+const FALLBACK_LOGO = { src: "/ignot-logo.png", alt: "Maldonite logo" };
+const FALLBACK_MISSION = {
+  src: "/images/mission.jpg",
+  alt: "Maldonite mission — building scalable software",
+};
+const FALLBACK_WHAT_WE_DO = {
+  src: "/images/what-we-do.jpg",
+  alt: "Maldonite team collaborating on software solutions",
+};
+
 export default function AboutPageClient() {
   // ✅ site settings query
   const { data: siteSettings } = useGetSiteSettingsQuery();
@@ -37,6 +49,33 @@ export default function AboutPageClient() {
   // ✅ what we do image query
   const { data: whatWeDoImage } =
     useGetWebsiteImageByContextQuery("what-we-do");
+
+  // 🖼️ Hybrid: prefer CMS images, fall back to local assets on error/missing URL
+  const logoUrl = siteSettings?.logoUrl;
+  const missionUrl = missionImage?.data?.url;
+  const whatWeDoUrl = whatWeDoImage?.data?.url;
+  const [logoFailed, setLogoFailed] = useState(false);
+  const [missionFailed, setMissionFailed] = useState(false);
+  const [whatWeDoFailed, setWhatWeDoFailed] = useState(false);
+
+  // Reset the failed flags whenever new CMS URLs arrive
+  useEffect(() => setLogoFailed(false), [logoUrl]);
+  useEffect(() => setMissionFailed(false), [missionUrl]);
+  useEffect(() => setWhatWeDoFailed(false), [whatWeDoUrl]);
+
+  const logoSrc = !logoUrl || logoFailed ? FALLBACK_LOGO.src : logoUrl;
+  const missionSrc =
+    !missionUrl || missionFailed ? FALLBACK_MISSION.src : missionUrl;
+  const missionAlt =
+    !missionUrl || missionFailed
+      ? FALLBACK_MISSION.alt
+      : missionImage?.data?.altText || FALLBACK_MISSION.alt;
+  const whatWeDoSrc =
+    !whatWeDoUrl || whatWeDoFailed ? FALLBACK_WHAT_WE_DO.src : whatWeDoUrl;
+  const whatWeDoAlt =
+    !whatWeDoUrl || whatWeDoFailed
+      ? FALLBACK_WHAT_WE_DO.alt
+      : whatWeDoImage?.data?.altText || FALLBACK_WHAT_WE_DO.alt;
 
   const aboutStats = [
     {
@@ -66,18 +105,17 @@ export default function AboutPageClient() {
       <main className="min-h-screen pt-28 sm:pt-36 text-gray-800 dark:text-gray-100 bg-white dark:bg-darkbg1 px-4 sm:px-6 md:px-8 lg:px-12 transition-colors duration-300">
         {/* Hero Section */}
         <section className="text-center max-w-4xl mx-auto px-0 sm:px-4">
-          {siteSettings?.logoUrl && (
-            <div className="relative mx-auto mb-4 sm:mb-6 sparkle-animation w-16 h-16 sm:w-20 sm:h-20">
-              <Image
-                src={siteSettings.logoUrl}
-                alt="Maldonite logo"
-                fill
-                sizes="80px"
-                className="object-contain"
-                priority
-              />
-            </div>
-          )}
+          <div className="relative mx-auto mb-4 sm:mb-6 sparkle-animation w-16 h-16 sm:w-20 sm:h-20">
+            <Image
+              src={logoSrc}
+              alt="Maldonite logo"
+              fill
+              sizes="80px"
+              className="object-contain"
+              priority
+              onError={() => setLogoFailed(true)}
+            />
+          </div>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-3 sm:mb-4 md:mb-6 leading-tight">
             About Maldon<span className="text-gold">i</span>te
           </h1>
@@ -94,15 +132,14 @@ export default function AboutPageClient() {
         <section className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center">
           {/* Left Image */}
           <div className="relative w-full aspect-[4/3] sm:aspect-video md:aspect-auto md:h-80 lg:h-96 rounded-xl overflow-hidden">
-            {missionImage?.data?.url && (
-              <Image
-                src={missionImage?.data?.url}
-                alt={missionImage?.data?.altText}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover rounded-xl"
-              />
-            )}
+            <Image
+              src={missionSrc}
+              alt={missionAlt}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover rounded-xl"
+              onError={() => setMissionFailed(true)}
+            />
           </div>
 
           {/* Right Text */}
@@ -144,15 +181,14 @@ export default function AboutPageClient() {
 
           {/* Right Image */}
           <div className="relative w-full aspect-[4/3] sm:aspect-video md:aspect-auto md:h-80 lg:h-96 rounded-xl overflow-hidden order-2 md:order-none">
-            {whatWeDoImage?.data?.url && (
-              <Image
-                src={whatWeDoImage.data.url}
-                alt={whatWeDoImage.data.altText}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover rounded-xl"
-              />
-            )}
+            <Image
+              src={whatWeDoSrc}
+              alt={whatWeDoAlt}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover rounded-xl"
+              onError={() => setWhatWeDoFailed(true)}
+            />
           </div>
         </section>
 

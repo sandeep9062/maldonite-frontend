@@ -44,8 +44,12 @@ interface Testimonial {
   updatedAt?: string;
 }
 
-const TestimonialCard = ({ t }: { t: Testimonial }) => (
-  <div className="group flex flex-col bg-white dark:bg-darkbg2 rounded-2xl border border-slate-100 dark:border-white/[0.06] hover:border-gold/35 dark:hover:border-gold/20 hover:shadow-[0_16px_48px_-8px_rgba(212,175,55,0.11)] p-6 sm:p-7 text-left h-full transition-all duration-300 relative overflow-hidden">
+const TestimonialCard = ({ t }: { t: Testimonial }) => {
+  // 🖼️ Hybrid: fall back to the initials avatar when the CMS photo fails to load
+  const [avatarFailed, setAvatarFailed] = useState(false);
+
+  return (
+    <div className="group flex flex-col bg-white dark:bg-darkbg2 rounded-2xl border border-slate-100 dark:border-white/[0.06] hover:border-gold/35 dark:hover:border-gold/20 hover:shadow-[0_16px_48px_-8px_rgba(212,175,55,0.11)] p-6 sm:p-7 text-left h-full transition-all duration-300 relative overflow-hidden">
     {/* Decorative quote mark */}
     <Quote
       className="absolute top-5 right-5 w-8 h-8 text-slate-50 dark:text-white/[0.025] rotate-180 pointer-events-none select-none"
@@ -65,13 +69,14 @@ const TestimonialCard = ({ t }: { t: Testimonial }) => (
 
     {/* Author */}
     <div className="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-white/[0.06] group-hover:border-gold/12 transition-colors duration-200">
-      {t.image ? (
+      {t.image && !avatarFailed ? (
         <Image
           src={t.image}
           alt={t.name}
           width={40}
           height={40}
           className="rounded-full object-cover w-9 h-9 ring-2 ring-gold/20 flex-shrink-0"
+          onError={() => setAvatarFailed(true)}
         />
       ) : (
         <div className="w-9 h-9 rounded-full bg-gradient-to-br from-gold to-amber-700 flex items-center justify-center text-[11px] font-bold text-black flex-shrink-0 ring-2 ring-gold/20">
@@ -95,7 +100,8 @@ const TestimonialCard = ({ t }: { t: Testimonial }) => (
       </div>
     </div>
   </div>
-);
+  );
+};
 
 const logos = [
   { src: "/logos/company-logo-1.png", alt: "Client 1" },

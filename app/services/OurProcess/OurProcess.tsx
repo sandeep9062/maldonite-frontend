@@ -31,7 +31,9 @@ const ServiceTimeline = () => {
   const { data: processBackgroundImage } =
     useGetWebsiteImageByContextQuery("process-background");
 
-  const backgroundUrl = processBackgroundImage?.data?.url;
+  // 🖼️ Hybrid: CMS image first, bundled asset as safety net
+  const backgroundUrl =
+    processBackgroundImage?.data?.url || "/images/service-bg.jpg";
 
   return (
     <section

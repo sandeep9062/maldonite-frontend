@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,6 +8,9 @@ import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 
 import { useGetProductBySlugQuery } from "../../../services/productsApi";
+
+// 🖼️ Hybrid: CMS image first, bundled asset as safety net
+const PRODUCT_FALLBACK = "/images/maldonite.png";
 
 interface ProductData {
   name: string;
@@ -36,6 +40,8 @@ export default function ProductDetailClient({
   });
 
   const currentProduct = product || initialProduct;
+
+  const [imageFailed, setImageFailed] = useState(false);
 
   if (isLoading && !initialProduct) {
     return (
@@ -119,12 +125,17 @@ export default function ProductDetailClient({
               className="relative h-80 md:h-[500px] rounded-2xl overflow-hidden shadow-lg"
             >
               <Image
-                src={currentProduct.image}
+                src={
+                  imageFailed || !currentProduct.image
+                    ? PRODUCT_FALLBACK
+                    : currentProduct.image
+                }
                 alt={currentProduct.name}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
                 priority
+                onError={() => setImageFailed(true)}
               />
             </motion.div>
 

@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { getServiceBySlug } from "../../../services/serverServices";
 import ServiceDetailClient from "./ServiceDetailClient";
 import { notFound } from "next/navigation";
+import { getServiceImageBySlug } from "./serviceImages";
 
 type Props = {
   params: { slug: string };
@@ -17,6 +18,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  // 🖼️ Public image resolved from the service slug (absolute URL for social sharing)
+  const imageUrl = `https://www.maldonite.com${getServiceImageBySlug(slug)}`;
+
   return {
     title: `${service.title} | Maldonite Services`,
     description:
@@ -31,23 +35,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         service.desc ||
         `${service.title} - Full-stack development service by Maldonite`,
       url: `https://www.maldonite.com/service/${service.slug}`,
-      images: service.serviceImage
-        ? [
-            {
-              url: service.serviceImage,
-              width: 1200,
-              height: 630,
-              alt: service.title,
-            },
-          ]
-        : [
-            {
-              url: "https://www.maldonite.com/images/og-image.jpg",
-              width: 1200,
-              height: 630,
-              alt: service.title,
-            },
-          ],
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: service.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
@@ -55,9 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description:
         service.desc ||
         `${service.title} - Full-stack development service by Maldonite`,
-      images: service.serviceImage
-        ? [service.serviceImage]
-        : ["https://www.maldonite.com/images/og-image.jpg"],
+      images: [imageUrl],
     },
   };
 }
@@ -70,5 +63,12 @@ export default async function ServiceDetailPage({ params }: Props) {
     notFound();
   }
 
-  return <ServiceDetailClient initialService={service} />;
+  // 🖼️ Serve the image from the local public folder, chosen by service slug
+  const serviceWithLocalImage = {
+    ...service,
+    serviceImage: getServiceImageBySlug(slug),
+  };
+
+  return <ServiceDetailClient initialService={serviceWithLocalImage} />;
 }
+

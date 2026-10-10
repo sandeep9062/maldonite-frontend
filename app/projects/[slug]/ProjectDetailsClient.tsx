@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
@@ -10,6 +11,23 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import BottomCTA from "@/app/services/BottomCTA/BottomCTA";
 import Head from "next/head";
+
+// 🖼️ Hybrid: CMS image first, bundled asset as safety net
+const PROJECT_FALLBACK = "/images/maldonite.png";
+
+const ProjectGalleryImage = ({ src, alt }: { src: string; alt: string }) => {
+  const [failed, setFailed] = useState(false);
+  return (
+    <Image
+      src={!failed && src ? src : PROJECT_FALLBACK}
+      alt={alt}
+      fill
+      sizes="(max-width: 768px) 100vw, 50vw"
+      className="object-cover"
+      onError={() => setFailed(true)}
+    />
+  );
+};
 
 // Interface for a single project for type safety
 interface Project {
@@ -56,6 +74,12 @@ export default function ProjectDetailsClient({ project }: { project: Project }) 
     },
   };
   // --------------------------
+
+  // 🖼️ Hybrid: always show a gallery — CMS images first, local asset as safety net
+  const galleryImages: string[] =
+    project.image && project.image.length > 0
+      ? project.image
+      : [PROJECT_FALLBACK];
 
   // 🌟 The gold color is now defined as a Tailwind utility class for better consistency
   const accentColor = "bg-yellow-500 text-gray-900"; // A brighter, more modern gold/yellow
@@ -133,7 +157,7 @@ export default function ProjectDetailsClient({ project }: { project: Project }) 
           </div>
 
           {/* Images Carousel - Improved Styling */}
-          {project.image?.length > 0 && (
+          {galleryImages.length > 0 && (
             <motion.div variants={itemVariants} className="mb-12">
               <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
@@ -144,15 +168,12 @@ export default function ProjectDetailsClient({ project }: { project: Project }) 
                 // Use a group class to enable group-hover effects for navigation
                 className="rounded-xl shadow-2xl overflow-hidden swiper-container-custom group"
               >
-                {project.image.map((img: string, i: number) => (
+                {galleryImages.map((img: string, i: number) => (
                   <SwiperSlide key={i}>
                     <div className="relative w-full h-[400px] md:h-[550px] lg:h-[650px]">
-                      <Image
+                      <ProjectGalleryImage
                         src={img}
                         alt={`${project.title} image ${i + 1}`}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover"
                       />
                       {/* Add a subtle dark overlay to help navigation/pagination stand out */}
                       <div className="absolute inset-0 bg-black opacity-10"></div>

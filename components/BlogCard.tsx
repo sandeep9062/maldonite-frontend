@@ -1,8 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CalendarDays, ArrowUpRight, Clock, Tags } from "lucide-react";
+
+// 🖼️ Hybrid: CMS image first, bundled asset as safety net
+const BLOG_FALLBACK = "/images/maldonite.png";
 
 export interface Blog {
   _id: string;
@@ -19,17 +23,27 @@ export interface Blog {
 }
 
 export default function BlogCard({ blog }: { blog: Blog }) {
+  const [coverFailed, setCoverFailed] = useState(false);
+  const [avatarFailed, setAvatarFailed] = useState(false);
+
+  // 🖼️ Support both `images` (array) and `image` (string) shapes from the API
+  const coverSrc =
+    (Array.isArray(blog.images) ? blog.images[0] : undefined) ||
+    blog.image ||
+    BLOG_FALLBACK;
+
   return (
     <article className="group relative flex flex-col bg-white dark:bg-darkbg2 rounded-2xl overflow-hidden border border-slate-100 dark:border-white/[0.06] hover:border-gold/40 dark:hover:border-gold/25 transition-all duration-500 ease-out shadow-sm hover:shadow-[0_20px_60px_-12px_rgba(212,175,55,0.15)] dark:hover:shadow-[0_20px_60px_-12px_rgba(212,175,55,0.1)]">
       <Link href={`/blog/${blog.slug}`} className="flex flex-col h-full">
         {/* ── Image ── */}
         <div className="relative w-full aspect-[3/2] overflow-hidden">
           <Image
-            src={blog.images?.[0] || blog.image || ""}
+            src={coverFailed ? BLOG_FALLBACK : coverSrc}
             alt={blog.title}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover transition-transform duration-700 ease-out scale-100 group-hover:scale-105"
+            onError={() => setCoverFailed(true)}
           />
 
           {/* Scrim — stronger at bottom for text legibility */}
@@ -92,13 +106,14 @@ export default function BlogCard({ blog }: { blog: Blog }) {
             {/* Author */}
             <div className="flex items-center gap-2.5 min-w-0">
               <div className="relative w-7 h-7 rounded-full overflow-hidden ring-[1.5px] ring-gold/25 group-hover:ring-gold/60 flex-shrink-0 transition-all duration-300">
-                {blog.authorImage ? (
+                {blog.authorImage && !avatarFailed ? (
                   <Image
                     src={blog.authorImage}
                     alt={blog.author}
                     fill
                     sizes="28px"
                     className="object-cover"
+                    onError={() => setAvatarFailed(true)}
                   />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-gold to-amber-700 flex items-center justify-center text-[10px] font-bold text-black">

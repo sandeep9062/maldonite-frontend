@@ -1,9 +1,27 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useGetProjectsQuery } from "@/services/projectsApi";
+
+// 🖼️ Hybrid: CMS image first, bundled asset as safety net
+const PROJECT_FALLBACK = "/images/maldonite.png";
+
+const ProjectImage = ({ src, alt }: { src?: string; alt: string }) => {
+  const [failed, setFailed] = useState(false);
+  return (
+    <Image
+      height={400}
+      width={600}
+      src={!failed && src ? src : PROJECT_FALLBACK}
+      alt={alt}
+      className="object-cover w-full h-full transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+      onError={() => setFailed(true)}
+    />
+  );
+};
 
 const PortfolioPreview = () => {
   const { data: projects = [], isLoading, isError } = useGetProjectsQuery();
@@ -70,7 +88,7 @@ const PortfolioPreview = () => {
               const coverImage =
                 project.image && project.image.length > 0
                   ? project.image[0]
-                  : "/placeholder.png";
+                  : PROJECT_FALLBACK;
 
               return (
                 <Link
@@ -80,13 +98,7 @@ const PortfolioPreview = () => {
                 >
                   {/* Image */}
                   <div className="relative aspect-[4/3] overflow-hidden">
-                    <Image
-                      height={400}
-                      width={600}
-                      src={coverImage}
-                      alt={project.title}
-                      className="object-cover w-full h-full transition-transform duration-500 ease-out group-hover:scale-[1.04]"
-                    />
+                    <ProjectImage src={coverImage} alt={project.title} />
                     {/* Scrim */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 

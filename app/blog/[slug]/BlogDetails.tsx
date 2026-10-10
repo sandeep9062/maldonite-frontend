@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -43,7 +44,8 @@ interface Blog {
 }
 
 export default function BlogDetails({ blog }: { blog: Blog }) {
-  console.log(blog, "blogogo1111");
+  const [imageFailed, setImageFailed] = useState(false);
+  const [authorImageFailed, setAuthorImageFailed] = useState(false);
 
   const {
     title,
@@ -111,13 +113,14 @@ export default function BlogDetails({ blog }: { blog: Blog }) {
           {/* Meta Info */}
           <div className="flex flex-wrap gap-3 sm:gap-4 items-center text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-6 sm:mb-8">
             <span className="flex items-center gap-1 font-semibold text-gray-800 dark:text-white w-full sm:w-auto mb-1 sm:mb-0">
-              {authorImage && (
+              {authorImage && !authorImageFailed && (
                 <Image
                   src={authorImage}
                   alt={author}
                   width={32}
                   height={32}
                   className="rounded-full mr-1 sm:mr-2 object-cover"
+                  onError={() => setAuthorImageFailed(true)}
                 />
               )}
               <User size={14} className="sm:hidden" />
@@ -164,11 +167,16 @@ export default function BlogDetails({ blog }: { blog: Blog }) {
           </div>
 
           {/* Image */}
-          {image && (
-            <div className="relative w-full h-[250px] sm:h-[350px] md:h-[500px] mb-6 sm:mb-10 rounded-xl overflow-hidden shadow-lg">
-              <Image src={image} alt={title} fill sizes="100vw" className="object-cover" />
-            </div>
-          )}
+          <div className="relative w-full h-[250px] sm:h-[350px] md:h-[500px] mb-6 sm:mb-10 rounded-xl overflow-hidden shadow-lg">
+            <Image
+              src={!image || imageFailed ? "/images/maldonite.png" : image}
+              alt={title}
+              fill
+              sizes="100vw"
+              className="object-cover"
+              onError={() => setImageFailed(true)}
+            />
+          </div>
 
           {/* Short Description */}
           {desc && (

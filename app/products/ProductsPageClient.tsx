@@ -1,9 +1,36 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useGetProductsQuery } from "../../services/productsApi";
+
+// 🖼️ Hybrid: CMS image first, bundled asset as safety net
+const PRODUCT_FALLBACK = "/images/maldonite.png";
+
+const ProductImage = ({
+  src,
+  alt,
+  priority,
+}: {
+  src?: string;
+  alt: string;
+  priority?: boolean;
+}) => {
+  const [failed, setFailed] = useState(false);
+  return (
+    <Image
+      src={!failed && src ? src : PRODUCT_FALLBACK}
+      alt={alt}
+      fill
+      className="object-cover"
+      sizes="(max-width: 768px) 100vw, 50vw"
+      priority={priority}
+      onError={() => setFailed(true)}
+    />
+  );
+};
 
 export default function ProductsPageClient() {
   const { data: products = [], isLoading, isError } = useGetProductsQuery({});
@@ -74,12 +101,9 @@ export default function ProductsPageClient() {
             transition={{ type: "spring", stiffness: 200 }}
             className="w-full md:w-1/2 h-40 sm:h-64 md:h-96 relative rounded-xl sm:rounded-2xl overflow-hidden shadow-md"
           >
-            <Image
+            <ProductImage
               src={product.image}
               alt={product.name}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
               priority={index === 0}
             />
           </motion.div>

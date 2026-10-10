@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useParams } from "next/navigation";
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
@@ -19,6 +20,10 @@ import {
   Award,
 } from "lucide-react";
 import { useGetServiceBySlugQuery } from "@/services/servicesApi";
+import { getServiceImageBySlug } from "./serviceImages";
+
+// 🖼️ Hybrid: CMS image first, bundled asset as safety net
+const SERVICE_FALLBACK = "/images/maldonite.png";
 
 interface ServiceData {
   title: string;
@@ -56,6 +61,8 @@ export default function ServiceDetailClient({
   });
 
   const currentService = service || initialService;
+
+  const [serviceImageFailed, setServiceImageFailed] = useState(false);
 
   const getIconComponent = (iconName: string) => {
     const IconComponent = (Icon as { [key: string]: IconType })[iconName];
@@ -152,21 +159,24 @@ export default function ServiceDetailClient({
         </motion.header>
 
         {/* Service Image */}
-        {currentService.serviceImage && (
-          <motion.div
-            variants={sectionVariants}
-            className="relative w-full aspect-[16/10] md:aspect-[16/8] rounded-xl overflow-hidden shadow-2xl transition-transform duration-500 hover:scale-105"
-          >
-            <Image
-              src={currentService.serviceImage}
-              alt={currentService.title}
-              fill
-              sizes="(max-width: 768px) 100vw, 60vw"
-              className="object-cover"
-              priority
-            />
-          </motion.div>
-        )}
+        <motion.div
+          variants={sectionVariants}
+          className="relative w-full aspect-[16/10] md:aspect-[16/8] rounded-xl overflow-hidden shadow-2xl transition-transform duration-500 hover:scale-105"
+        >
+          <Image
+            src={
+              serviceImageFailed
+                ? SERVICE_FALLBACK
+                : getServiceImageBySlug(slug)
+            }
+            alt={currentService.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 60vw"
+            className="object-cover"
+            priority
+            onError={() => setServiceImageFailed(true)}
+          />
+        </motion.div>
 
         {/* Description */}
         <motion.section variants={sectionVariants}>
