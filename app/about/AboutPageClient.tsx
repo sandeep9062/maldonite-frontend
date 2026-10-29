@@ -219,7 +219,7 @@ export default function AboutPageClient() {
 
       {/* Additional Sections */}
       <OurStory />
-      <OurClients />
+      {/* <OurClients /> */}
       <CTAWithForm />
     </>
   );
