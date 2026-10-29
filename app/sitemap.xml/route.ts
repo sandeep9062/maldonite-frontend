@@ -147,6 +147,18 @@ export async function GET() {
       changeFrequency: "weekly",
       priority: 0.8,
     },
+    {
+      url: `${WEBSITE_URL}/privacy-policy`,
+      lastModified: lastModDate,
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
+    {
+      url: `${WEBSITE_URL}/terms`,
+      lastModified: lastModDate,
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
   ];
 
   // --- Dynamic Blog Pages ---

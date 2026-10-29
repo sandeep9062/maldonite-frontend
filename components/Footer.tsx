@@ -20,6 +20,8 @@ const quickLinks: FooterLink[] = [
   { name: "Careers", href: "/career" },
   { name: "Contact", href: "/contact" },
   { name: "Meet Maldo", href: "/maldo" },
+  { name: "Privacy Policy", href: "/privacy-policy" },
+  { name: "Terms of Service", href: "/terms" },
 ];
 
 const ColumnTitle = ({ children }: { children: React.ReactNode }) => (
