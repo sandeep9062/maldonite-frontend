@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PrivacyPolicyPageClient from "./PrivacyPolicyPageClient";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Maldonite",
+  title: "Privacy Policy",
   description:
     "Read Maldonite's Privacy Policy to understand how we collect, use, disclose, and protect your personal information when you visit our website or use our services.",
   openGraph: {

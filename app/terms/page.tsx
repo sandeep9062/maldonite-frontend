@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import TermsPageClient from "./TermsPageClient";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Maldonite",
+  title: "Terms of Service",
   description:
     "Read Maldonite's Terms of Service to understand the terms and conditions governing your use of our website and services.",
   openGraph: {
